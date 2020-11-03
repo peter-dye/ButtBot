@@ -45,7 +45,7 @@ def ping_ultrasonic_sensor(ping_pin, echo_pin):
     distance = microseconds_to_centimeters(duration)           #convert duration to distance in centimeters
     return distance
 
-while(true):
+while(True):
     #Acquire distances from each sensor
     d1 = ping_ultrasonic_sensor(PING_PIN1, ECHO_PIN1)
     #d2 = ping_ultrasonic_sensor(PING_PIN2, ECHO_PIN2)
