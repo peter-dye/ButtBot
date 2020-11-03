@@ -73,8 +73,6 @@ while(True):
     
     determination(d1)
 
-    GPIO.cleanup()
-
     time.sleep(1)
 
 
