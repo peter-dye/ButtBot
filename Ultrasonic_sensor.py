@@ -25,8 +25,8 @@ WARNING_DIST = 20
 #Pin Type Setup
 input_channels = [PING_PIN1]#, PING_PIN2, PING_PIN3, PING_PIN4]
 output_channels = [ECHO_PIN1]#, ECHO_PIN2, ECHO_PIN3, ECHO_PIN4]
-GPIO.setup(input_channels, GPIO.OUT, initial = GPIO.LOW) #Set all ping pins to outputs, default low 
-GPIO.setup(output_channels, GPIO.IN, initial = GPIO.LOW) #Set all echo pins to inputs, default low
+GPIO.setup(input_channels, GPIO.IN, initial = GPIO.LOW) #Set all ping pins to outputs, default low 
+GPIO.setup(output_channels, GPIO.OUT) #Set all echo pins to inputs, default low
 
 def microseconds_to_centimeters(duration):
     distance = duration / 29 / 2
