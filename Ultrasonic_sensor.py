@@ -55,11 +55,15 @@ while(True):
     #If any sensors detect object in danger zone stop vehicle
     if(d1 < DANGER_DIST): #or d2 < DANGER_DIST or d3 < DANGER_DIST or d4 < DANGER_DIST):
         print("DANGER ZONE: VEHICLE STOPPED")
+        time.sleep(0.5)
    #If any sensors detect object in warning zone slow vehicle
     elif(d1 < WARNING_DIST): # or d2 < WARNING_DIST or d3 < WARNING_DIST or d4 < WARNING_DIST):
         print("WARNING ZONE: VEHICLE SLOWING")
+        time.sleep(0.5)
     #Print all senor readings
     print("Sensor 1 reads distance: ", d1)
     #print("Sensor 2 reads distance: ", d2)
     #print("Sensor 3 reads distance: ", d3)
     #print("Sensor 4 reads distance: ", d4)
+    time.sleep(1)
+
