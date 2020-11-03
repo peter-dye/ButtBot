@@ -45,25 +45,36 @@ def ping_ultrasonic_sensor(ping_pin, echo_pin):
     distance = microseconds_to_centimeters(duration)           #convert duration to distance in centimeters
     return distance
 
+def determination(d1): #, d2, d3, d4):
+    #If any sensors detect object in danger zone stop vehicle
+    if(d1 < DANGER_DIST): #or d2 < DANGER_DIST or d3 < DANGER_DIST or d4 < DANGER_DIST):
+        print("DANGER ZONE: VEHICLE STOPPED")
+        time.sleep(0.5)
+    #If any sensors detect object in warning zone slow vehicle
+    elif(d1 < WARNING_DIST): # or d2 < WARNING_DIST or d3 < WARNING_DIST or d4 < WARNING_DIST):
+        print("WARNING ZONE: VEHICLE SLOWING")
+        time.sleep(0.5)
+
+    print_distances(d1)#, d2, d3, d4)
+
+def print_distances(d1):#, d2, d3, d4):
+    #Print all senor readings
+    print("Sensor 1 reads distance: ", d1)
+    #print("Sensor 2 reads distance: ", d2)
+    #print("Sensor 3 reads distance: ", d3)
+    #print("Sensor 4 reads distance: ", d4)
+
 while(True):
     #Acquire distances from each sensor
     d1 = ping_ultrasonic_sensor(PING_PIN1, ECHO_PIN1)
     #d2 = ping_ultrasonic_sensor(PING_PIN2, ECHO_PIN2)
     #d3 = ping_ultrasonic_sensor(PING_PIN3, ECHO_PIN3)
     #d4 = ping_ultrasonic_sensor(PING_PIN4, ECHO_PIN4)
+    
+    determination(d1)
 
-    #If any sensors detect object in danger zone stop vehicle
-    if(d1 < DANGER_DIST): #or d2 < DANGER_DIST or d3 < DANGER_DIST or d4 < DANGER_DIST):
-        print("DANGER ZONE: VEHICLE STOPPED")
-        time.sleep(0.5)
-   #If any sensors detect object in warning zone slow vehicle
-    elif(d1 < WARNING_DIST): # or d2 < WARNING_DIST or d3 < WARNING_DIST or d4 < WARNING_DIST):
-        print("WARNING ZONE: VEHICLE SLOWING")
-        time.sleep(0.5)
-    #Print all senor readings
-    print("Sensor 1 reads distance: ", d1)
-    #print("Sensor 2 reads distance: ", d2)
-    #print("Sensor 3 reads distance: ", d3)
-    #print("Sensor 4 reads distance: ", d4)
+    GPIO.cleanup()
+
     time.sleep(1)
+
 
