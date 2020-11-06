@@ -64,15 +64,19 @@ def print_distances(d1):#, d2, d3, d4):
     #print("Sensor 3 reads distance: ", d3)
     #print("Sensor 4 reads distance: ", d4)
 
-while(True):
-    #Acquire distances from each sensor
-    d1 = ping_ultrasonic_sensor(PING_PIN1, ECHO_PIN1)
-    #d2 = ping_ultrasonic_sensor(PING_PIN2, ECHO_PIN2)
-    #d3 = ping_ultrasonic_sensor(PING_PIN3, ECHO_PIN3)
-    #d4 = ping_ultrasonic_sensor(PING_PIN4, ECHO_PIN4)
+try:
+    while True:
+        #Acquire distances from each sensor
+        d1 = ping_ultrasonic_sensor(PING_PIN1, ECHO_PIN1)
+        #d2 = ping_ultrasonic_sensor(PING_PIN2, ECHO_PIN2)
+        #d3 = ping_ultrasonic_sensor(PING_PIN3, ECHO_PIN3)
+        #d4 = ping_ultrasonic_sensor(PING_PIN4, ECHO_PIN4)
     
-    determination(d1)
+        determination(d1)
 
-    time.sleep(1)
+        time.sleep(1)
+
+finally:
+    GPIO.cleanup()
 
 
