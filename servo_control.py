@@ -57,4 +57,5 @@ def sweep(min_angle, max_angle, servo_num):
         #if(markerdetected):                             #If marker is detected return current servo angle
             #return angle
         #else:
-            angle -= 1                                  #Keep moving servo
+            #angle -= 1                                  #Keep moving servo
+        angle -= 1
