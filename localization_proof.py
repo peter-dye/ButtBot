@@ -2,9 +2,11 @@
 This is a proof of concept for the logic of the localization method.
 """
 
-from scipy.linalg import solve
-from scipy.spatial.distance import euclidean
+from scipy.linalg import solve # can prob use this from numpy
+from scipy.spatial.distance import euclidean # can prob use this from numpy
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 class Location:
     """
@@ -13,13 +15,18 @@ class Location:
     """
 
     def __init__(self, markers: list) -> None:
+        """
+        Markers is a list of coordinates for each perimeter marker
+        """
         self.markers = markers
+        # L_* are the lengths between markers
         self.L_ab = euclidean(markers[0], markers[1])
         self.L_bc = euclidean(markers[1], markers[2])
-        self.L_ca = euclidean(markers[3], markers[0])
-        self.A_a = np.rad2deg(np.arccos(np.dot(markers[1], markers[2])/(self.L_ab*self.L_ca)))
-        self.A_b = np.rad2deg(np.arccos(np.dot(markers[0], markers[2])/(self.L_ab*self.L_bc)))
-        self.A_c = np.rad2deg(np.arccos(np.dot(markers[0], markers[1])/(self.L_ca*self.L_bc)))
+        self.L_ca = euclidean(markers[2], markers[0])
+        # A_* are the angles of the triangle formed by markers
+        self.A_a = np.rad2deg(np.arccos(np.dot(markers[1]-markers[0], markers[2]-markers[0])/(self.L_ab*self.L_ca)))
+        self.A_b = np.rad2deg(np.arccos(np.dot(markers[0]-markers[1], markers[2]-markers[1])/(self.L_ab*self.L_bc)))
+        self.A_c = np.rad2deg(np.arccos(np.dot(markers[0]-markers[2], markers[1]-markers[2])/(self.L_ca*self.L_bc)))
         return
 
     def compute_thetas(self, phi1, phi2, phi3) -> None:
@@ -61,23 +68,32 @@ class Location:
 
         return
 
-    def is_in(self) -> bool:
-        # returns True if robot is inside triangle and False if robot is outside triangle
+    def is_inside(self) -> bool:
+        """
+        Returns True if robot is inside triangle and False if robot is outside
+        the triangle or markers
+        """
         if self.theta12 > 180 or self.theta23 > 180 or self.theta31 > 180:
             return False
         else:
             return True
 
     def localize(self, phi1, phi2, phi3) -> list:
-        # this is just a wrapper to choose the correct localization function
+        """
+        Wrapper to choose the correct localization function (inside or outside)
+        """
         self.compute_thetas(phi1, phi2, phi3)
-        if is_in():
+        if self.is_inside():
             coords = self.inside_localize()
         else:
             coords = self.outside_localize()
         return coords
 
     def inside_localize(self) -> list:
+        """
+        Calculate the position of the robot if it is inside the triangle
+        of markers
+        """
         a = np.array([[1, 1, 0, 0, 0, 0],
                       [0, 0, 1, 1, 0, 0],
                       [0, 0, 0, 0, 1, 1],
@@ -85,15 +101,16 @@ class Location:
                       [0, 1, 1, 0, 0, 0],
                       [0, 0, 0, 1, 1, 0]])
         b = np.array([self.A_a, self.A_b, self.A_c, 180-self.theta12, 180-self.theta23, 180-self.theta31])
-        x = solve(a, b)
+        x = np.matmul(np.linalg.pinv(a), b)
         # hardcoded to use the AB line and marker A but any line/marker could be used
         # line/marker will have to be choosed dynamically if there are obstacles
+        x = np.deg2rad(x)
         d = self.L_ab*((np.sin(x[2])*np.sin(x[1]))/np.sin(x[1]+x[2]))
         l = d/np.tan(x[1])
-        rotation_matrix = np.array([[np.cos(self.A_a), -1*np.sin(self.A_a)],
-                                    [np.sin(self.A_a), np.cos(self.A_a)]])
-        coords = np.matmul([markers[0][0]-l, markers[0][1]+d],
-        return
+        rotation_matrix = np.array([[np.cos(np.deg2rad(self.A_a)), -1*np.sin(np.deg2rad(self.A_a))],
+                                    [np.sin(np.deg2rad(self.A_a)), np.cos(np.deg2rad(self.A_a))]])
+        coords = np.matmul([self.markers[0][0]-l, self.markers[0][1]+d], rotation_matrix)
+        return coords
 
     def outside_localize(self) -> list:
         if self.theta12 > 180:
@@ -108,5 +125,13 @@ class Location:
 
 
 # MAIN PROGRAM
-localize = Location()
-localize.compute_thetas(150, 20, 60)
+markers = np.array([[173, 109],
+                    [97, 5],
+                    [29, 109]])
+localizer = Location(markers)
+coords = localizer.localize(54, 153, -71)
+
+x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
+y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
+plt.scatter(x, y)
+plt.show()
