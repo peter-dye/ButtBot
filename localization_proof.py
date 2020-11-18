@@ -109,7 +109,7 @@ class Location:
         l = d/np.tan(x[1])
         rotation_matrix = np.array([[np.cos(np.deg2rad(self.A_a)), -1*np.sin(np.deg2rad(self.A_a))],
                                     [np.sin(np.deg2rad(self.A_a)), np.cos(np.deg2rad(self.A_a))]])
-        coords = np.matmul([self.markers[0][0]-l, self.markers[0][1]+d], rotation_matrix)
+        coords = np.matmul(rotation_matrix, [self.markers[0][0]-l, self.markers[0][1]+d])
         return coords
 
     def outside_localize(self) -> list:
