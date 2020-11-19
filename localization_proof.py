@@ -2,7 +2,6 @@
 This is a proof of concept for the logic of the localization method.
 """
 
-from scipy.linalg import solve # can prob use this from numpy
 from scipy.spatial.distance import euclidean # can prob use this from numpy
 import numpy as np
 import matplotlib.pyplot as plt
@@ -100,7 +99,7 @@ class Location:
                       [1, 0, 0, 0, 0, 1],
                       [0, 1, 1, 0, 0, 0],
                       [0, 0, 0, 1, 1, 0]])
-        b = np.array([self.A_a, self.A_b, self.A_c, 180-self.theta12, 180-self.theta23, 180-self.theta31])
+        b = np.array([self.A_a, self.A_b, self.A_c, 180-self.theta31, 180-self.theta12, 180-self.theta23])
         x = np.matmul(np.linalg.pinv(a), b)
         # hardcoded to use the AB line and marker A but any line/marker could be used
         # line/marker will have to be choosed dynamically if there are obstacles
@@ -109,7 +108,8 @@ class Location:
         l = d/np.tan(x[1])
         rotation_matrix = np.array([[np.cos(np.deg2rad(self.A_a)), -1*np.sin(np.deg2rad(self.A_a))],
                                     [np.sin(np.deg2rad(self.A_a)), np.cos(np.deg2rad(self.A_a))]])
-        coords = np.matmul(rotation_matrix, [self.markers[0][0]-l, self.markers[0][1]+d])
+        coords_vec = np.matmul(rotation_matrix, [-l, d])
+        coords = markers[0]+coords_vec
         return coords
 
     def outside_localize(self) -> list:
@@ -120,7 +120,7 @@ class Location:
         elif self.theta31 > 180:
             pass
         else:
-            print("error") # TODO: Make this a propper error being raised
+            print("error")  # TODO: Make this a propper error being raised
         return
 
 
@@ -130,6 +130,7 @@ markers = np.array([[173, 109],
                     [29, 109]])
 localizer = Location(markers)
 coords = localizer.localize(54, 153, -71)
+print(coords)
 
 x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
 y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
