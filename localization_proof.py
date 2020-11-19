@@ -2,7 +2,6 @@
 This is a proof of concept for the logic of the localization method.
 """
 
-from scipy.spatial.distance import euclidean # can prob use this from numpy
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -19,9 +18,9 @@ class Location:
         """
         self.markers = markers
         # L_* are the lengths between markers
-        self.L_ab = euclidean(markers[0], markers[1])
-        self.L_bc = euclidean(markers[1], markers[2])
-        self.L_ca = euclidean(markers[2], markers[0])
+        self.L_ab = np.linalg.norm(markers[0]-markers[1])
+        self.L_bc = np.linalg.norm(markers[1]-markers[2])
+        self.L_ca = np.linalg.norm(markers[2]-markers[0])
         # A_* are the angles of the triangle formed by markers
         self.A_a = np.rad2deg(np.arccos(np.dot(markers[1]-markers[0], markers[2]-markers[0])/(self.L_ab*self.L_ca)))
         self.A_b = np.rad2deg(np.arccos(np.dot(markers[0]-markers[1], markers[2]-markers[1])/(self.L_ab*self.L_bc)))
