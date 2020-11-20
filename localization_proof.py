@@ -10,6 +10,10 @@ class Location:
     """
     Class for different location related operations of the robot.
     The main functionality for now is localization.
+
+    RESTRICTION: Markers can be in a trianlge at any locations, as long as the
+    top two markers form a line parrallel to the x-axis of whatever coordinate
+    system is defined.
     """
 
     def __init__(self, markers: list) -> None:
@@ -113,11 +117,75 @@ class Location:
 
     def outside_localize(self) -> list:
         if self.theta12 > 180:
-            pass
+            a = np.array([[0, 0, 0, 0, 1, 1],
+                          [1, 1, 1, 1, 1, 1],
+                          [0, 0, 1, 1, 1, 0],
+                          [1, 1, 0, 0, 0, 1],
+                          [0, 1, 1, 0, 0, 0],
+                          [1, 0, 0, 1, 1, 1]])
+            b = np.array([self.A_c,
+                          360-self.theta23-self.theta31,
+                          180-self.theta23,
+                          180-self.theta31,
+                          180-self.theta23-self.theta31,
+                          180])
+            x = np.matmul(np.linalg.pinv(a), b)
+            x = np.deg2rad(x)
+            # hardcoded to use marker A, non-trivial to use marker B
+            d = self.L_ab*((np.sin(x[2])*np.sin(x[1]))/np.sin(x[1]+x[2]))
+            l = d/np.tan(x[1])
+            rotation_matrix = np.array([[np.cos(np.deg2rad(self.A_a)), -1*np.sin(np.deg2rad(self.A_a))],
+                                        [np.sin(np.deg2rad(self.A_a)), np.cos(np.deg2rad(self.A_a))]])
+            coords_vec = np.matmul(rotation_matrix, [-l, -d])
+            coords = markers[0]+coords_vec
+            return coords
         elif self.theta23 > 180:
-            pass
+            a = np.array([[1, 1, 0, 0, 0, 0],
+                          [1, 1, 1, 1, 1, 1],
+                          [1, 0, 0, 0, 1, 1],
+                          [0, 1, 1, 1, 0, 0],
+                          [0, 0, 0, 1, 1, 0],
+                          [1, 1, 1, 0, 0, 1]])
+            b = np.array([self.A_a,
+                          360-self.theta12-self.theta31,
+                          180-self.theta31,
+                          180-self.theta12,
+                          180-self.theta12-self.theta31,
+                          180])
+            x = np.matmul(np.linalg.pinv(a), b)
+            x = np.deg2rad(x)
+            # hardcoded to use marker C, non-trivial to use marker B
+            d = self.L_ab*((np.sin(x[3])*np.sin(x[4]))/np.sin(x[4]+x[3]))
+            l = d/np.tan(x[4])
+            rotation_matrix = np.array([[np.cos(np.deg2rad(-self.A_c)), -1*np.sin(np.deg2rad(-self.A_c))],
+                                        [np.sin(np.deg2rad(-self.A_c)), np.cos(np.deg2rad(-self.A_c))]])
+            coords_vec = np.matmul(rotation_matrix, [l, -d])
+            coords = markers[2]+coords_vec
+            return coords
         elif self.theta31 > 180:
-            pass
+            a = np.array([[0, 0, 1, 1, 0, 0],
+                          [1, 1, 1, 1, 1, 1],
+                          [1, 1, 1, 0, 0, 0],
+                          [0, 0, 0, 1, 1, 1],
+                          [1, 0, 0, 0, 0, 1],
+                          [0, 1, 1, 1, 1, 0]])
+            b = np.array([self.A_b,
+                          360-self.theta12-self.theta23,
+                          180-self.theta12,
+                          180-self.theta23,
+                          180-self.theta12-self.theta23,
+                          180])
+            x = np.matmul(np.linalg.pinv(a), b)
+            x = np.deg2rad(x)
+            # hardcoded to use marker A, could also use marker C
+            d = self.L_ab*((np.sin(x[5])*np.sin(x[0]))/np.sin(x[0]+x[5]))
+            l = d/np.tan(x[0])
+            # rotation_matrix = np.array([[np.cos(np.deg2rad(self.A_a)), -1*np.sin(np.deg2rad(self.A_a))],
+            #                             [np.sin(np.deg2rad(self.A_a)), np.cos(np.deg2rad(self.A_a))]])
+            # coords_vec = np.matmul(rotation_matrix, [-l, d])
+            coords_vec = [-l, d]
+            coords = markers[0]+coords_vec
+            return coords
         else:
             print("error")  # TODO: Make this a propper error being raised
         return
