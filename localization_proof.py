@@ -196,10 +196,92 @@ markers = np.array([[173, 109],
                     [97, 5],
                     [29, 109]])
 localizer = Location(markers)
-coords = localizer.localize(54, 153, -71)
-print(coords)
 
-x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
-y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
-plt.scatter(x, y)
-plt.show()
+# case 1
+phi1 = 54
+phi2 = 153
+phi3 = -71
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [83, 74] Found: '+str(coords))
+
+# x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
+# y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
+# plt.scatter(x, y)
+# plt.show()
+
+# case 2
+phi1 = -54
+phi2 = -148
+phi3 = 110
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [115, 44] Found: '+str(coords))
+
+# case 3
+phi1 = 155
+phi2 = 13
+phi3 = -70
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [126, 88] Found: '+str(coords))
+
+# case 4
+phi1 = -81
+phi2 = -148
+phi3 = 159
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [169, 42] Found: '+str(coords))
+
+# case 5
+phi1 = 15
+phi2 = -15
+phi3 = -63
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [192, 97] Found: '+str(coords))
+
+# case 6
+phi1 = 125
+phi2 = 42
+phi3 = -35
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [131, 35] Found: '+str(coords))
+
+# case 7
+phi1 = -30
+phi2 = -100
+phi3 = 29
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [54, 23] Found: '+str(coords))
+
+# case 8
+phi1 = 137
+phi2 = 55
+phi3 = -161
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [34, 71] Found: '+str(coords))
+
+# case 9
+phi1 = 52
+phi2 = 102
+phi3 = -11
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [38, 23] Found: '+str(coords))
+
+# case 10
+phi1 = -35
+phi2 = 32
+phi3 = 96
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [98, 142] Found: '+str(coords))
+
+# case 11
+phi1 = 128
+phi2 = -79
+phi3 = -164
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [63, 122] Found: '+str(coords))
+
+# case 11
+phi1 = -141
+phi2 = -43
+phi3 = 19
+coords = localizer.localize(phi1, phi2, phi3)
+print('Expected: [147, 117] Found: '+str(coords))
