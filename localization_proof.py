@@ -51,20 +51,32 @@ class Location:
         # calculate the theta angles
         # split into cases base on robot orientation
         if phi1 < phi2 and phi2 < phi3:
-            # pointing between 3 and 1
+            # pointing between A and C
             self.theta12 = phi2 - phi1
             self.theta23 = phi3 - phi2
             self.theta31 = 360 - phi3 + phi1
         elif phi2 < phi3 and phi3 < phi1:
-            # pointing betwwen 1 and 2
+            # pointing betwwen A and B
             self.theta12 = 360 - phi1 + phi2
             self.theta23 = phi3 - phi2
             self.theta31 = phi1 - phi3
         elif phi3 < phi1 and phi1 < phi2:
-            # pointing between 2 and 3
+            # pointing between B and C
             self.theta12 = phi2 - phi1
             self.theta23 = 360 - phi2 + phi3
             self.theta31 = phi1 - phi3
+        elif phi2 < phi1 and phi1 < phi3:
+            self.theta12 = phi1 - phi2
+            self.theta23 = 0
+            self.theta31 = 0
+        elif phi1 < phi3 and phi3 < phi2:
+            self.theta12 = 0
+            self.theta23 = 0
+            self.theta31 = 0
+        elif phi3 < phi2 and phi2 < phi1:
+            self.theta12 = 0
+            self.theta23 = 0
+            self.theta31 = 0
         else:
             print("You forgot a case")
 
