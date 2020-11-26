@@ -18,56 +18,56 @@ coords = [83, 74]
 Inside
 Pointing between A and B
 phi1 = -54
-phi2 = -148
-phi3 = 110
+phi2 = 110
+phi3 = -148
 coords = [115, 44]
 
 # Case 3
 Inside
 Pointing between B and C
 phi1 = 155
-phi2 = 13
-phi3 = -70
+phi2 = -70
+phi3 = 13
 coords = [126, 88]
 
 # Case 4
 Outside A and B
 Pointing between A and B
 phi1 = -81
-phi2 = -148
-phi3 = 159
+phi2 = 159
+phi3 = -148
 coords = [169, 42]
 
 # Case 5
 Outside A and B
 Pointing between A and C
 phi1 = 15
-phi2 = -15
-phi3 = -63
+phi2 = -63
+phi3 = -15
 coords = [192, 97]
 
 # Case 6
 Outside A and B
 Pointing between B and C
 phi1 = 125
-phi2 = 42
-phi3 = -35
+phi2 = -35
+phi3 = 42
 coords = [131, 35]
 
 # Case 7
 Outside B and C
 Pointing between A and B
 phi1 = -30
-phi2 = -100
-phi3 = 29
+phi2 = 29
+phi3 = -100
 coords = [54, 23]
 
 # Case 8
 Outside B and C
 Pointing between B and C
 phi1 = 137
-phi2 = 55
-phi3 = -161
+phi2 = -161
+phi3 = 55
 coords = [34, 71]
 
 # Case 9
@@ -90,8 +90,8 @@ coords = [98, 142]
 Outside A and C
 Pointing between A and C
 phi1 = 128
-phi2 = -79
-phi3 = -164
+phi2 = -164
+phi3 = -79
 coords = [63, 122]
 
 # Case 12

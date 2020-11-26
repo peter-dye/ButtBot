@@ -65,18 +65,6 @@ class Location:
             self.theta12 = phi2 - phi1
             self.theta23 = 360 - phi2 + phi3
             self.theta31 = phi1 - phi3
-        elif phi2 < phi1 and phi1 < phi3:
-            self.theta12 = phi1 - phi2
-            self.theta23 = 0
-            self.theta31 = 0
-        elif phi1 < phi3 and phi3 < phi2:
-            self.theta12 = 0
-            self.theta23 = 0
-            self.theta31 = 0
-        elif phi3 < phi2 and phi2 < phi1:
-            self.theta12 = 0
-            self.theta23 = 0
-            self.theta31 = 0
         else:
             print("You forgot a case")
 
@@ -214,7 +202,7 @@ phi1 = 54
 phi2 = 153
 phi3 = -71
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [83, 74] Found: '+str(coords))
+print('1. Expected: [83, 74] Found: '+str(coords))
 
 # x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
 # y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
@@ -223,77 +211,77 @@ print('Expected: [83, 74] Found: '+str(coords))
 
 # case 2
 phi1 = -54
-phi2 = -148
-phi3 = 110
+phi2 = 110
+phi3 = -148
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [115, 44] Found: '+str(coords))
+print('2. Expected: [115, 44] Found: '+str(coords))
 
 # case 3
 phi1 = 155
-phi2 = 13
-phi3 = -70
+phi2 = -70
+phi3 = 13
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [126, 88] Found: '+str(coords))
+print('3. Expected: [126, 88] Found: '+str(coords))
 
 # case 4
 phi1 = -81
-phi2 = -148
-phi3 = 159
+phi2 = 159
+phi3 = -148
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [169, 42] Found: '+str(coords))
+print('4. Expected: [169, 42] Found: '+str(coords))
 
 # case 5
 phi1 = 15
-phi2 = -15
-phi3 = -63
+phi2 = -63
+phi3 = -15
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [192, 97] Found: '+str(coords))
+print('5. Expected: [192, 97] Found: '+str(coords))
 
 # case 6
 phi1 = 125
-phi2 = 42
-phi3 = -35
+phi2 = -35
+phi3 = 42
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [131, 35] Found: '+str(coords))
+print('6. Expected: [131, 35] Found: '+str(coords))
 
 # case 7
 phi1 = -30
-phi2 = -100
-phi3 = 29
+phi2 = 29
+phi3 = -100
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [54, 23] Found: '+str(coords))
+print('7. Expected: [54, 23] Found: '+str(coords))
 
 # case 8
 phi1 = 137
-phi2 = 55
-phi3 = -161
+phi2 = -161
+phi3 = 55
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [34, 71] Found: '+str(coords))
+print('8. Expected: [34, 71] Found: '+str(coords))
 
 # case 9
 phi1 = 52
 phi2 = 102
 phi3 = -11
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [38, 23] Found: '+str(coords))
+print('9. Expected: [38, 23] Found: '+str(coords))
 
 # case 10
 phi1 = -35
 phi2 = 32
 phi3 = 96
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [98, 142] Found: '+str(coords))
+print('10. Expected: [98, 142] Found: '+str(coords))
 
 # case 11
 phi1 = 128
-phi2 = -79
-phi3 = -164
+phi2 = -164
+phi3 = -79
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [63, 122] Found: '+str(coords))
+print('11. Expected: [63, 122] Found: '+str(coords))
 
-# case 11
+# case 12
 phi1 = -141
 phi2 = -43
 phi3 = 19
 coords = localizer.localize(phi1, phi2, phi3)
-print('Expected: [147, 117] Found: '+str(coords))
+print('12. Expected: [147, 117] Found: '+str(coords))
