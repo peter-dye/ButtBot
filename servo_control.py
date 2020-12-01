@@ -40,22 +40,24 @@ def servo_read(direction):
     if direction == 'RIGHT':    #to sweep right the servos will only be moving from 90 to 180 degrees
         min_angle = 90
         max_angle = 180
+        inc = 1
     elif direction == 'LEFT':   #to sweep left the servos will only be moving from 90 to 0 degrees
         min_angle = 0
-        max_angle = 90    
-    angle1 = sweep(min_angle, max_angle, 0) - 90        #Subtrats 90 to get the position w.r.t. the 90 degrees start point
-    if angle1 == -90 or angle1 == 90:                   #If the first servo hasn't detected the marker in its max range
-        angle2 = sweep(min_angle, max_angle, 1) - 90    #Move the second servo
+        max_angle = 90 
+        inc = -1
+    angle1 = sweep(min_angle, max_angle, inc, 0) - 90        #Subtracts 90 to get the position w.r.t. the 90 degrees start point
+    if angle1 == -90 or angle1 == 90:                        #If the first servo hasn't detected the marker in its max range
+        angle2 = sweep(min_angle, max_angle, inc, 1) - 90    #Move the second servo
     else:
         angle2 = 0  
-    angle_detected = angle1 + angle2                    #The marker is detected at the sum of both angles
+    angle_detected = angle1 + angle2                         #The marker is detected at the sum of both angles
 
-def sweep(min_angle, max_angle, servo_num):
+def sweep(min_angle, max_angle, inc, servo_num):
     angle = 90                                          #Servo always starting at default 90 deg
     for angle in range(min_angle, max_angle):           #Move servo degree by degree
         kit.servo[servo_num].angle = angle              
         #if(markerdetected):                             #If marker is detected return current servo angle
             #return angle
         #else:
-            #angle -= 1                                  #Keep moving servo
-        angle -= 1
+            #angle += inc                                  #Keep moving servo
+        angle += inc
