@@ -6,5 +6,3 @@ CAM_OFFSET = 10         #Distance between straight below camera to center of col
 
 CAM_ANGLE_R = (CAM_ANGLE_D * math.pi)/180                                        #Angle of Camera pitch servo, Servo[2] in radians
 relative_dist  = round(((CAM_HEIGHT * math.tan(CAM_ANGLE_R)) - CAM_OFFSET) , 2)  #Linear distance between center of nozzle to detected butt in cm
-
-print(relative_dist)
