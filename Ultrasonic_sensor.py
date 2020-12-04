@@ -1,82 +1,26 @@
-import Jetson.GPIO as GPIO
+import smbus2
 import time
 
-GPIO.setmode(GPIO.BOARD) #Set pin numbering type 
+#Address of slave, must match address in slave sketch
+SLAVE_ADDR = 9
 
-#Pin Declarations
-PING_PIN1 = 11
-ECHO_PIN1 = 13
+#List of distances read by each sensor
+distance = []
 
-'''
-PING_PIN2 = 17
-ECHO_PIN2 = 18
+#Create the I2C bus
+bus = smbus2.SMBus(1)
 
-PING_PIN3 = 19
-ECHO_PIN3 = 20
+#Reads the distances from the slave
+def readI2C(address):
+    bval = 0                                #Temp variable to store the byte read from the bus
+    time.sleep(.100)                        #Pause for 100ms
+    bval = bus.read_byte_data(address, 0)   #Read the byte from the bus
+    return bval                             #Return read byte
 
-PING_PIN4 = 21
-ECHO_PIN4 = 22
-'''
-
-#Distance Declarations
-DANGER_DIST = 10
-WARNING_DIST = 20
-
-#Pin Type Setup
-output_channels = [PING_PIN1]#, PING_PIN2, PING_PIN3, PING_PIN4]
-input_channels = [ECHO_PIN1]#, ECHO_PIN2, ECHO_PIN3, ECHO_PIN4]
-GPIO.setup(output_channels, GPIO.OUT, initial = GPIO.LOW) #Set all ping pins to outputs, default low 
-GPIO.setup(input_channels, GPIO.IN) #Set all echo pins to inputs, default low
-
-def microseconds_to_centimeters(duration):
-    distance = duration / 29 / 2
-    return distance
-
-#Pulse trigger high for 10us, then measure time the echo pin is high, convert time to distance
-def ping_ultrasonic_sensor(ping_pin, echo_pin):
-    GPIO.output(ping_pin, GPIO.HIGH)                           #set ping high 
-    time.sleep(0.000001)                                       #wait 10 microseconds
-    GPIO.output(ping_pin, GPIO.LOW)                            #set ping low
-    GPIO.wait_for_edge(echo_pin, GPIO.RISING)                  #wait for echo rising edge
-    pulse_start = time.time()                                  #grab time echo goes high
-    GPIO.wait_for_edge(echo_pin, GPIO.FALLING)                 #wait for echo falling edge
-    pulse_end = time.time()                                    #grab time echo goes low
-    duration = int((pulse_start - pulse_end) * 100000)         #echo pin is high for start - end microseconds
-    distance = microseconds_to_centimeters(duration)           #convert duration to distance in centimeters
-    return distance
-
-def determination(d1): #, d2, d3, d4):
-    #If any sensors detect object in danger zone stop vehicle
-    if(d1 < DANGER_DIST): #or d2 < DANGER_DIST or d3 < DANGER_DIST or d4 < DANGER_DIST):
-        print("DANGER ZONE: VEHICLE STOPPED")
-        time.sleep(0.5)
-    #If any sensors detect object in warning zone slow vehicle
-    elif(d1 < WARNING_DIST): # or d2 < WARNING_DIST or d3 < WARNING_DIST or d4 < WARNING_DIST):
-        print("WARNING ZONE: VEHICLE SLOWING")
-        time.sleep(0.5)
-
-    print_distances(d1)#, d2, d3, d4)
-
-def print_distances(d1):#, d2, d3, d4):
-    #Print all senor readings
-    print("Sensor 1 reads distance: ", d1)
-    #print("Sensor 2 reads distance: ", d2)
-    #print("Sensor 3 reads distance: ", d3)
-    #print("Sensor 4 reads distance: ", d4)
-
-try:
-    while True:
-        #Acquire distances from each sensor
-        d1 = ping_ultrasonic_sensor(PING_PIN1, ECHO_PIN1)
-        #d2 = ping_ultrasonic_sensor(PING_PIN2, ECHO_PIN2)
-        #d3 = ping_ultrasonic_sensor(PING_PIN3, ECHO_PIN3)
-        #d4 = ping_ultrasonic_sensor(PING_PIN4, ECHO_PIN4)
+while(True):
     
-        determination(d1)
+    while(readI2C(SLAVE_ADDR) < 255):              #255 is the start byte, so if we read in the middle of a transmission, wait until next start
+        for bcount in range(4):             
+            distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
 
-        time.sleep(1)
-
-finally:
-    GPIO.cleanup()
-
-
+        time.sleep(.200)                           #Delay for 200ms
