@@ -17,10 +17,11 @@ def readI2C(address):
     bval = bus.read_byte_data(address, 0)   #Read the byte from the bus
     return bval                             #Return read byte
 
-while(True):
+def main():
+    while(True):
     
-    while(readI2C(SLAVE_ADDR) < 255):              #255 is the start byte, so if we read in the middle of a transmission, wait until next start
-        for bcount in range(4):             
-            distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
+        while(readI2C(SLAVE_ADDR) < 255):              #255 is the start byte, so if we read in the middle of a transmission, wait until next start
+            for bcount in range(4):             
+                distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
 
-        time.sleep(.200)                           #Delay for 200ms
+            time.sleep(.200)                           #Delay for 200ms

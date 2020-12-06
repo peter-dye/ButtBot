@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\us_i2c"
   ],
-  "SelectedNode": "\\ultrasonic_sensor.py",
+  "SelectedNode": "\\motor_control.py",
   "PreviewInSolutionExplorer": false
 }
