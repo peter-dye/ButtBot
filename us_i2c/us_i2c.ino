@@ -17,6 +17,9 @@
 #define PING_PIN_3 6 // Trigger Pin of Ultrasonic Sensor 3
 #define ECHO_PIN_3 6 // Echo Pin of Ultrasonic Sensor 3
 
+#define PING_PIN_4 7 // Trigger Pin of Ultrasonic Sensor 4
+#define ECHO_PIN_4 7 // Echo Pin of Ultrasonic Sensor 4
+
 //Define the maximum distance for the sensors to register: 260cm
 #define MAX_DISTANCE 260
 
@@ -25,9 +28,11 @@ NewPing sensor0(PING_PIN_0, ECHO_PIN_0, MAX_DISTANCE);
 NewPing sensor1(PING_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
 NewPing sensor2(PING_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
 NewPing sensor3(PING_PIN_3, ECHO_PIN_3, MAX_DISTANCE);
+NewPing sensor4(PING_PIN_4, ECHO_PIN_4, MAX_DISTANCE);
+
 
 //Define return data array, one element per sensor
-int distance[4];
+int distance[5];
 
 //Define counter to count bytes in response
 int bcount = 0;
@@ -65,6 +70,9 @@ void requestEvent() {
     case 4:
       bval = distance[3];
       break;
+    case 4:
+      bval = distance[4];
+      break;
   }
   
   // Send response back to Master
@@ -72,7 +80,7 @@ void requestEvent() {
   
   // Increment byte counter
   bcount = bcount + 1;
-  if (bcount > 4) bcount = 0;
+  if (bcount > 5) bcount = 0;
  
 }
 void readDistance()
@@ -99,6 +107,12 @@ void readDistance()
   distance[3] = sensor3.ping_cm();
   if (distance[3] > 254 ) {
     distance[3] = 254;
+  }
+  delay(20);
+ 
+  distance[4] = sensor4.ping_cm();
+  if (distance[4] > 254 ) {
+    distance[4] = 254;
   }
   delay(20);
   
