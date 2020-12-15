@@ -31,17 +31,17 @@ def default():
     kit.servo[3].angle = 0 
 
 #Actuate arm for pickup routine
-def actuate_arm():
+def arm():
     kit.servo[3].angle = 180    #lower arm
     time.delay(3)               #wait 3 seconds while lowered so has a chance to suck up butt
     kit.servo[3].angle = 0      #raise arm back to neutral position
 
-def servo_read(direction):
-    if direction == 'RIGHT':    #to sweep right the servos will only be moving from 90 to 180 degrees
+def servo_read(dir):
+    if dir == 'RIGHT':    #to sweep right the servos will only be moving from 90 to 180 degrees
         min_angle = 90
         max_angle = 180
         inc = 1
-    elif direction == 'LEFT':   #to sweep left the servos will only be moving from 90 to 0 degrees
+    elif dir == 'LEFT':   #to sweep left the servos will only be moving from 90 to 0 degrees
         min_angle = 0
         max_angle = 90 
         inc = -1
