@@ -69,4 +69,4 @@ def bwd(spd, dur):
 #Stop both motors
 def stop():
     pwm[0].ChangeDutyCycle(0)
-    pwm[1].ChangeDutyCycle(1)
+    pwm[1].ChangeDutyCycle(0)
