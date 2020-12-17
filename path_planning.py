@@ -20,7 +20,7 @@ def print_matrix(matrix) :
 	for row in range(len(matrix)-1,-1,-1):
 		print(("[{0}]".format(', '.join(map(str, matrix[row])))))
 
-def scan_right(matrix, curr_position, num_cols):
+def scan_right(matrix, curr_position):
         count = 0
         while count != num_cols:
                 count += 1
@@ -31,7 +31,7 @@ def scan_right(matrix, curr_position, num_cols):
                 if curr_position[1] != num_cols - 1:
                         curr_position[1] += 1
 
-def scan_left(matrix, curr_position, num_cols):
+def scan_left(matrix, curr_position):
         count = 0
         while count != num_cols:
                 count += 1
@@ -42,19 +42,19 @@ def scan_left(matrix, curr_position, num_cols):
                 if curr_position[1] != 0:
                         curr_position[1] -= 1
 
-def scan_matrix(matrix, num_rows, num_cols) :
+def scan_matrix(matrix):
         curr_position = [0,0]
         count = 0
         while (count != num_rows):
                 print(count)
                 if (curr_position[0] % 2 == 0):
-                        scan_right(matrix, curr_position, num_cols)
+                        scan_right(matrix, curr_position)
                         curr_position[0] += 1
                         count += 1
                 else:
-                        scan_left(matrix, curr_position, num_cols)
+                        scan_left(matrix, curr_position)
                         curr_position[0] += 1
                         count += 1
 
-scan_matrix(SS, num_rows, num_cols)
+scan_matrix(SS)
 
