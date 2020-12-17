@@ -46,7 +46,6 @@ def scan_matrix(matrix):
         curr_position = [0,0]
         count = 0
         while (count != num_rows):
-                print(count)
                 if (curr_position[0] % 2 == 0):
                         scan_right(matrix, curr_position)
                         curr_position[0] += 1
