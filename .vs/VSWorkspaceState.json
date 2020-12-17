@@ -3,6 +3,6 @@
     "",
     "\\us_i2c"
   ],
-  "SelectedNode": "\\path_planning.py",
+  "SelectedNode": "\\motor_control.py",
   "PreviewInSolutionExplorer": false
 }

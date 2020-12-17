@@ -20,4 +20,41 @@ def print_matrix(matrix) :
 	for row in range(len(matrix)-1,-1,-1):
 		print(("[{0}]".format(', '.join(map(str, matrix[row])))))
 
-print_matrix(SS)
+def scan_right(matrix, curr_position, num_cols):
+        count = 0
+        while count != num_cols:
+                count += 1
+                if SS[curr_position[0]][curr_position[1]] == 'X':
+                        SS[curr_position[0]][curr_position[1]] = 'O'
+                        print_matrix(SS)
+                        print('.')
+                if curr_position[1] != num_cols - 1:
+                        curr_position[1] += 1
+
+def scan_left(matrix, curr_position, num_cols):
+        count = 0
+        while count != num_cols:
+                count += 1
+                if SS[curr_position[0]][curr_position[1]] == 'X':
+                        SS[curr_position[0]][curr_position[1]] = 'O'
+                        print_matrix(SS)
+                        print('.')
+                if curr_position[1] != 0:
+                        curr_position[1] -= 1
+
+def scan_matrix(matrix, num_rows, num_cols) :
+        curr_position = [0,0]
+        count = 0
+        while (count != num_rows):
+                print(count)
+                if (curr_position[0] % 2 == 0):
+                        scan_right(matrix, curr_position, num_cols)
+                        curr_position[0] += 1
+                        count += 1
+                else:
+                        scan_left(matrix, curr_position, num_cols)
+                        curr_position[0] += 1
+                        count += 1
+
+scan_matrix(SS, num_rows, num_cols)
+
