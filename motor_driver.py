@@ -30,7 +30,7 @@ def init():
 def fwd(spd, dur):
     GPIO.output(RIGHT_MOTOR_DIR, GPIO.LOW)
     GPIO.output(LEFT_MOTOR_DIR, GPIO.LOW)
-    right_speed = (spd - (-1)/2)*100
+    right_speed = spd
     left_speed = right_speed
     pwm[0].ChangeDutyCycle(right_speed)
     pwm[1].ChangeDutyCycle(left_speed)
@@ -59,7 +59,7 @@ def pivot_left(dur):
 def bwd(spd, dur):
     GPIO.output(RIGHT_MOTOR_DIR, GPIO.LOW)
     GPIO.output(LEFT_MOTOR_DIR, GPIO.LOW)
-    right_speed = (spd - (-1)/2)*100
+    right_speed = spd
     left_speed = right_speed
     pwm[0].ChangeDutyCycle(right_speed)
     pwm[1].ChangeDutyCycle(left_speed)
