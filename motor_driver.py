@@ -5,7 +5,7 @@ import time
 import Jetson.GPIO as GPIO
 
 
-class Motor_Driver():
+class MotorDriver():
 
     def __init__(self):
         # initialize pins
