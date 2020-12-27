@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\us_i2c"
   ],
+  "SelectedNode": "\\path_planning.py",
   "PreviewInSolutionExplorer": false
 }
