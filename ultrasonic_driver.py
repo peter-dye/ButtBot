@@ -1,5 +1,7 @@
 import smbus2
 import time
+import motor_driver
+from path_planning import motor_controller 
 
 #Address of slave, must match address in slave sketch
 SLAVE_ADDR = 9
@@ -23,6 +25,6 @@ def main():
             for bcount in range(4):             
                 distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
                 if(distance[bcount] < 100):
-                    #call stop function
+                    motor_controller.stop()
                     time.sleep(1)
             time.sleep(.200)                           #Delay for 200ms

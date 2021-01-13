@@ -5,7 +5,7 @@ import time
 import Jetson.GPIO as GPIO
 
 
-class Motor_Driver():
+class MotorDriver():
 
     def __init__(self):
         # initialize pins
@@ -29,9 +29,14 @@ class Motor_Driver():
         self.pwm[1].start(0)
 
     # Move both motors forwards at speed for duration
-    def fwd(self, spd, dur):
-        GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
-        GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
+    def fwd_bwd(self, spd, dur, dir):
+        if dir == fwd:
+            GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
+            GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
+        if dir == bwd:
+            GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
+            GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
+
         right_speed = (spd - (-1)/2)*100
         left_speed = right_speed
         self.pwm[0].ChangeDutyCycle(right_speed)
@@ -40,31 +45,15 @@ class Motor_Driver():
         self.stop()
 
     # Move right motor backwards, while moving left motor forwards until desired angle
-    def pivot_right(self, dur):
-        GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.HIGH)
-        GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
+    def pivot_right_left(self, dur, dir):
+        if dir == right:
+            GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.HIGH)
+            GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
+        if dir == left:
+            GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
+            GPIO.output(self.LEFT_MOTOR_DIR, GPIO.HIGH)
         self.pwm[0].ChangeDutyCycle(100)
         self.pwm[1].ChangeDutyCycle(100)
-        time.sleep(dur)
-        self.stop()
-
-    # Move right motor backwards, while moving left motor forwards until desired angle
-    def pivot_left(self, dur):
-        GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
-        GPIO.output(self.LEFT_MOTOR_DIR, GPIO.HIGH)
-        self.pwm[0].ChangeDutyCycle(100)
-        self.pwm[1].ChangeDutyCycle(100)
-        time.sleep(dur)
-        self.stop()
-
-    # Move both motors forwards at speed for duration
-    def bwd(self, spd, dur):
-        GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
-        GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
-        right_speed = (spd - (-1)/2)*100
-        left_speed = right_speed
-        self.pwm[0].ChangeDutyCycle(right_speed)
-        self.pwm[1].ChangeDutyCycle(left_speed)
         time.sleep(dur)
         self.stop()
 
