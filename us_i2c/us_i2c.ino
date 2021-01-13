@@ -48,10 +48,10 @@ void setup() {
 
 
 void requestEvent() {
- 
+
   // Define a byte to hold data
   byte bval;
-  
+
   // Cycle through data
   // First response is always 255 to mark beginning
   switch (bcount) {
@@ -70,18 +70,18 @@ void requestEvent() {
     case 4:
       bval = distance[3];
       break;
-    case 4:
+    case 5:
       bval = distance[4];
       break;
   }
-  
+
   // Send response back to Master
   Wire.write(bval);
-  
+
   // Increment byte counter
   bcount = bcount + 1;
   if (bcount > 5) bcount = 0;
- 
+
 }
 void readDistance()
 {
@@ -91,34 +91,34 @@ void readDistance()
     distance[0] = 254;
   }
   delay(20);
-  
+
   distance[1] = sensor1.ping_cm();
   if (distance[1] > 254 ) {
     distance[1] = 254;
   }
   delay(20);
-  
+
   distance[2] = sensor2.ping_cm();
   if (distance[2] > 254 ) {
     distance[2] = 254;
   }
   delay(20);
-  
+
   distance[3] = sensor3.ping_cm();
   if (distance[3] > 254 ) {
     distance[3] = 254;
   }
   delay(20);
- 
+
   distance[4] = sensor4.ping_cm();
   if (distance[4] > 254 ) {
     distance[4] = 254;
   }
   delay(20);
-  
-  
+
+
 }
- 
+
 void loop()
 {
   // Refresh readings every half second
