@@ -1,7 +1,7 @@
 import smbus2
 import time
-import motor_driver
-from path_planning import motor_controller
+#import motor_driver
+#from path_planning import motor_controller
 
 #Address of slave, must match address in slave sketch
 SLAVE_ADDR = 9
@@ -29,3 +29,5 @@ def main():
                 #     motor_controller.stop()
                 #     time.sleep(1)
             time.sleep(.200)                           #Delay for 200ms
+
+main()
