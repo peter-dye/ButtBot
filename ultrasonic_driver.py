@@ -7,7 +7,7 @@ import time
 SLAVE_ADDR = 9
 
 #List of distances read by each sensor
-distance = []
+distance = [0, 0, 0, 0, 0]
 
 #Create the I2C bus
 bus = smbus2.SMBus(1)
@@ -22,7 +22,7 @@ def readI2C(address):
 def main():
     while True:
         while(readI2C(SLAVE_ADDR) < 255):              #255 is the start byte, so if we read in the middle of a transmission, wait until next start
-            for bcount in range(4):
+            for bcount in range(5):
                 distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
                 print(bcount, distance[bcount])
                 # if(distance[bcount] < 100):
