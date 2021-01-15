@@ -22,7 +22,7 @@ def readI2C(address):
 def main():
     while True:
         while(readI2C(SLAVE_ADDR) < 255): #255 is the start byte, so if we read in the middle of a transmission, wait until next start
-            print("Waiting")                
+            print("Waiting")               #new             
         for bcount in range(5):
             distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
             # if(distance[bcount] < 100):
