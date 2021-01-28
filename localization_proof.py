@@ -225,7 +225,7 @@ phi_A = 54
 phi_B = 153
 phi_C = -71
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('1. Expected: [83, 74] Found: '+str(coords))
+print('1. Expected: [83, 74] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
 # y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
@@ -237,74 +237,74 @@ phi_A = -54
 phi_B = 110
 phi_C = -148
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('2. Expected: [115, 44] Found: '+str(coords))
+print('2. Expected: [115, 44] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 3
 phi_A = 155
 phi_B = -70
 phi_C = 13
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('3. Expected: [126, 88] Found: '+str(coords))
+print('3. Expected: [126, 88] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 4
 phi_A = -81
 phi_B = 159
 phi_C = -148
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('4. Expected: [169, 42] Found: '+str(coords))
+print('4. Expected: [169, 42] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 5
 phi_A = 15
 phi_B = -63
 phi_C = -15
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('5. Expected: [192, 97] Found: '+str(coords))
+print('5. Expected: [192, 97] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 6
 phi_A = 125
 phi_B = -35
 phi_C = 42
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('6. Expected: [131, 35] Found: '+str(coords))
+print('6. Expected: [131, 35] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 7
 phi_A = -30
 phi_B = 29
 phi_C = -100
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('7. Expected: [54, 23] Found: '+str(coords))
+print('7. Expected: [54, 23] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 8
 phi_A = 137
 phi_B = -161
 phi_C = 55
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('8. Expected: [34, 71] Found: '+str(coords))
+print('8. Expected: [34, 71] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 9
 phi_A = 52
 phi_B = 102
 phi_C = -11
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('9. Expected: [38, 23] Found: '+str(coords))
+print('9. Expected: [38, 23] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 10
 phi_A = -35
 phi_B = 32
 phi_C = 96
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('10. Expected: [98, 142] Found: '+str(coords))
+print('10. Expected: [98, 142] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 11
 phi_A = 128
 phi_B = -164
 phi_C = -79
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('11. Expected: [63, 122] Found: '+str(coords))
+print('11. Expected: [63, 122] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
 # case 12
 phi_A = -141
 phi_B = -43
 phi_C = 19
 coords = localizer.localize(phi_A, phi_B, phi_C)
-print('12. Expected: [147, 117] Found: '+str(coords))
+print('12. Expected: [147, 117] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
