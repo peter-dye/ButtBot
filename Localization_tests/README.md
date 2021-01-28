@@ -32,7 +32,7 @@ coords = [126, 88]
 
 # Case 4
 Outside A and B
-Pointing between A and B
+Pointing between A and B (pointing away from triangle)
 phi1 = -81
 phi2 = 159
 phi3 = -148
@@ -64,7 +64,7 @@ coords = [54, 23]
 
 # Case 8
 Outside B and C
-Pointing between B and C
+Pointing between B and C (pointing away from triangle)
 phi1 = 137
 phi2 = -161
 phi3 = 55
@@ -88,7 +88,7 @@ coords = [98, 142]
 
 # Case 11
 Outside A and C
-Pointing between A and C
+Pointing between A and C (pointing away from triangle)
 phi1 = 128
 phi2 = -164
 phi3 = -79
