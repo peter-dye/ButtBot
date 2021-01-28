@@ -3,7 +3,7 @@ This is a proof of concept for the logic of the localization method.
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 class Location:
@@ -227,6 +227,7 @@ phi_C = -71
 coords = localizer.localize(phi_A, phi_B, phi_C)
 print('1. Expected: [83, 74] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
 
+# NOTE: Uncomment the matplotlib import at the top of the file to graph the markers and coordinates
 # x = [markers[0][0], markers[1][0], markers[2][0], coords[0]]
 # y = [markers[0][1], markers[1][1], markers[2][1], coords[1]]
 # plt.scatter(x, y)
