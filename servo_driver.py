@@ -30,6 +30,9 @@ def default():
     kit.servo[10].angle = 30
     kit.servo[11].angle = 0
 
+def pitch(pitch_angle):
+    kit.servo[10].angle = pitch_angle
+
 #Actuate arm for pickup routine
 def arm():
     kit.servo[10].angle = 90    #lower arm
