@@ -37,7 +37,7 @@ def scan_right(matrix, curr_position, mc):
     while count != num_cols:
         count += 1
         if SS[curr_position[0]][curr_position[1]] == 'X':
-            mc.fwd_bwd(curr_speed, 1, fwd) #dur will be how long it takes to traverse 1 grid
+            mc.fwd_bwd(curr_speed, 1, 'fwd') #dur will be how long it takes to traverse 1 grid
             SS[curr_position[0]][curr_position[1]] = 'O'
             print_matrix(SS)
             print('\n')
@@ -50,7 +50,7 @@ def scan_left(matrix, curr_position, mc):
     while count != num_cols:
         count += 1
         if SS[curr_position[0]][curr_position[1]] == 'X':
-            mc.fwd_bwd(curr_speed, 1, fwd) #dur will be how long it takes to traverse 1 grid
+            mc.fwd_bwd(curr_speed, 1, 'fwd') #dur will be how long it takes to traverse 1 grid
             SS[curr_position[0]][curr_position[1]] = 'O'
             print_matrix(SS)
             print('\n')
@@ -62,16 +62,16 @@ def wander(matrix, mc, curr_position):
     count = 0
     while (count != num_rows):
         if (curr_position[0] % 2 == 0):
-            mc.pivot_right_left(1, right) #duration will need to be however long for 90deg
-            mc.fwd_bwd(curr_speed, 1, fwd)
-            mc.pivot_right_left(1, right) #duration will need to be however long for 90deg
+            mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
+            mc.fwd_bwd(curr_speed, 1, 'fwd')
+            mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
             scan_right(matrix, curr_position, mc)
             curr_position[0] += 1
             count += 1
         else:
-            mc.pivot_right_left(1, left)    #duration will need to be however long for 90deg
-            mc.fwd_bwd(curr_speed, 1, fwd)
-            mc.pivot_right_left(1, left)    #duration will need to be however long for 90deg
+            mc.pivot_right_left(1, 'left')    #duration will need to be however long for 90deg
+            mc.fwd_bwd(curr_speed, 1, 'fwd')
+            mc.pivot_right_left(1, 'left')    #duration will need to be however long for 90deg
             scan_left(matrix, curr_position, mc)
             curr_position[0] += 1
             count += 1

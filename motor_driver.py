@@ -30,10 +30,10 @@ class MotorDriver():
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dur, dir):
-        if dir == fwd:
+        if dir == 'fwd':
             GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
             GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
-        if dir == bwd:
+        if dir == 'bwd':
             GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
             GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
 
@@ -46,10 +46,10 @@ class MotorDriver():
 
     # Move right motor backwards, while moving left motor forwards until desired angle
     def pivot_right_left(self, dur, dir):
-        if dir == right:
+        if dir == 'right':
             GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.HIGH)
             GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
-        if dir == left:
+        if dir == 'left':
             GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
             GPIO.output(self.LEFT_MOTOR_DIR, GPIO.HIGH)
         self.pwm[0].ChangeDutyCycle(100)

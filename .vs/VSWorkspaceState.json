@@ -1,8 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\us_i2c"
+    ""
   ],
-  "SelectedNode": "\\butt_relative_distance.py",
+  "SelectedNode": "\\motor_driver.py",
   "PreviewInSolutionExplorer": false
 }

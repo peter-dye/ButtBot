@@ -25,8 +25,8 @@ if butt_x < IMG_WIDTH/2:
 
     need_to_move = x_dist / math.cos(pan_angle)
 
-    motor_controller.pivot_right_left(pan_angle, left)
-    motor_controller.fwd_bwd(speed,need_to_move,fwd)
+    motor_controller.pivot_right_left(pan_angle, 'left')
+    motor_controller.fwd_bwd(speed,need_to_move,'fwd')
 
 #butt is right of the bot
 if butt_x > IMG_WIDTH/2:
@@ -45,5 +45,5 @@ if butt_x > IMG_WIDTH/2:
 
     need_to_move = x_dist / math.cos(pan_angle)
 
-    motor_controller.pivot_right_left(pan_angle, right)
-    motor_controller.fwd_bwd(speed,need_to_move,fwd)
+    motor_controller.pivot_right_left(pan_angle, 'right')
+    motor_controller.fwd_bwd(speed,need_to_move,'fwd')
