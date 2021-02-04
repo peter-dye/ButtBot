@@ -43,8 +43,8 @@ class MotorDriver():
         left_speed = right_speed
         self.pwm[0].ChangeDutyCycle(right_speed)
         self.pwm[1].ChangeDutyCycle(left_speed)
-        print(self.pwm[0])
-        print(self.pwm[1])
+        print(right_speed)
+        print(left_speed)
         time.sleep(dur)
         self.stop()
 
