@@ -2,7 +2,7 @@
 # WANT TO SPECIFY DISTANCE FOR FWD BWD, AND ANGLES FOR RIGHT AND LEFT
 
 import time
-import Jetson.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 
 class MotorDriver():
