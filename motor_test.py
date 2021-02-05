@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
-output_pin = 33
+output_pin = 11
 
 def main():
     # Pin Setup:
@@ -9,10 +9,10 @@ def main():
     GPIO.setmode(GPIO.BOARD)
     # set pin as an output pin with optional initial state of HIGH
     GPIO.setup(output_pin, GPIO.OUT, initial=GPIO.HIGH)
-    p = GPIO.PWM(output_pin, 50)
-    val = 100
-    incr = 100
-    p.start(val)
+    #p = GPIO.PWM(output_pin, 50)
+    #val = 100
+    #incr = 100
+    #p.start(val)
 
     #print("PWM running. Press CTRL+C to exit.")
     #try:
