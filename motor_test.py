@@ -13,7 +13,8 @@ def main():
     #val = 100
     #incr = 100
     #p.start(val)
-
+    while True:
+        pass
     #print("PWM running. Press CTRL+C to exit.")
     #try:
     #    while True:
