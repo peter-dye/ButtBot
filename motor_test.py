@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
-output_pin = 13
+output_pin = 15
 
 def main():
     # Pin Setup:
