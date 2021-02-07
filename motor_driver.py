@@ -39,7 +39,7 @@ class MotorDriver():
             GPIO.output(self.RIGHT_MOTOR_DIR, GPIO.LOW)
             GPIO.output(self.LEFT_MOTOR_DIR, GPIO.LOW)
 
-        right_speed = (spd - (-1)/2)*100
+        right_speed = ((spd - (-1))/2)*100
         left_speed = right_speed
         self.pwm[0].ChangeDutyCycle(right_speed)
         self.pwm[1].ChangeDutyCycle(left_speed)
