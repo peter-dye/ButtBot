@@ -3,7 +3,7 @@
 import math
 import re
 import motor_driver
-import butt_relative_distance as rel_dist
+#import butt_relative_distance as rel_dist
 
 #Two different speeds to run the motors at
 HI_SPEED = 1
@@ -99,10 +99,10 @@ def wander(matrix, mc, curr_position):
 def collision_avoidance():
     None
 
-def butt_alignment():
-    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
-    mc.pivot_right_left(angle, direction)
-    mc.fwd_bwd(1, distance, 'fwd')
+#def butt_alignment():
+#    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
+#    mc.pivot_right_left(angle, direction)
+#    mc.fwd_bwd(1, distance, 'fwd')
 
 if __name__ == "__main__":
 
