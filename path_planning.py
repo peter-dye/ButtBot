@@ -42,8 +42,9 @@ def matrix_creation(SS_L, SS_W, BB_L, BB_W):
         i += 2
 
     for i in range(len(obstacles)):
-        matrix[obstacles[i][0]][obstacles[i][1]] = 'O'
+        matrix[obstacles[i][0]][obstacles[i][1]] = 'E'
         i += 1
+    print_matrix(matrix)
     return matrix, num_rows, num_cols
 
 #Pretty print matrix
@@ -114,6 +115,6 @@ if __name__ == "__main__":
 
     while curr_position != [(num_rows -1), (num_cols -1)]:
 
-        wander(SS, motor_controller, curr_position)
+        wander(SS, mc, curr_position)
 
     #return_home()
