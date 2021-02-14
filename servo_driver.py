@@ -1,7 +1,8 @@
 import time
+from time import sleep
 from adafruit_servokit import ServoKit
 
-## Servo[11] is for controlling collection arm. Mounted with 0 deg meaning arm is fully in up position
+## Servo[11] and Servo[12] are for controlling collection arm. Mounted with 0 deg meaning arm is fully in up position
 ## Servo[10] controls the pitch of the camera. Mounted with 0 deg has camera pointing straight downwards
 ## Servo[9] and Servo[8] control the yaw of the camera. Servo[9] is mounted onto Servo[8].
 ## Mounted with 90 deg on both [9] and [8] at 90 deg means camera pointing straight forward
@@ -11,40 +12,61 @@ kit = ServoKit(channels=16)
 def startup():
     #Initial sweep Servo[8]
     kit.servo[8].angle = 180
+    sleep(0.45)
     kit.servo[8].angle = 0
+    sleep(0.45)
     #Initial sweep Servo[9]
     kit.servo[9].angle = 180
+    sleep(0.45)
     kit.servo[9].angle = 0
+    sleep(0.45)
     #Initial sweep Servo[10]
     kit.servo[10].angle = 180
+    sleep(0.45)
     kit.servo[10].angle = 0
+    sleep(0.45)
     #Initial sweep Servo[11]
     kit.servo[11].angle = 180
+    sleep(0.45)
     kit.servo[11].angle = 0
-    default()
+    sleep(0.45)
+    #Initial sweep Servo[12]
+    kit.servo[12].angle = 180
+    sleep(0.45)
+    kit.servo[12].angle = 0
+    sleep(0.45)
 
 #Return all servos to default position
 def default():
     kit.servo[8].angle = 90
+    sleep(0.45)
     kit.servo[9].angle = 90
+    sleep(0.45)
     kit.servo[10].angle = 30
+    sleep(0.45)
     kit.servo[11].angle = 0
-
-def pitch(pitch_angle):
-    kit.servo[10].angle = pitch_angle
+    kit.servo[12].angle = 0
+    sleep(0.45)
 
 #Actuate arm for pickup routine
 def arm():
     kit.servo[10].angle = 90    #lower arm
+    kit.servo[10].angle = 90    #lower arm
+    sleep(0.45)
     time.delay(3)               #wait 3 seconds while lowered so has a chance to suck up butt
     kit.servo[10].angle = 0      #raise arm back to neutral position
+    kit.servo[10].angle = 0      #raise arm back to neutral position
+    sleep(0.45)
 
-def servo_read(dir):
-    if dir == 'RIGHT':    #to sweep right the servos will only be moving from 90 to 180 degrees
+def camera_tilt(pitch_angle):
+    kit.servo[10].angle = pitch_angle
+
+def camera_pan(IMG_WIDTH, butt_x, dir):
+    if dir == 'right':    #to sweep right the servos will only be moving from 90 to 180 degrees
         min_angle = 90
         max_angle = 180
         inc = 1
-    elif dir == 'LEFT':   #to sweep left the servos will only be moving from 90 to 0 degrees
+    elif dir == 'left':   #to sweep left the servos will only be moving from 90 to 0 degrees
         min_angle = 0
         max_angle = 90
         inc = -1
@@ -59,8 +81,8 @@ def sweep(min_angle, max_angle, inc, servo_num):
     angle = 90                                          #Servo always starting at default 90 deg
     for angle in range(min_angle, max_angle):           #Move servo degree by degree
         kit.servo[servo_num].angle = angle
-        #if(markerdetected):                             #If marker is detected return current servo angle
-            #return angle
-        #else:
-            #angle += inc                                  #Keep moving servo
+        if(butt_x == IMG_WIDTH/2):                             #If marker is detected return current servo angle
+            return angle
+        else:
+            angle += inc                                  #Keep moving servo
         angle += inc

@@ -25,9 +25,9 @@ def main():
             print("Waiting")               #new             
         for bcount in range(5):
             distance[bcount] = readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
-            # if(distance[bcount] < 100):
-            #     motor_controller.stop()
-            #     time.sleep(1)
+            if(distance[bcount] < 100):
+                motor_controller.stop()
+                time.sleep(1)
         print("0: "+str(distance[0])+
                 " 1: "+str(distance[1])+
                 " 2: "+str(distance[2])+

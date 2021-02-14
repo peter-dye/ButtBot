@@ -2,6 +2,7 @@
 # Bot wanders until obstacle detected or butt detected, enters collision avoidance or butt pickup
 import math
 import motor_driver
+import butt_relative_distance as rel_dist
 
 #Two different speeds to run the motors at
 HI_SPEED = 1
@@ -80,11 +81,13 @@ def collision_avoidance():
     None
 
 def butt_alignment():
-    None
+    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
+    mc.pivot_right_left(angle, direction)
+    mc.fwd_bwd(1, distance, 'fwd')
 
 if __name__ == "__main__":
 
-    motor_controller = motor_driver.MotorDriver()
+    mc = motor_driver.MotorDriver()
 
     curr_position = [0,0]
 
