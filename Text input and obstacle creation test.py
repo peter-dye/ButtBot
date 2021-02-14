@@ -1,10 +1,7 @@
+import re
+import math
 
-
-def grouper(n, iterable):
-    args = [iter(iterable)] * n 
-    return zip(*args) 
-
-def matrix_creation():
+def matrix_creation(SS_L, SS_W, BB_L, BB_W):
     #Each grid square size
     g_dim = int((max(SS_L, SS_W)) / (max(BB_L, BB_W)))
 
@@ -15,11 +12,22 @@ def matrix_creation():
 
     #Matrix creation
     SS = [['X' for i in range(num_rows)] for j in range(num_cols)]
-    
-    
-text = input("Enter Rows and Columns of Obstacle Spaces (r,c): ")
-print("Obstacles are at: ", text)
-obstacles = tuple(text[x:x + 2]
-    for x in range(0, len(text), 2))
-print(obstacles)
 
+    obstacles = []
+    print('Grid is ', num_rows, ' tall by ', num_cols, ' wide.\n')
+    line = input('Enter location of obstacles (r,c):\n') 
+
+    temp = re.findall(r'\d+', line) 
+    res = list(map(int, temp)) 
+
+    i = 0
+    while i < len(res):
+        obstacles.append((res[i],res[i+1]))
+        i += 2
+    print(SS)
+    for i in range(len(obstacles)):
+        SS[obstacles[i][0]][obstacles[i][1]] = 'O'
+        i += 1
+    print(SS)
+
+matrix_creation(100, 100, 10, 10)

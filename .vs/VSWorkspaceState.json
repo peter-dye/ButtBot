@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\us_i2c"
   ],
   "SelectedNode": "\\Text input and obstacle creation test.py",
   "PreviewInSolutionExplorer": false

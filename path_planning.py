@@ -1,6 +1,7 @@
 # I'm thinking we make each grid square the size of the bots largest dimension
 # Bot wanders until obstacle detected or butt detected, enters collision avoidance or butt pickup
 import math
+import re
 import motor_driver
 import butt_relative_distance as rel_dist
 
@@ -16,16 +17,34 @@ BB_W = 10
 SS_L = 100 
 SS_W = 100 
 
-#Each grid square size
-g_dim = int((max(SS_L, SS_W)) / (max(BB_L, BB_W)))
+def matrix_creation(SS_L, SS_W, BB_L, BB_W):
+    #Each grid square size
+    g_dim = int((max(SS_L, SS_W)) / (max(BB_L, BB_W)))
 
-#Once figured out the distance the buttbot can cover, add duration variables to use for Motor Driver function calls
+    #Once figured out the distance the buttbot can cover, add duration variables to use for Motor Driver function calls
 
-num_rows = math.floor(SS_L / g_dim)
-num_cols = math.floor(SS_W / g_dim)
+    num_rows = math.floor(SS_L / g_dim)
+    num_cols = math.floor(SS_W / g_dim)
 
-#Matrix creation
-SS = [['X' for i in range(num_rows)] for j in range(num_cols)]
+    #Matrix creation
+    matrix = [['X' for i in range(num_rows)] for j in range(num_cols)]
+
+    obstacles = []
+    print('Grid is ', num_rows, ' tall by ', num_cols, ' wide.\n')
+    line = input('Enter location of obstacles (r,c):\n') 
+
+    temp = re.findall(r'\d+', line) 
+    res = list(map(int, temp)) 
+
+    i = 0
+    while i < len(res):
+        obstacles.append((res[i],res[i+1]))
+        i += 2
+
+    for i in range(len(obstacles)):
+        matrix[obstacles[i][0]][obstacles[i][1]] = 'O'
+        i += 1
+    return matrix
 
 #Pretty print matrix
 def print_matrix(matrix) :
@@ -88,6 +107,8 @@ def butt_alignment():
 if __name__ == "__main__":
 
     mc = motor_driver.MotorDriver()
+
+    SS = matrix_creation(SS_L, SS_W, BB_L, BB_W)
 
     curr_position = [0,0]
 
