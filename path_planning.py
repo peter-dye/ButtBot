@@ -4,7 +4,7 @@ import math
 import re
 import motor_driver
 #import butt_relative_distance as rel_dist
-import servo_driver as sd
+#import servo_driver as sd
 from constants import *
 
 #User input search space dimensions
@@ -107,7 +107,8 @@ def collision_avoidance():
             mc.pivot_right_left(1, 'right')
             return
         else:
-            sd.camera_pan(IMG_WD, butt_x, 'left')
+            #sd.camera_pan(IMG_WD, butt_x, 'left')
+            pass
             
 #def butt_alignment():
 #    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
