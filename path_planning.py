@@ -4,33 +4,27 @@ import math
 import re
 import motor_driver
 #import butt_relative_distance as rel_dist
-
-#Two different speeds to run the motors at
-HI_SPEED = 1
-LO_SPEED = 0.25
-curr_speed = HI_SPEED
-#Buttbot dimensions
-BB_L = 10 
-BB_W = 10 
+import servo_driver as sd
+from constants import *
 
 #User input search space dimensions
-SS_L = 100 
-SS_W = 100 
+ss_l = 100 
+ss_wd = 100 
 
-def matrix_creation(SS_L, SS_W, BB_L, BB_W):
+def matrix_creation(ss_l, ss_wd, BB_L, BB_W):
     #Each grid square size
-    g_dim = int((max(SS_L, SS_W)) / (max(BB_L, BB_W)))
+    g_dim = int((max(ss_l, ss_wd)) / (max(BB_L, BB_W)))
 
     #Once figured out the distance the buttbot can cover, add duration variables to use for Motor Driver function calls
 
-    num_rows = math.floor(SS_L / g_dim)
-    num_cols = math.floor(SS_W / g_dim)
+    num_rows = math.floor(ss_l / g_dim)
+    num_cols = math.floor(ss_wd / g_dim)
 
     #Matrix creation
     matrix = [['X' for i in range(num_rows)] for j in range(num_cols)]
 
     obstacles = []
-    print('Grid is ', num_rows, ' tall by ', num_cols, ' wide.\n')
+    print('Grid is ', num_rows-1, ' tall by ', num_cols-1, ' wide.\n')
     line = input('Enter location of obstacles (r,c):\n') 
 
     temp = re.findall(r'\d+', line) 
@@ -62,6 +56,8 @@ def scan_right(matrix, curr_position, mc):
             SS[curr_position[0]][curr_position[1]] = 'O'
             print_matrix(SS)
             print('\n')
+        if SS[curr_position[0]][curr_position[1]] == 'E':
+            collision_avoidance(curr_position)
         if curr_position[1] != num_cols - 1:
             curr_position[1] += 1
 
@@ -82,7 +78,7 @@ def scan_left(matrix, curr_position, mc):
 def wander(matrix, mc, curr_position):
     count = 0
     while (count != num_rows):
-        if (curr_position[0] % 2 == 0):
+        if (curr_position[0] % 2 == 0): #move right every even row
             mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
             mc.fwd_bwd(curr_speed, 1, 'fwd')
             mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
@@ -97,9 +93,22 @@ def wander(matrix, mc, curr_position):
             curr_position[0] += 1
             count += 1
 
+#Want to go around known obstacles, under it, where we have already been
+# Edge cases are if obstacle in first or last column, or top row
 def collision_avoidance():
-    None
-
+    # If obstacle in first column on approach, move up to next row. If first column still blocked turn right and traverse row
+    # If first column not blocked, move camera to look at it for butt, then mark visited and traverse row to right
+    if next_position[1] == 0:
+        mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
+        mc.fwd_bwd(curr_speed, 1, 'fwd')
+        current_position[0] += 1
+        next_position[0] += 1
+        if SS[next_position[0]][next_position[1]] == "E":
+            mc.pivot_right_left(1, 'right')
+            return
+        else:
+            sd.camera_pan(IMG_WD, butt_x, 'left')
+            
 #def butt_alignment():
 #    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
 #    mc.pivot_right_left(angle, direction)
@@ -109,7 +118,7 @@ if __name__ == "__main__":
 
     mc = motor_driver.MotorDriver()
 
-    SS, num_rows, num_cols = matrix_creation(SS_L, SS_W, BB_L, BB_W)
+    SS, num_rows, num_cols = matrix_creation(ss_l, ss_wd, BB_L, BB_W)
 
     curr_position = [0,0]
 

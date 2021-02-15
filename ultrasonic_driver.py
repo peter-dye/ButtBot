@@ -1,10 +1,9 @@
 import smbus2
 import time
+from constants import *
 #import motor_driver
 #from path_planning import motor_controller
 
-#Address of slave, must match address in slave sketch
-SLAVE_ADDR = 9
 
 #List of distances read by each sensor
 distance = [0, 0, 0, 0, 0]

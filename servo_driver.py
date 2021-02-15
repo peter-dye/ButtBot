@@ -1,6 +1,7 @@
 import time
 from time import sleep
 from adafruit_servokit import ServoKit
+from constants import *
 
 ## Servo[11] and Servo[12] are for controlling collection arm. Mounted with 0 deg meaning arm is fully in up position
 ## Servo[10] controls the pitch of the camera. Mounted with 0 deg has camera pointing straight downwards
@@ -61,7 +62,7 @@ def arm():
 def camera_tilt(pitch_angle):
     kit.servo[10].angle = pitch_angle
 
-def camera_pan(IMG_WIDTH, butt_x, dir):
+def camera_pan(butt_x, dir):
     if dir == 'right':    #to sweep right the servos will only be moving from 90 to 180 degrees
         min_angle = 90
         max_angle = 180
@@ -70,18 +71,18 @@ def camera_pan(IMG_WIDTH, butt_x, dir):
         min_angle = 0
         max_angle = 90
         inc = -1
-    angle1 = sweep(min_angle, max_angle, inc, 0) - 90        #Subtracts 90 to get the position w.r.t. the 90 degrees start point
+    angle1 = sweep(min_angle, max_angle, inc, 9, butt_x) - 90        #Subtracts 90 to get the position w.r.t. the 90 degrees start point
     if angle1 == -90 or angle1 == 90:                        #If the first servo hasn't detected the marker in its max range
-        angle2 = sweep(min_angle, max_angle, inc, 1) - 90    #Move the second servo
+        angle2 = sweep(min_angle, max_angle, inc, 8, butt_x) - 90    #Move the second servo
     else:
         angle2 = 0
     angle_detected = angle1 + angle2                         #The marker is detected at the sum of both angles
 
-def sweep(min_angle, max_angle, inc, servo_num):
+def sweep(min_angle, max_angle, inc, servo_num, butt_x):
     angle = 90                                          #Servo always starting at default 90 deg
     for angle in range(min_angle, max_angle):           #Move servo degree by degree
         kit.servo[servo_num].angle = angle
-        if(butt_x == IMG_WIDTH/2):                             #If marker is detected return current servo angle
+        if(butt_x == IMG_WD/2):                             #If marker is detected return current servo angle
             return angle
         else:
             angle += inc                                  #Keep moving servo
