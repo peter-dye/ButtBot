@@ -40,7 +40,7 @@ def matrix_creation(SS_L, SS_W, BB_L, BB_W):
     while i < len(res):
         obstacles.append((res[i],res[i+1]))
         i += 2
-    
+    print(obtacles)
     for j in range(len(obstacles)):
         matrix[obstacles[j][0]][obstacles[j][1]] = 'E'
     print_matrix(matrix)
