@@ -39,6 +39,7 @@ def matrix_creation(ss_l, ss_wd, BB_L, BB_W):
     for j in range(len(obstacles)):
         matrix[obstacles[j][0]][obstacles[j][1]] = 'E'
     print_matrix(matrix)
+    print('\n')
     return matrix, num_rows, num_cols
 
 #Pretty print matrix
@@ -60,7 +61,7 @@ def scan_right(matrix, curr_position, mc):
             collision_avoidance(curr_position)
         if curr_position[1] != num_cols - 1:
             curr_position[1] += 1
-
+            
 #Traverse rows right to left
 def scan_left(matrix, curr_position, mc):
     count = 0
@@ -99,16 +100,19 @@ def collision_avoidance():
     # If obstacle in first column on approach, move up to next row. If first column still blocked turn right and traverse row
     # If first column not blocked, move camera to look at it for butt, then mark visited and traverse row to right
     if next_position[1] == 0:
-        mc.pivot_right_left(1, 'right') #duration will need to be however long for 90deg
+        mc.pivot_right_left(1, 'right')
         mc.fwd_bwd(curr_speed, 1, 'fwd')
         current_position[0] += 1
         next_position[0] += 1
-        if SS[next_position[0]][next_position[1]] == "E":
+        if SS[next_position[0]][next_position[1]] == "E": #turn right and continue down the row
             mc.pivot_right_left(1, 'right')
             return
         else:
             #sd.camera_pan(IMG_WD, butt_x, 'left')
-            pass
+            if butt_detected: #will be facing left, need to rotate right 180 to continue down row
+                mc.pivot_right_left(2, 'right')
+            else: #no butt detected, so turn only 90 right to continue down row
+                mc.pivot_right_left(1, 'right')
             
 #def butt_alignment():
 #    distance, angle, direction = rel_dist.calc_dist(butt_x, butt_y)
