@@ -1,3 +1,4 @@
+# List of constants
 
 # Ultrasonic i2c connection
 SLAVE_ADDR = 9
