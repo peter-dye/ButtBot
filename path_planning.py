@@ -43,7 +43,6 @@ def matrix_creation(SS_L, SS_W, BB_L, BB_W):
 
     for i in range(len(obstacles)):
         matrix[obstacles[i][0]][obstacles[i][1]] = 'E'
-        i += 1
     print_matrix(matrix)
     return matrix, num_rows, num_cols
 
