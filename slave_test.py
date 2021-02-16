@@ -26,7 +26,7 @@ def writeI2C(address, speed, duration, direction):
 
 
 def main():
-        writeI2C(SLAVE_ADDR, 0, 1, 'fwd')
+        writeI2C(SLAVE_ADDR, 0, 8, 'fwd')
         print("command sent")
 
 main()
