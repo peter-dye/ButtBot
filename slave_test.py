@@ -25,7 +25,7 @@ def writeI2C(address, speed, duration, direction):
 
 def main():
     i = 0
-    for j in range(1):
+    for j in range(3):
         speed = i % 3
         writeI2C(SLAVE_ADDR, speed, 1, 'fwd')
         print("command sent")
