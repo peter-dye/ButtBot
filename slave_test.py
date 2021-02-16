@@ -25,7 +25,7 @@ def main():
     i = 0
     while True:
         speed = i % 3
-        writeI2C(speed, 1, 'fwd')
+        writeI2C(SLAVE_ADDR, speed, 1, 'fwd')
         print("command sent")
 
 main()
