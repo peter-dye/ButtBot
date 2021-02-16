@@ -11,19 +11,20 @@ def main():
     GPIO.setup(output_pin, GPIO.OUT, initial=GPIO.HIGH)
     GPIO.setup(15, GPIO.OUT, initial=GPIO.HIGH)
     p = GPIO.PWM(output_pin, 50)
-    val = 100
-    incr = 100
-    p.start(val)
+    p.start(0)
     while True:
-        print("PWM running. Press CTRL+C to exit.")
-        GPIO.output(15, GPIO.LOW)
+        print("DIR HIGH, FULL SPEED")
         p.ChangeDutyCycle(100)
         time.sleep(3)
+        print("DIR HIGH, HALF SPEED")
         p.ChangeDutyCycle(50)
         time.sleep(3)
-        GPIO.output(15, GPIO.HIGH)
+        print("DIR LOW, HALF SPEED")
+        GPIO.output(15, GPIO.LOW)
         time.sleep(3)
+        print("DIR LOW, FULL SPEED")
         p.ChangeDutyCycle(100)
+        time.sleep(3)
 
 if __name__ == '__main__':
     main()
