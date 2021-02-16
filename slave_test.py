@@ -21,11 +21,11 @@ def writeI2C(address, speed, duration, direction):
     #elif direction == 'right':
     #    dir = 3
     #bus.write_byte_data(address, 0, dir)                     
-    bus.write_byte_data(address, 0, 9) 
+    bus.write_byte_data(address, 0, 10) 
     time.sleep(0.100)
-    bus.write_byte_data(address, 0, 8) 
+    bus.write_byte_data(address, 0, 11) 
     time.sleep(0.100)
-    bus.write_byte_data(address, 0, 7) 
+    bus.write_byte_data(address, 0, 12) 
     time.sleep(0.100)
 
 def main():
