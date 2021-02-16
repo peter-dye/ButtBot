@@ -16,18 +16,14 @@ def main():
     p.start(val)
     while True:
         print("PWM running. Press CTRL+C to exit.")
-        try:
-            while True:
-                time.sleep(3)
-                if val >= 100:
-                    incr = -incr
-                if val <= 0:
-                    incr = -incr
-                val += incr
-                p.ChangeDutyCycle(val)
-        finally:
-            p.stop()
-            GPIO.cleanup()
+        GPIO.output(15, GPIO.LOW)
+        p.ChangeDutyCycle(100)
+        time.delay(3)
+        p.ChangeDutyCycle(50)
+        time.delay(3)
+        GPIO.output(15, GPIO.HIGH)
+        time.delay(3)
+        p.ChangeDutyCycle(100)
 
 if __name__ == '__main__':
     main()
