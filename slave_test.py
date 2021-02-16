@@ -21,7 +21,7 @@ def writeI2C(address, speed, duration, direction):
     #elif direction == 'right':
     #    dir = 3
     #bus.write_byte_data(address, 0, dir)                     
-    bus.write_byte_data(address, 0, "A")         
+    bus.write_byte_data(address, 0, A)         
 
 def main():
     i = 0
