@@ -28,17 +28,20 @@ def main():
     #    print("DIR LOW, FULL SPEED")
     #    p.ChangeDutyCycle(100)
     #    time.sleep(5)
-
-    while True:
-        print("PWM PIN HIGH, Should be direction A")
-        p.ChangeDutyCycle(100)
-        time.sleep(5)
-        print("PWM PIN HIGH, Should be direction B")
-        p.ChangeDutyCycle(0)
-        time.sleep(5)
-        print("PWM PIN HIGH, Should be stopped")
-        p.ChangeDutyCycle(50)
-        time.sleep(3)
+    try:
+        while True:
+            print("PWM PIN HIGH, Should be direction A")
+            p.ChangeDutyCycle(100)
+            time.sleep(5)
+            print("PWM PIN HIGH, Should be direction B")
+            p.ChangeDutyCycle(0)
+            time.sleep(5)
+            print("PWM PIN HIGH, Should be stopped")
+            p.ChangeDutyCycle(50)
+            time.sleep(3)
+    finally:
+        p.stop()
+        GPIO.cleanup()
 
 if __name__ == '__main__':
     main()
