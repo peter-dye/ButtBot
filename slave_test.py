@@ -22,7 +22,7 @@ def writeI2C(address, speed, duration, direction):
     #    dir = 3
     #bus.write_byte_data(address, 0, dir)
     output=[3,2,4]                     
-    bus.write_i2c_block_data(address, register=0, data=output) 
+    bus.write_i2c_block_data(address, register=1, data=output) 
 
 
 def main():
