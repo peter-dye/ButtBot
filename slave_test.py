@@ -26,5 +26,6 @@ def main():
     while True:
         speed = i % 3
         writeI2C(speed, 1, 'fwd')
+        print("command sent")
 
 main()
