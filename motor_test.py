@@ -15,16 +15,16 @@ def main():
     while True:
         print("DIR HIGH, FULL SPEED")
         p.ChangeDutyCycle(100)
-        time.sleep(3)
+        time.sleep(5)
         print("DIR HIGH, HALF SPEED")
         p.ChangeDutyCycle(50)
-        time.sleep(3)
+        time.sleep(5)
         print("DIR LOW, HALF SPEED")
         GPIO.output(15, GPIO.LOW)
-        time.sleep(3)
+        time.sleep(5)
         print("DIR LOW, FULL SPEED")
         p.ChangeDutyCycle(100)
-        time.sleep(3)
+        time.sleep(5)
 
 if __name__ == '__main__':
     main()
