@@ -18,11 +18,11 @@ def main():
         print("PWM running. Press CTRL+C to exit.")
         GPIO.output(15, GPIO.LOW)
         p.ChangeDutyCycle(100)
-        time.delay(3)
+        time.sleep(3)
         p.ChangeDutyCycle(50)
-        time.delay(3)
+        time.sleep(3)
         GPIO.output(15, GPIO.HIGH)
-        time.delay(3)
+        time.sleep(3)
         p.ChangeDutyCycle(100)
 
 if __name__ == '__main__':
