@@ -12,6 +12,7 @@ def writeI2C(address, speed, duration):
 
 
 def main():
+    while True:
         speed = 1
         duration = 2
         address = SLAVE_ADDR
