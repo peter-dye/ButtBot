@@ -12,7 +12,7 @@ def writeI2C(address, speed, duration):
 
 
 def main():
-    while True():
+    while True:
         speed = 1
         print("Forward Test 2s")
         output=[speed*255, duration, 1]                     
