@@ -14,6 +14,7 @@ def writeI2C(address, speed, duration):
 def main():
     while True:
         speed = 1
+        duration = 2
         print("Forward Test 2s")
         output=[speed*255, duration, 1]                     
         bus.write_i2c_block_data(address, register=8, data=output) 
