@@ -3,6 +3,6 @@
     "",
     "\\us_i2c"
   ],
-  "SelectedNode": "\\motor_driver.py",
+  "SelectedNode": "\\us_i2c\\us_i2c.ino",
   "PreviewInSolutionExplorer": false
 }
