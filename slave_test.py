@@ -18,18 +18,17 @@ def main():
         print("Forward Test 2s")
         output=[speed*255, duration, 1]                     
         bus.write_i2c_block_data(address, register=0, data=output) 
-        time.sleep(5)
-        #time.sleep(duration+0.2)
-        #print("Backward Test 2s")
-        #output=[speed*255, duration, 2]                     
-        #bus.write_i2c_block_data(address, register=0, data=output) 
-        #time.sleep(duration+0.2)
-        #print("Left Test 2s")
-        #output=[speed*255, duration, 3]                     
-        #bus.write_i2c_block_data(address, register=0, data=output) 
-        #time.sleep(duration+0.2)
-        #print("Right Test 2s")
-        #output=[speed*255, duration, 4]                     
-        #bus.write_i2c_block_data(address, register=0, data=output) 
-        #time.sleep(duration+0.2)
+        time.sleep(duration+0.2)
+        print("backward test 2s")
+        output=[speed*255, duration, 2]                     
+        bus.write_i2c_block_data(address, register=0, data=output) 
+        time.sleep(duration+0.2)
+        print("left test 2s")
+        output=[speed*255, duration, 3]                     
+        bus.write_i2c_block_data(address, register=0, data=output) 
+        time.sleep(duration+0.2)
+        print("right test 2s")
+        output=[speed*255, duration, 4]                     
+        bus.write_i2c_block_data(address, register=0, data=output) 
+        time.sleep(duration+0.2)
 main()
