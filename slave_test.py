@@ -18,6 +18,7 @@ def main():
         print("Forward Test 2s")
         output=[speed*255, duration, 1]                     
         bus.write_i2c_block_data(address, register=0, data=output) 
+        time.sleep(3)
         #time.sleep(duration+0.2)
         #print("Backward Test 2s")
         #output=[speed*255, duration, 2]                     
