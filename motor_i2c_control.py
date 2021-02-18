@@ -2,7 +2,6 @@
 # WANT TO SPECIFY DISTANCE FOR FWD BWD, AND ANGLES FOR RIGHT AND LEFT
 
 import time
-from slave_test.py import bus
 from constants import SLAVE_ADDR
 
 class MotorDriver():
