@@ -3,6 +3,6 @@
     "",
     "\\us_i2c"
   ],
-  "SelectedNode": "\\us_i2c\\us_i2c.ino",
+  "SelectedNode": "\\motor_i2c_control.py",
   "PreviewInSolutionExplorer": false
 }
