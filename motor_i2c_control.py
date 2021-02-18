@@ -35,6 +35,6 @@ class MotorDriver():
 
     # Stop both motors
     def stop(self):
-        motor_command = [0,0.5,0]
+        motor_command = [0,1,0]
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command)
 
