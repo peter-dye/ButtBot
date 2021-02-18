@@ -16,7 +16,7 @@ def right():
 def left():
 	mc.pivot(1,2, 'left')
 
-while true:
+while True:
 	text = input("Enter direction: ")
 
 	if text == 'fwd':
