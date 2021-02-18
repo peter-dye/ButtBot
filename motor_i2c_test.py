@@ -1,7 +1,7 @@
 import motor_i2c_control
 import smbus2
 
-bus = smbus2.SMBus(1)
+bus = smbus2.SMBus(0)
 mc = motor_i2c_control.MotorDriver(bus)
 
 def forward():
