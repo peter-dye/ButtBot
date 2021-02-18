@@ -8,13 +8,13 @@ def forward():
 	mc.fwd_bwd(1, 2, 'fwd')
 
 def backward():
-	mc.fwd_bwd(1, 2, 'bwd')
+	mc.fwd_bwd(1,2, 'bwd')
 
 def right():
-	mc.pivot(1, 2, 'right')
+	mc.pivot(2, 'right')
 
 def left():
-	mc.pivot(1,2, 'left')
+	mc.pivot(2, 'left')
 
 while True:
 	text = input("Enter direction: ")
