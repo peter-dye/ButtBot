@@ -18,7 +18,7 @@ class MotorDriver():
         spd_in_freq = spd*255
         motor_command = [spd_in_freq, dur, coded_dir]
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
-        time.sleep(dur+0.2)
+        #time.sleep(dur+0.2)
         self.stop()
 
     # Move right motor backwards, while moving left motor forwards until desired angle
@@ -30,7 +30,7 @@ class MotorDriver():
         spd_in_freq = 255
         motor_command = [spd_in_freq, dur, coded_dir]
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
-        time.sleep(dur+0.2)
+       # time.sleep(dur+0.2)
         self.stop()
 
     # Stop both motors
