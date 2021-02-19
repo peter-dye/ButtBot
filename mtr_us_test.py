@@ -1,4 +1,4 @@
-import motor_i2c_control
+import motor_driver
 import smbus2
 import ultrasonic_driver
 
