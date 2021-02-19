@@ -21,7 +21,7 @@ def left():
 	mc.pivot(2, 'left')
 
 while True:
-	while(us.readI2C(SLAVE_ADDR) < 255):   #255 is the start byte, so if we read in the middle of a transmission, wait until next start
+	while((us.readI2C(SLAVE_ADDR)) < 255):   #255 is the start byte, so if we read in the middle of a transmission, wait until next start
 		print("Waiting")                          
 	
 	for bcount in range(5):
