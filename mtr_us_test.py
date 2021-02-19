@@ -1,6 +1,7 @@
 import motor_driver
 import smbus2
 import ultrasonic_driver
+from constants import SLAVE_ADDR
 
 bus = smbus2.SMBus(0)
 
