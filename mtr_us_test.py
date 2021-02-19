@@ -8,6 +8,9 @@ bus = smbus2.SMBus(0)
 mc = motor_driver.MotorDriver(bus)
 us = ultrasonic_driver.UltrasonicDriver(bus)
 
+#List of distances read by each sensor
+distance = [0,0,0,0,0]
+
 def forward():
 	mc.fwd_bwd(1, 2, 'fwd')
 

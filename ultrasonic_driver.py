@@ -7,8 +7,6 @@ from constants import *
 class UltrasonicDriver():
 
     def __init__(self, bus):
-        #List of distances read by each sensor
-        self.distance = [0, 0, 0, 0, 0]
         self.bus = bus
 
     #Reads the distances from the slave
