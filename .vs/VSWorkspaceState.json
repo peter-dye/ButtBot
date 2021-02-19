@@ -3,6 +3,6 @@
     "",
     "\\us_i2c"
   ],
-  "SelectedNode": "\\motor_i2c_test.py",
+  "SelectedNode": "\\servo_driver.py",
   "PreviewInSolutionExplorer": false
 }
