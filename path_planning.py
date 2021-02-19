@@ -8,8 +8,10 @@ import motor_driver
 from constants import *
 
 #User input search space dimensions
-ss_l = 100 
-ss_wd = 100 
+input_dims = input('Enter length and width of search space: ')
+input_dims = input_dims.split()
+ss_l = int(input_dims[0])
+ss_w = int(input_dims[1])
 
 def matrix_creation(ss_l, ss_wd, BB_L, BB_W):
     #Each grid square size
