@@ -4,7 +4,7 @@ import ultrasonic_driver
 
 bus = smbus2.SMBus(0)
 
-mc = motor_i2c_control.MotorDriver(bus)
+mc = motor_driver.MotorDriver(bus)
 us = ultrasonic_driver.UltrasonicDriver(bus)
 
 def forward():
