@@ -159,23 +159,23 @@ void mtrCtrl(int speedFreq  , int duration, int direction){
       analogWrite(mtrPwm1, 0);
       analogWrite(mtrPwm1, 0);
       break;
-    // move forward
+    // Move forward
     case 1:
       digitalWrite(mtrDir1, LOW);
       digitalWrite(mtrDir2, HIGH);
       Serial.println("set to fwd");
       break;
-    // move backwards
+    // Move backwards
     case 2:
       digitalWrite(mtrDir1, HIGH);
       digitalWrite(mtrDir2, LOW);
       break;
-    // move left
+    // Move left
     case 3:
       digitalWrite(mtrDir1, LOW);
       digitalWrite(mtrDir2, LOW);
       break;
-    // move right
+    // Move right
     case 4:
       digitalWrite(mtrDir1, HIGH);
       digitalWrite(mtrDir2, HIGH);
@@ -183,19 +183,6 @@ void mtrCtrl(int speedFreq  , int duration, int direction){
   }
   analogWrite(mtrPwm1, speedFreq);
   analogWrite(mtrPwm2, speedFreq);
-  float startTime = millis();
-  while(millis() - startTime < durationms)
-  {
-    readDistance();
-    requestEvent();
-  }
-  motorStop();
-}
-
-void motorStop()
-{
-  analogWrite(mtrPwm1, 0);
-  analogWrite(mtrPwm2, 0);
 }
 
 void loop() {

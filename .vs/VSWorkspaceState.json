@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\us_i2c"
+    "\\Arduino Code"
   ],
-  "SelectedNode": "\\servo_driver.py",
+  "SelectedNode": "\\thread_test.py",
   "PreviewInSolutionExplorer": false
 }
