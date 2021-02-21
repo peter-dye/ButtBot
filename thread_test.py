@@ -10,10 +10,8 @@ class ThreadingExample():
     def run(self):
         print("motor command sent")
         time.sleep(1)
-        print("we done")
-
+        print("XXAFFWEFHFAKJFGSDFKAFDFSHGEWTQWRDA DONE")
 
 example = ThreadingExample()
-
-while True:
+while not exit:
     print("US Data")
