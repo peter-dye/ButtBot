@@ -30,3 +30,5 @@ t1.start()
 
 
 motor_send(q, 1, 1, 'fwd')
+
+t1.join()
