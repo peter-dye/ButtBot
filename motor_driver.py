@@ -23,7 +23,7 @@ class MotorDriver():
 
 
     # Move right motor backwards, while moving left motor forwards until desired angle
-    def pivot(self, dur, dir):
+    def pivot(self, speed, dur, dir):
         if dir == 'left':
             coded_dir = 3
         if dir == 'right':
