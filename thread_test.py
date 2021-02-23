@@ -14,6 +14,7 @@ def motor_send(out_q, speed, duration, direction):
 def consumer(in_q):
     while True:
         data = in_q.get()
+        print("in here")
         mc.fwd_bwd(data[0], data[1], data[2])
         time.sleep(data[1])
         mc.stop()
