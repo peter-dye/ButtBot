@@ -25,7 +25,7 @@ bus = smbus2.SMBus(0)
 mc = motor_driver.MotorDriver(bus)
 
 q = Queue()
-t1 = Thread(target = consumer, args = (q, ))
+t1 = Thread(target = consumer, args = (q, ), daemon=True)
 t1.start()
 
 
