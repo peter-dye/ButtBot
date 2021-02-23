@@ -26,4 +26,5 @@ q = Queue()
 t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 
-motor_send(q, 1, 1.36, 'fwd')
+
+motor_send(q, 1, 2, 'fwd')
