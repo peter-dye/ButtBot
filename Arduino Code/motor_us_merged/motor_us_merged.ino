@@ -45,7 +45,7 @@ int bcount = 0;
 boolean newData = false;
 
 // Initialize motor command array that stores values read from bus
-int mtrCmd[4];
+int mtrCmd[6];
 
 void setup() {
   // Initialize motor pins
@@ -102,7 +102,7 @@ void requestEvent() {
 
 void receiveEvent(int howMany) {
   while (Wire.available()) { // loop through all but the last
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 6; i++){
       mtrCmd[i] = Wire.read();
       Serial.println(mtrCmd[i]);
     }
@@ -172,11 +172,19 @@ void mtrCtrl(int speedFreq  , int duration, int direction){
   analogWrite(mtrPwm2, speedFreq);
 }
 
+float intsToFloat(int a, int b, int c){
+  float comb = a;
+  comb += b*0.1;
+  comb += c*0.01;
+  return comb;
+}
+
 void loop() {
     // when new data is written to bus then we want to run the motors, otherwise read from the ultrasonic sensors, refreshing every half second
   if(newData)
   {
-    mtrCtrl(mtrCmd[1], mtrCmd[2], mtrCmd[3]);
+    mtrCmd[2] = intsToFloat(mtrCmd[2], mtrCmd[3], mtrCmd[4]);
+    mtrCtrl(mtrCmd[1], mtrCmd[2], mtrCmd[5]);
     newData = false;    //just read the new data
     delay(100);
   }

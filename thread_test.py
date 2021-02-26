@@ -15,7 +15,7 @@ def consumer(in_q):
     while True:
         data = in_q.get()
         print("in here")
-        mc.pivot(data[0], data[1], data[2])
+        mc.fwd_bwd(data[0], data[1], data[2])
         time.sleep(data[1])
         print("leaving")
         mc.stop()
@@ -29,6 +29,6 @@ t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 
 
-motor_send(q, 1, 1, 'left')
+motor_send(q, 1, 1.5, 'fwd')
 
 t1.join()
