@@ -29,6 +29,6 @@ t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 
 
-motor_send(q, 1, 1.42, 'fwd')
+motor_send(q, 1, 1.5, 'fwd')
 
 t1.join()
