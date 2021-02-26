@@ -184,6 +184,7 @@ void loop() {
   if(newData)
   {
     mtrCmd[2] = intsToFloat(mtrCmd[2], mtrCmd[3], mtrCmd[4]);
+    Serial.println(mtrCmd[2]);
     mtrCtrl(mtrCmd[1], mtrCmd[2], mtrCmd[5]);
     newData = false;    //just read the new data
     delay(100);
