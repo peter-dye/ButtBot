@@ -11,7 +11,7 @@ class MotorDriver():
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dur, dir):
-        dur_ones, dur_tenths, dur_hundreths = float_to_ints(dur)
+        dur_ones, dur_tenths, dur_hundreths = self.float_to_ints(dur)
         if dir == 'fwd':
             coded_dir = 1
         elif dir == 'bwd':
@@ -37,7 +37,7 @@ class MotorDriver():
         motor_command = [0,1,0]
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command)
 
-    def float_to_ints(float):
+    def float_to_ints(self, float):
         int_ones = math.floor(float)
         int_tenths = math.floor((float - int_ones)*10)
         int_hundreths = round((float - int_ones - int_tenths/10)*100)
