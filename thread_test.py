@@ -15,7 +15,7 @@ def consumer(in_q):
     while True:
         data = in_q.get()
         print("in here")
-        mc.fwd_bwd(data[0], data[1], data[2])
+        mc.fwd_bwd(data[0], data[2])
         time.sleep(data[1])
         print("leaving")
         mc.stop()
