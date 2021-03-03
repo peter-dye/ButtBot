@@ -180,5 +180,4 @@ void loop() {
   }
   // Refresh readings every half second
   readDistance();
-  delay(500);
 }

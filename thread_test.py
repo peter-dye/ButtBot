@@ -28,7 +28,13 @@ q = Queue()
 t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 
+while True:
+    info = input('Enter Speed and Time ')
+    input_dims = info.split()
+    speed = int(input_dims[0])
+    dur = int(input_dims[1])
+    print("speed is", speed)
+    print("duration is", dur)
+    motor_send(speed, dur, 'fwd')
+    time.sleep(dur)
 
-motor_send(q, 1, 1.6, 'fwd')
-
-t1.join()

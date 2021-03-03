@@ -12,6 +12,6 @@ while True:
     dur = int(input_dims[1])
     print("speed is", speed)
     print("duration is", dur)
-    mc.fwd_bwd(speed, dur)
+    mc.fwd_bwd(speed, 'fwd')
     time.sleep(dur)
     mc.stop()
