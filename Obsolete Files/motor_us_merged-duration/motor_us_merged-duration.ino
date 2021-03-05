@@ -45,7 +45,11 @@ int bcount = 0;
 boolean newData = false;
 
 // Initialize motor command array that stores values read from bus
-int mtrCmd[3];
+int mtrCmd[6];
+
+float oldTime = 0;
+float newTime = 0;
+float timeRun = 0;
 
 // Motor 1 turns faster than motor 2, so add an offset to motor 1 speed commands to help the bot drive straight
 int offset = 10;
@@ -104,7 +108,7 @@ void requestEvent() {
 
 void receiveEvent(int howMany) {
   while (Wire.available()) { // loop through all but the last
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 6; i++){
       mtrCmd[i] = Wire.read();
     }
   }
@@ -139,17 +143,22 @@ void readDistance()
   delay(20);
 }
 
-void mtrCtrl(int speedFreq, int direction){
+void mtrCtrl(int speedFreq  , int duration, int direction){
+  int durationms = (duration*1000);
   switch (direction) {
     // Motors off
     case 0:
       analogWrite(mtrPwm1, 0);
       analogWrite(mtrPwm1, 0);
+      newTime = millis();
+      timeRun = oldTime - newTime;
+      Serial.println(timeRun);
       break;
     // Move forward
     case 1:
       digitalWrite(mtrDir1, LOW);
       digitalWrite(mtrDir2, HIGH);
+      oldTime = millis();
       break;
     // Move backwards
     case 2:
@@ -171,13 +180,23 @@ void mtrCtrl(int speedFreq, int direction){
   analogWrite(mtrPwm2, speedFreq);
 }
 
+float intsToFloat(int a, int b, int c){
+  float comb = a;
+  comb += b*0.1;
+  comb += c*0.01;
+  Serial.println(comb);
+  return comb;
+}
+
 void loop() {
     // when new data is written to bus then we want to run the motors, otherwise read from the ultrasonic sensors, refreshing every half second
   if(newData)
   {
-    mtrCtrl(mtrCmd[1], mtrCmd[2]);
+    mtrCmd[2] = intsToFloat(mtrCmd[2], mtrCmd[3], mtrCmd[4]);
+    mtrCtrl(mtrCmd[1], mtrCmd[2], mtrCmd[5]);
     newData = false;    //just read the new data
   }
   // Refresh readings every half second
   readDistance();
+  delay(500);
 }

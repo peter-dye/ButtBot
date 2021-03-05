@@ -10,7 +10,7 @@ mc = motor_driver.MotorDriver(bus)
 us = ultrasonic_driver.UltrasonicDriver(bus)
 
 #List of distances read by each sensor
-distance = [0,0,0,0,0]
+distance = [0,0,0,0]
 
 def forward():
 	mc.fwd_bwd(1, 2, 'fwd')
@@ -28,7 +28,7 @@ while True:
 	while(us.readI2C(SLAVE_ADDR) < 255):   #255 is the start byte, so if we read in the middle of a transmission, wait until next start
 		print("Waiting")                          
 	
-	for bcount in range(5):
+	for bcount in range(4):
 		distance[bcount] = us.readI2C(SLAVE_ADDR) #Put each distance in the list in its respective position
 		if(distance[bcount] < 100):
 			mc.stop()
@@ -36,8 +36,7 @@ while True:
 	print("0: "+str(distance[0])+
 			" 1: "+str(distance[1])+
 			" 2: "+str(distance[2])+
-			" 3: "+str(distance[3])+
-			" 4: "+str(distance[4]))
+			" 3: "+str(distance[3]))
 	time.sleep(.200)                            #Delay for 200ms
 
 	text = input("Enter direction: ")
