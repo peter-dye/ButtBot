@@ -29,12 +29,14 @@ t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 
 while True:
-    info = input('Enter Speed and Time ')
+    info = input('Enter Speed and Time and Direction: ')
     input_dims = info.split()
-    speed = int(input_dims[0])
-    dur = int(input_dims[1])
+    speed = float(input_dims[0])
+    dur = float(input_dims[1])
+    dir = str(input_dims[2])
     print("speed is", speed)
     print("duration is", dur)
+    print("direction is", dir)
     motor_send(speed, dur, 'fwd')
     time.sleep(dur)
 

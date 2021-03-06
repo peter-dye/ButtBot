@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Arduino Code"
+    "\\Arduino Code",
+    "\\Arduino Code\\motor_us_merged"
   ],
   "SelectedNode": "\\thread_test.py",
   "PreviewInSolutionExplorer": false
