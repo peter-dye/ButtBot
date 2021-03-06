@@ -15,7 +15,14 @@ def consumer(in_q):
     while True:
         data = in_q.get()
         print("in here")
-        mc.fwd_bwd(data[0], data[2])
+        if data[2] == 'fwd' or data[2] == 'bwd':
+            mc.fwd_bwd(data[0], data[2])
+        elif data[2] == 'right' or data[2] == 'left':
+            mc.pivot(data[0],data[2])
+        else:
+            print("not a valid direction")
+            while True:
+                pass
         time.sleep(data[1])
         print("leaving")
         mc.stop()
