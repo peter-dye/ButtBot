@@ -23,6 +23,8 @@ def consumer(in_q):
             print("not a valid direction")
             while True:
                 pass
+        global running
+        running = True
         time.sleep(data[1])
         mc.stop()
         
@@ -35,8 +37,8 @@ q = Queue()
 t1 = Thread(target = consumer, args = (q, ))
 t1.start()
 distance = [0,0,0,0]
-
 while True:
+    running = False
     info = input('Enter Speed and Time and Direction: ')
     input_dims = info.split()
     speed = float(input_dims[0])
@@ -46,11 +48,12 @@ while True:
     print("duration is", dur)
     print("direction is", dir)
     motor_send(q, speed, dur, dir)
-    while (ud.readI2C() < 255):
-        pass
-    for i in range(1):
-        distance[i] = ud.readI2C()
-        if distance[i] < 30:
-            mc.stop()
-            print("stopped")
-        print("Distance ", i , 'is ', distance[i])
+    while running == True:
+        while (ud.readI2C() < 255):
+            pass
+        for i in range(1):
+            distance[i] = ud.readI2C()
+            if distance[i] < 30:
+                mc.stop()
+                print("stopped")
+            print("Distance ", i , 'is ', distance[i])
