@@ -48,7 +48,7 @@ while True:
     motor_send(q, speed, dur, dir)
     while (ud.readI2C() < 255):
         pass
-    for i in range(4):
+    for i in range(1):
         distance[i] = ud.readI2C()
         if distance[i] < 30:
             mc.stop()
