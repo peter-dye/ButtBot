@@ -52,4 +52,5 @@ while True:
         distance[i] = ud.readI2C()
         if distance[i] < 30:
             mc.stop()
+            print("stopped")
         print("Distance ", i , 'is ', distance[i])
