@@ -1,0 +1,4 @@
+Most of the images from this data set, and the tf_record files we created,
+have been left out of here for space reasons. The full data set can be found at
+https://www.immersivelimit.com/datasets/cigarette-butts and the tf_records
+can be generated. (should add info on how to do that)
