@@ -15,7 +15,6 @@ def motor_send(out_q, speed, duration, direction):
 def consumer(in_q):
     while True:
         data = in_q.get()
-        print("in here")
         if data[2] == 'fwd' or data[2] == 'bwd':
             mc.fwd_bwd(data[0], data[2])
         elif data[2] == 'right' or data[2] == 'left':
@@ -25,7 +24,6 @@ def consumer(in_q):
             while True:
                 pass
         time.sleep(data[1])
-        print("leaving")
         mc.stop()
         
 
@@ -48,10 +46,10 @@ while True:
     print("duration is", dur)
     print("direction is", dir)
     motor_send(q, speed, dur, dir)
-    while (ud.readI2C < 255):
+    while (ud.readI2C() < 255):
         pass
     for i in range(4):
-        distance[i] = ud.readI2C
+        distance[i] = ud.readI2C()
         if distance[i] < 30:
             mc.stop()
         print("Distance ", i , 'is ', distance[i])
