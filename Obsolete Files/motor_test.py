@@ -1,4 +1,4 @@
-import time 
+mport time 
 import motor_driver
 import smbus2
 

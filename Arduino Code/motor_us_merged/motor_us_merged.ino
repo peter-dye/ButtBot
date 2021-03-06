@@ -178,6 +178,5 @@ void loop() {
     mtrCtrl(mtrCmd[1], mtrCmd[2]);
     newData = false;    //just read the new data
   }
-  // Refresh readings every half second
   readDistance();
 }

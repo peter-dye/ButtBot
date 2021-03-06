@@ -10,11 +10,10 @@ class UltrasonicDriver():
         self.bus = bus
 
     #Reads the distances from the slave
-    def readI2C(self, address):
-        bval = 0                                #Temp variable to store the byte read from the bus
-        time.sleep(.100)                        #Pause for 100ms
-        bval = self.bus.read_byte_data(address, 0)   #Read the byte from the bus
-        return bval                             #Return read byte
+    def readI2C(self):
+        bval = 0                                        #Temp variable to store the byte read from the bus
+        bval = self.bus.read_byte_data(SLAVE_ADDR, 0)   #Read the byte from the bus
+        return bval                                     #Return read byte
 
 
 
