@@ -37,6 +37,6 @@ while True:
     print("speed is", speed)
     print("duration is", dur)
     print("direction is", dir)
-    motor_send(speed, dur, 'fwd')
+    motor_send(speed, dur, dir)
     time.sleep(dur)
 
