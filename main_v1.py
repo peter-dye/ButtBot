@@ -8,7 +8,7 @@ import smbus2
 import path_Q
 
 # Create i2c busses
-ard_bus = smbus2.SMBus(0)
+ard_bus = smbus2.SMBus(1)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
@@ -39,4 +39,5 @@ while True:
     distance = us.read_from_mem()
     for i in range(len(distance)):
         if distance[i] < 30:
+            print("stop!")
             mc.stop()
