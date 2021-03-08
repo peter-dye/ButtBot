@@ -31,8 +31,11 @@ path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 
 while True:
-    mtr_cmd = path_q.get(block=False)
-    print("getting cmd")
+    if not path_q.empty():
+        mtr_cmd = path_q.get()
+        print("getting command")
+
+    
     print("sending cmd to motor")
     mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
