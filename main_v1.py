@@ -32,13 +32,13 @@ path_thread.start()
 
 while True:
     #if not path_q.empty():
-    mtr_cmd = path_q.get()
-    print("sending cmd to motor")
-    mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
+    #mtr_cmd = path_q.get()
+    #print("sending cmd to motor")
+    #mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
-    #distance = us.read_from_mem()
-    #for i in range(1):
-    #    if distance[i] < 10:
-    #        print("stop!")
-    #        mc.stop()
-    #    print("US reading", distance[i])
+    distance = us.read_from_mem()
+    for i in range(1):
+        if distance[i] < 10:
+            print("stop!")
+            mc.stop()
+        print("US reading", distance[i])
