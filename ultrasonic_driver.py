@@ -29,7 +29,7 @@ class UltrasonicDriver():
             self.lock.acquire()
             for i in range(4):
                 temp[i] = self.buffer[i]
-            self.lock.release
+            self.lock.release()
             return temp
 
 
