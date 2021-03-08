@@ -12,9 +12,10 @@ ard_bus = smbus2.SMBus(0)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
-motor_thread = Thread(args = (motor_q, ))
-motor_thread.start()
 mc = motor_driver.MotorDriver(ard_bus, motor_q)
+motor_thread = Thread(targer = mc.consumer, args = (motor_q, ))
+motor_thread.start()
+
 
 # Create US shared memory, shared mem buffer, lock, US thread, and ultrasonic sensor driver
 us_buffer = Array('I', range(4))
