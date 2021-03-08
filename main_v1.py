@@ -13,7 +13,7 @@ ard_bus = smbus2.SMBus(0)
 # Create motor q, thread, and motor controller
 motor_q = Queue()
 mc = motor_driver.MotorDriver(ard_bus, motor_q)
-motor_thread = Thread(targer = mc.consumer, args = (motor_q, ))
+motor_thread = Thread(target = mc.consumer, args = (motor_q, ))
 motor_thread.start()
 
 
