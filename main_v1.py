@@ -17,10 +17,10 @@ motor_thread.start()
 mc = motor_driver.MotorDriver(ard_bus, motor_q)
 
 # Create US shared memory, shared mem buffer, lock, US thread, and ultrasonic sensor driver
-us = ultrasonic_driver.UltrasonicDriver(ard_bus, us_buffer, us_lock) 
 us_buffer = Array('I', range(4))
 shm_a = Process()
 shm_a.start()
+us = ultrasonic_driver.UltrasonicDriver(ard_bus, us_buffer, us_lock) 
 us_thread = Thread(target = us.write_to_mem)
 us_thread.start()
 us_lock = threading.Lock()
