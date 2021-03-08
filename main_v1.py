@@ -25,8 +25,6 @@ us = ultrasonic_driver.UltrasonicDriver(ard_bus, us_buffer, us_lock)
 us_thread = Thread(target = us.write_to_mem)
 us_thread.start()
 
-
-
 path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd)
 path_thread.start()

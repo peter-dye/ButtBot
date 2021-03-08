@@ -168,7 +168,7 @@ void mtrCtrl(int speedFreq, int direction){
       break;
   }
   analogWrite(mtrPwm1, max(0,speedFreq-offset));
-  analogWrite(mtrPwm2, speedFreq);
+  analogWrite(mtrPwm2, max(0,speedFreq));
 }
 
 void loop() {
