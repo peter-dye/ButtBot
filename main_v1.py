@@ -37,7 +37,7 @@ while True:
     mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
     distance = us.read_from_mem()
-    for i in range(len(distance)):
-        if distance[i] < 30:
+    for i in range(1):
+        if distance[i] < 10:
             print("stop!")
             mc.stop()
