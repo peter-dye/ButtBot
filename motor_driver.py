@@ -48,6 +48,7 @@ class MotorDriver():
         while True:
             data = self.q.get()
             if data[2] == 'fwd' or data[2] == 'bwd':
+                print("sending command from motor q")
                 self.fwd_bwd(data[0], data[2])
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
@@ -59,5 +60,5 @@ class MotorDriver():
             global running
             running = True
             time.sleep(data[1])
-            mc.stop()
+            self.stop()
 
