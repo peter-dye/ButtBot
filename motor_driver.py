@@ -36,6 +36,7 @@ class MotorDriver():
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command)
 
     def motor_send(self, speed, duration, direction):
+        print('sending cmd down motor q')
         data = [0,0,0]
         data[0] = speed
         data[1] = duration 
@@ -43,6 +44,7 @@ class MotorDriver():
         self.q.put(data)
 
     def consumer(self):
+        print('grabbing cmd from motor q')
         while True:
             data = self.q.get()
             if data[2] == 'fwd' or data[2] == 'bwd':

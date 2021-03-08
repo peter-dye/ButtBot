@@ -32,6 +32,7 @@ path_thread.start()
 while True:
     mtr_cmd = path_q.get()
     print("getting cmd")
+    print("sending cmd to motor")
     mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
     distance = us.read_from_mem()
