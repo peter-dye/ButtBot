@@ -106,6 +106,7 @@ void receiveEvent(int howMany) {
   while (Wire.available()) { // loop through all but the last
     for(int i = 0; i < 3; i++){
       mtrCmd[i] = Wire.read();
+      Serial.println(mtrCmd[i]);
     }
   }
   newData = true;
@@ -140,7 +141,6 @@ void readDistance()
 }
 
 void mtrCtrl(int speedFreq, int direction){
-  Serial.println(speedFreq);
   switch (direction) {
     // Motors off
     case 0:
