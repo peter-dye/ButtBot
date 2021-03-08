@@ -140,6 +140,7 @@ void readDistance()
 }
 
 void mtrCtrl(int speedFreq, int direction){
+  Serial.println(speedFreq);
   switch (direction) {
     // Motors off
     case 0:
