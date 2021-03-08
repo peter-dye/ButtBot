@@ -12,6 +12,7 @@ class MotorDriver():
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
+        print("received command, sending to arduino")
         if dir == 'fwd':
             coded_dir = 1
         elif dir == 'bwd':
