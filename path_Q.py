@@ -5,5 +5,4 @@ def put_cmd(q):
 	dur = float(input_dims[1])
 	dir = str(input_dims[2])
 	data = [speed, dur, dir]
-	print("putting cmd")
 	q.put(data)
