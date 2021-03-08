@@ -1,6 +1,6 @@
-from multiprocessing import shared_memory
+from multiprocessing import Process, Array
 import time 
-from threading import Thread
+from threading import Thread, Lock
 from queue import Queue
 import motor_driver
 import ultrasonic_driver
@@ -17,8 +17,9 @@ motor_thread.start()
 mc = motor_driver.MotorDriver(ard_bus, motor_q)
 
 # Create US shared memory, shared mem buffer, lock, US thread, and ultrasonic sensor driver
-us_shm = shared_memory.SharedMemory(create=True, size=4)
-us_buffer = us_shm.buf
+us_buffer = Array('I', range(4))
+shm_a = Process()
+shm_a.start()
 us_thread = Thread(target = us.write_to_mem)
 us_thread.start()
 us_lock = threading.Lock()

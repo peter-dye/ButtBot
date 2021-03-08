@@ -1,9 +1,10 @@
 import threading
-from multiprocessing import shared_memory
+from multiprocessing import Process, Array
 
 lock = threading.Lock()
-shm_a = shared_memory.SharedMemory(create=True, size=4)
-buffer = shm_a.buf
+buffer = Array('I', range(4))
+shm_a = Process()
+shm_a.start()
 
 def write_to_mem(buffer, lock):
 	lock.acquire()
@@ -21,5 +22,4 @@ def read_from_mem(buffer,lock):
 write_to_mem(buffer,lock)
 read_from_mem(buffer,lock)
 
-shm_a.close()
-shm_a.unlink()
+shm_a.terminate()
