@@ -26,7 +26,7 @@ us_thread = Thread(target = us.write_to_mem)
 us_thread.start()
 
 path_q = Queue()
-path_thread = Thread(target = path_Q.put_cmd, args=(path_q))
+path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 
 while True:
