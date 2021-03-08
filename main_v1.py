@@ -20,10 +20,11 @@ mc = motor_driver.MotorDriver(ard_bus, motor_q)
 us_buffer = Array('I', range(4))
 shm_a = Process()
 shm_a.start()
+us_lock = Lock()
 us = ultrasonic_driver.UltrasonicDriver(ard_bus, us_buffer, us_lock) 
 us_thread = Thread(target = us.write_to_mem)
 us_thread.start()
-us_lock = threading.Lock()
+
 
 
 path_q = Queue()
