@@ -58,8 +58,6 @@ class MotorDriver():
                 self.stop()
                 while True:
                     pass
-            global running
-            running = True
             time.sleep(data[1])
             self.stop()
 
