@@ -8,7 +8,7 @@ import smbus2
 import path_Q
 
 # Create i2c busses
-ard_bus = smbus2.SMBus(1)
+ard_bus = smbus2.SMBus(0)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
