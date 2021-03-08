@@ -47,7 +47,7 @@ class MotorDriver():
 
     def consumer(self):
         print('grabbing cmd from motor q')
-        while not self.q.empty():
+        while True:
             data = self.q.get()
             if data[2] == 'fwd' or data[2] == 'bwd':
                 print("sending command from motor q")

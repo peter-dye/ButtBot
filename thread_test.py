@@ -29,11 +29,12 @@ def consumer(in_q):
         
 
 bus = smbus2.SMBus(0)
-mc = motor_driver.MotorDriver(bus)
+
 
 q = Queue()
 t1 = Thread(target = consumer, args = (q, ))
 t1.start()
+mc = motor_driver.MotorDriver(bus, q)
 
 while True:
     info = input('Enter Speed and Time and Direction: ')
@@ -44,6 +45,6 @@ while True:
     print("speed is", speed)
     print("duration is", dur)
     print("direction is", dir)
-    motor_send(q, speed, dur, dir)
+    motor_send(speed, dur, dir)
     time.sleep(dur)
 
