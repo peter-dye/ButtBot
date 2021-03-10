@@ -103,10 +103,12 @@ void requestEvent() {
 }
 
 void receiveEvent(int howMany) {
-  while (Wire.available()) { // loop through all but the last
-    for(int i = 0; i < 3; i++){
-      mtrCmd[i] = Wire.read();
-      Serial.println(mtrCmd[i]);
+  while (true) { 
+    if (Wire.read() == 254){
+      for(int i = 0; i < 3; i++){
+        mtrCmd[i] = Wire.read();
+        Serial.println(mtrCmd[i]);
+      }
     }
   }
   newData = true;
@@ -149,23 +151,23 @@ void mtrCtrl(int speedFreq, int direction){
       break;
     // Move forward
     case 1:
-      digitalWrite(mtrDir1, LOW);
-      digitalWrite(mtrDir2, HIGH);
+      digitalWrite(mtrDir1, HIGH);
+      digitalWrite(mtrDir2, LOW);
       break;
     // Move backwards
     case 2:
-      digitalWrite(mtrDir1, HIGH);
-      digitalWrite(mtrDir2, LOW);
+      digitalWrite(mtrDir1, LOW);
+      digitalWrite(mtrDir2, HIGH);
       break;
     // Move left
     case 3:
-      digitalWrite(mtrDir1, LOW);
-      digitalWrite(mtrDir2, LOW);
+      digitalWrite(mtrDir1, HIGH);
+      digitalWrite(mtrDir2, HIGH);
       break;
     // Move right
     case 4:
-      digitalWrite(mtrDir1, HIGH);
-      digitalWrite(mtrDir2, HIGH);
+      digitalWrite(mtrDir1, LOW);
+      digitalWrite(mtrDir2, LOW);
       break;
   }
   analogWrite(mtrPwm1, max(0,speedFreq-offset));
