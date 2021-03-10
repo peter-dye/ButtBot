@@ -23,6 +23,7 @@ class UltrasonicDriver():
             for i in range(4):
                 self.buffer[i] = self.readI2C()
             self.lock.release()
+            time.sleep(0.200)
 
     def read_from_mem(self):
             temp = [0,0,0,0]
