@@ -103,7 +103,7 @@ void requestEvent() {
 }
 
 void receiveEvent(int howMany) {
-  while (true) { 
+  while (Wire.available()) { 
     for(int i = 0; i < 3; i++){
     mtrCmd[i] = Wire.read();
     Serial.println(mtrCmd[i]);

@@ -12,10 +12,9 @@ ard_bus = smbus2.SMBus(0)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
-mc = motor_driver.MotorDriver(ard_bus, motor_q)
+mc = motor_driver.MotorDriver(bus, motor_q)
 motor_thread = Thread(target = mc.consumer)
 motor_thread.start()
-
 
 # Create US shared memory, shared mem buffer, lock, US thread, and ultrasonic sensor driver
 us_buffer = Array('I', range(4))
@@ -31,7 +30,6 @@ path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 
 while True:
-    if not path_q.empty():
         mtr_cmd = path_q.get()
         print("sending cmd to motor")
         mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
