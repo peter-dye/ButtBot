@@ -27,11 +27,11 @@ us_thread.start()
 
 path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
-path_thread.start()
+#path_thread.start()
 mtr_cmd = [0,0,0]
 while True:
         #mtr_cmd = path_q.get()
-        input_dims = input("anything")
+        input_dims = input('anything: ')
         mtr_cmd[0] = float(input_dims[0])
         mtr_cmd[1] = float(input_dims[1])
         mtr_cmd[2] = str(input_dims[2])    
