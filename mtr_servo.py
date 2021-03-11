@@ -10,6 +10,8 @@ pca.frequency = 1600
 
 mtr1_channel = pca.channels[8]
 
-mtr1_channel.duty_cycle = 0xFFFF
-time.sleep(1)
-mtr1_channel.duty_cycle = 0x0000
+while True:
+	mtr1_channel.duty_cycle = 0xFFFF
+	time.sleep(1)
+	mtr1_channels.duty_cycle = 0x0000
+	time.sleep(1)
