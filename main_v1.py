@@ -28,7 +28,7 @@ us_thread.start()
 path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
-
+mtr_cmd = [0,0,0]
 while True:
         #mtr_cmd = path_q.get()
         input_dims = input("anything")
