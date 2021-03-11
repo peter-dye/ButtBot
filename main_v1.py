@@ -33,8 +33,8 @@ while True:
         #mtr_cmd = path_q.get()
         input_dims = input("anything")
         mtr_cmd[0] = float(input_dims[0])
-	    mtr_cmd[1] = float(input_dims[1])
-	    myr_cmd[2] = str(input_dims[2])    
+        mtr_cmd[1] = float(input_dims[1])
+        mtr_cmd[2] = str(input_dims[2])    
         print("sending cmd to motor")
         mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
