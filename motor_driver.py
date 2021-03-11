@@ -18,7 +18,7 @@ class MotorDriver():
         elif dir == 'bwd':
             coded_dir = 2
         spd_in_freq = int(spd*255)
-        motor_command = [254, spd_in_freq, coded_dir]
+        motor_command = [spd_in_freq, coded_dir]
         self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
         print(motor_command, 'after send')
 

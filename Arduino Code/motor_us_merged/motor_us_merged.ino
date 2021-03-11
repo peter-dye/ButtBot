@@ -104,11 +104,9 @@ void requestEvent() {
 
 void receiveEvent(int howMany) {
   while (true) { 
-    if (Wire.read() == 254){
-      for(int i = 0; i < 3; i++){
-        mtrCmd[i] = Wire.read();
-        Serial.println(mtrCmd[i]);
-      }
+    for(int i = 0; i < 3; i++){
+    mtrCmd[i] = Wire.read();
+    Serial.println(mtrCmd[i]);
     }
   }
   newData = true;
