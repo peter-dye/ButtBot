@@ -3,57 +3,39 @@
 import math
 import time
 from constants import SLAVE_ADDR
-import board
-import busio
-import time
-import adafruit_pca9685
-
-i2c = busio.I2C(board.SCL, board.SDA)
-pca = adafruit_pca9685.PCA9685(i2c)
-
-pca.frequency = 60
-
-mtr1_pwm = pca.channels[8]
-mtr1_dir = pca.channels[9]
-mtr2_pwm = pca.channels[10]
-mtr2_dir = pca.channels[11]
-
-HIGH = 0xFFFF
-LOW = 0x0FFF
 
 class MotorDriver():
 
-    def __init__(self, queue):
+    def __init__(self, bus, queue):
+        self.bus = bus
         self.q = queue
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
-            if dir == 'fwd':
-                mtr1_dir = HIGH
-                mtr2_dir = LOW
-            elif dir == 'bwd':
-                mtr1_dir = LOW
-                mtr2_dir = HIGH
-            motor_speed = int(spd * 65535)
-            mtr1_pwm.duty_cycle = motor_speed
-            mtr2_pwm.duty_cycle = motor_speed
+        print("received command, sending ", spd, dir, " to arduino")
+        if dir == 'fwd':
+            coded_dir = 1
+        elif dir == 'bwd':
+            coded_dir = 2
+        spd_in_freq = int(spd*255)
+        motor_command = [spd_in_freq, coded_dir]
+        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
+        print(motor_command, 'after send')
 
     # Move right motor backwards, while moving left motor forwards until desired angle
     def pivot(self, speed, dir):
-            if dir == 'left':
-                mtr1_dir = HIGH
-                mtr2_dir = HIGH
-            elif dir == 'right':
-                mtr1_dir = LOW
-                mtr2_dir = LOW
-            motor_speed = int(spd * 65535)
-            mtr1_pwm.duty_cycle = motor_speed
-            mtr2_pwm.duty_cycle = motor_speed
+        if dir == 'left':
+            coded_dir = 3
+        if dir == 'right':
+            coded_dir = 4
+        spd_in_freq = 255
+        motor_command = [254, spd_in_freq, coded_dir]
+        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
 
     # Stop both motors
     def stop(self):
-            mtr1_pwm.duty_cycle = LOW
-            mtr2_pwm.duty_cycle = LOW
+        motor_command = [0,0]
+        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command)
 
     def motor_send(self, speed, duration, direction):
         print('sending cmd down motor q')
@@ -64,6 +46,7 @@ class MotorDriver():
         self.q.put(data)
 
     def consumer(self):
+        print('grabbing cmd from motor q')
         while True:
             data = self.q.get()
             if data[2] == 'fwd' or data[2] == 'bwd':

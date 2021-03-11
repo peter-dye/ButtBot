@@ -7,7 +7,7 @@ import smbus2
 bus = smbus2.SMBus(0)
 
 q = Queue()
-mc = motor_driver.MotorDriver(bus, q)
+mc = motor_driver.MotorDriver(q)
 t1 = Thread(target = mc.consumer)
 t1.start()
 
