@@ -18,22 +18,21 @@ mtr1_pwm = pca.channels[9]
 mtr2_dir = pca.channels[10]
 mtr2_pwm = pca.channels[11]
 
-HIGH = 0xFFFF
-LOW = 0x0000
-
 class MotorDriver():
 
     def __init__(self, queue):
         self.q = queue
+        self.HIGH = 0xFFFF
+        self.LOW = 0x0000
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
-                mtr1_dir.duty_cycle = HIGH
-                mtr2_dir.duty_cycle = HIGH
+                mtr1_dir.duty_cycle = self.HIGH
+                mtr2_dir.duty_cycle = self.HIGH
             elif dir == 'bwd':
-                mtr1_dir = HIGH
-                mtr2_dir = LOW
+                mtr1_dir = self.HIGH
+                mtr2_dir = self.LOW
             motor_speed = int(spd * 65535)
             mtr1_pwm.duty_cycle = motor_speed
             mtr2_pwm.duty_cycle = motor_speed
@@ -41,19 +40,19 @@ class MotorDriver():
     # Move right motor backwards, while moving left motor forwards until desired angle
     def pivot(self, speed, dir):
             if dir == 'left':
-                mtr1_dir.duty_cycle = LOW
-                mtr2_dir = LOW
+                mtr1_dir.duty_cycle = self.LOW
+                mtr2_dir = self.LOW
             elif dir == 'right':
-                mtr1_dir = HIGH
-                mtr2_dir = HIGH
+                mtr1_dir = self.HIGH
+                mtr2_dir = self.HIGH
             motor_speed = int(spd * 65535)
             mtr1_pwm.duty_cycle = motor_speed
             mtr2_pwm.duty_cycle = motor_speed
 
     # Stop both motors
     def stop(self):
-            mtr1_pwm.duty_cycle = LOW
-            mtr2_pwm.duty_cycle = LOW
+            mtr1_pwm.duty_cycle = self.LOW
+            mtr2_pwm.duty_cycle = self.LOW
 
     def motor_send(self, speed, duration, direction):
         print('sending cmd down motor q')
