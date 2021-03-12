@@ -13,46 +13,45 @@ pca = adafruit_pca9685.PCA9685(i2c)
 
 pca.frequency = 60
 
-mtr1_dir = pca.channels[8]
-mtr1_pwm = pca.channels[9] 
-mtr2_dir = pca.channels[10]
-mtr2_pwm = pca.channels[11]
-
 class MotorDriver():
 
     def __init__(self, queue):
         self.q = queue
         self.HIGH = 0xFFFF
         self.LOW = 0x0000
+        self.mtr1_dir = pca.channels[8]
+        self.mtr1_pwm = pca.channels[9] 
+        self.mtr2_dir = pca.channels[10]
+        self.mtr2_pwm = pca.channels[11]
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
-                mtr1_dir.duty_cycle = self.HIGH
-                mtr2_dir.duty_cycle = self.HIGH
+                self.mtr1_dir.duty_cycle = self.HIGH
+                self.mtr2_dir.duty_cycle = self.HIGH
             elif dir == 'bwd':
-                mtr1_dir = self.HIGH
-                mtr2_dir = self.LOW
+                self.mtr1_dir = self.HIGH
+                self.mtr2_dir = self.LOW
             motor_speed = int(spd * 65535)
-            mtr1_pwm.duty_cycle = motor_speed
-            mtr2_pwm.duty_cycle = motor_speed
+            self.mtr1_pwm.duty_cycle = motor_speed
+            self.mtr2_pwm.duty_cycle = motor_speed
 
     # Move right motor backwards, while moving left motor forwards until desired angle
     def pivot(self, speed, dir):
             if dir == 'left':
-                mtr1_dir.duty_cycle = self.LOW
-                mtr2_dir = self.LOW
+                self.mtr1_dir.duty_cycle = self.LOW
+                self.mtr2_dir = self.LOW
             elif dir == 'right':
-                mtr1_dir = self.HIGH
-                mtr2_dir = self.HIGH
+                self.mtr1_dir = self.HIGH
+                self.mtr2_dir = self.HIGH
             motor_speed = int(spd * 65535)
-            mtr1_pwm.duty_cycle = motor_speed
-            mtr2_pwm.duty_cycle = motor_speed
+            self.mtr1_pwm.duty_cycle = motor_speed
+            self.mtr2_pwm.duty_cycle = motor_speed
 
     # Stop both motors
     def stop(self):
-            mtr1_pwm.duty_cycle = self.LOW
-            mtr2_pwm.duty_cycle = self.LOW
+            self.mtr1_pwm.duty_cycle = self.LOW
+            self.mtr2_pwm.duty_cycle = self.LOW
 
     def motor_send(self, speed, duration, direction):
         print('sending cmd down motor q')
