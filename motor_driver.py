@@ -28,7 +28,7 @@ class MotorDriver():
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
                 self.mtr1_dir.duty_cycle = self.HIGH
-                self.mtr2_dir.duty_cycle = self.HIGH
+                self.mtr2_dir.duty_cycle = self.LOW
             elif dir == 'bwd':
                 self.mtr1_dir = self.HIGH
                 self.mtr2_dir = self.LOW
