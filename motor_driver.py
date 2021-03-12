@@ -20,7 +20,7 @@ mtr2_pwm = pca.channels[11]
 
 
 HIGH = 0xFFFF
-LOW = 0x0FFF
+LOW = 0x0000
 
 class MotorDriver():
 
