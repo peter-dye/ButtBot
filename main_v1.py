@@ -29,6 +29,7 @@ path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 mtr_cmd = [0,0,0]
+count = 0
 while True:
     if not path_q.empty():
         mtr_cmd = path_q.get() 
@@ -40,5 +41,7 @@ while True:
         if distance[i] < 10:
             print("stop!")
             mc.stop()
-    print("US dist: ", distance[i])
+    if count % 10 == 0:
+        print("US dist: ", distance[i])
+    count += 1
 
