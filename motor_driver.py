@@ -64,6 +64,7 @@ class MotorDriver():
     def consumer(self):
         while True:
             data = self.q.get()
+            print(data)
             if data[2] == 'fwd' or data[2] == 'bwd':
                 self.fwd_bwd(data[0], data[2])
             elif data[2] == 'right' or data[2] == 'left':
