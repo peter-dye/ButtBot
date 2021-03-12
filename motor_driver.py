@@ -13,10 +13,11 @@ pca = adafruit_pca9685.PCA9685(i2c)
 
 pca.frequency = 60
 
-mtr1_pwm = pca.channels[8]
-mtr1_dir = pca.channels[9]
-mtr2_pwm = pca.channels[10]
-mtr2_dir = pca.channels[11]
+mtr1_dir = pca.channels[8]
+mtr1_pwm = pca.channels[9] 
+mtr2_dir = pca.channels[10]
+mtr2_pwm = pca.channels[11]
+
 
 HIGH = 0xFFFF
 LOW = 0x0FFF
