@@ -12,7 +12,7 @@ ard_bus = smbus2.SMBus(0)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
-mc = motor_driver.MotorDriver(ard_bus, motor_q)
+mc = motor_driver.MotorDriver(motor_q)
 motor_thread = Thread(target = mc.consumer)
 motor_thread.start()
 
@@ -27,17 +27,17 @@ us_thread.start()
 
 path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
-#path_thread.start()
+path_thread.start()
 mtr_cmd = [0,0,0]
 while True:
-        #mtr_cmd = path_q.get()
-        info = input('anything: ')
-        input_dims = info.split()
-        mtr_cmd[0] = float(input_dims[0])
-        mtr_cmd[1] = float(input_dims[1])
-        mtr_cmd[2] = str(input_dims[2])    
-        print("sending cmd to motor")
-        mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
+        print(path_q.get())
+        #info = input('anything: ')
+        #input_dims = info.split()
+        #mtr_cmd[0] = float(input_dims[0])
+        #mtr_cmd[1] = float(input_dims[1])
+        #mtr_cmd[2] = str(input_dims[2])    
+        #print("sending cmd to motor")
+        #mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
     #distance = us.read_from_mem()
     #for i in range(1):

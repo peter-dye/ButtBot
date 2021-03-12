@@ -7,12 +7,6 @@
 // Define slave address
 #define SLAVE_ADDR 9
 
-// Define the motor control pins
-#define mtrPwm1 9
-#define mtrDir1 11
-#define mtrPwm2 10
-#define mtrDir2 12
-
 // HC-SR04 sensors are hooked up in 1-pin mode
 #define PING_PIN_0 3 // Trigger Pin of Ultrasonic Sensor 0
 #define ECHO_PIN_0 3 // Echo Pin of Ultrasonic Sensor 0
@@ -41,25 +35,10 @@ int distance[4];
 // Initialize counter to count bytes in ultrasonic sensor response
 int bcount = 0;
 
-// Initialize newData flag
-boolean newData = false;
-
-// Initialize motor command array that stores values read from bus
-int mtrCmd[3];
-
-// Motor 1 turns faster than motor 2, so add an offset to motor 1 speed commands to help the bot drive straight
-int offset = 10;
 void setup() {
-  // Initialize motor pins
-  pinMode(mtrPwm1, OUTPUT);
-  pinMode(mtrDir1, OUTPUT);
-  pinMode(mtrPwm2, OUTPUT);
-  pinMode(mtrDir2, OUTPUT);
 
   // Initialize I2C communications as slave
   Wire.begin(SLAVE_ADDR);
-  // Tell slave which function to run when receiving data from bus (motor input command function)
-  Wire.onReceive(receiveEvent);
 
   // Tell slave which function to run upon master request (ultrasonic sensor information)
   Wire.onRequest(requestEvent);
@@ -102,16 +81,6 @@ void requestEvent() {
 
 }
 
-void receiveEvent(int howMany) {
-  while (Wire.available()) { 
-    for(int i = 0; i < 3; i++){
-    mtrCmd[i] = Wire.read();
-    Serial.println(mtrCmd[i]);
-    }
-  }
-  newData = true;
-}
-
 void readDistance()
 {
   //Get the distance from each sensor, if object further than 255cm, clamp to 254 so as not to confuse I2C transmission into thinking start bit being transmitted
@@ -140,44 +109,7 @@ void readDistance()
   delay(20);
 }
 
-void mtrCtrl(int speedFreq, int direction){
-  switch (direction) {
-    // Motors off
-    case 0:
-      analogWrite(mtrPwm1, 0);
-      analogWrite(mtrPwm1, 0);
-      break;
-    // Move forward
-    case 1:
-      digitalWrite(mtrDir1, HIGH);
-      digitalWrite(mtrDir2, LOW);
-      break;
-    // Move backwards
-    case 2:
-      digitalWrite(mtrDir1, LOW);
-      digitalWrite(mtrDir2, HIGH);
-      break;
-    // Move left
-    case 3:
-      digitalWrite(mtrDir1, HIGH);
-      digitalWrite(mtrDir2, HIGH);
-      break;
-    // Move right
-    case 4:
-      digitalWrite(mtrDir1, LOW);
-      digitalWrite(mtrDir2, LOW);
-      break;
-  }
-  analogWrite(mtrPwm1, max(0,speedFreq-offset));
-  analogWrite(mtrPwm2, max(0,speedFreq));
-}
-
 void loop() {
-    // when new data is written to bus then we want to run the motors, otherwise read from the ultrasonic sensors, refreshing every half second
-  if(newData)
-  {
-    mtrCtrl(mtrCmd[1], mtrCmd[2]);
-    newData = false;    //just read the new data
-  }
   readDistance();
+  delay(200);
 }
