@@ -30,14 +30,14 @@ class MotorDriver():
                 self.mtr1_dir.duty_cycle = self.HIGH
                 self.mtr2_dir.duty_cycle = self.LOW
             elif dir == 'bwd':
-                self.mtr1_dir = self.HIGH
-                self.mtr2_dir = self.LOW
+                self.mtr1_dir = self.LOW
+                self.mtr2_dir = self.HIGH
             motor_speed = int(spd * 65535)
             self.mtr1_pwm.duty_cycle = motor_speed
             self.mtr2_pwm.duty_cycle = motor_speed
 
     # Move right motor backwards, while moving left motor forwards until desired angle
-    def pivot(self, speed, dir):
+    def pivot(self, spd, dir):
             if dir == 'left':
                 self.mtr1_dir.duty_cycle = self.LOW
                 self.mtr2_dir = self.LOW
