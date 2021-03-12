@@ -41,7 +41,7 @@ while True:
         if distance[i] < 10:
             print("stop!")
             mc.stop()
-    if count % 10 == 0:
+    if count % 100 == 0:
         print("US dist: ", distance[i])
     count += 1
 
