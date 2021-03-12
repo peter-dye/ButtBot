@@ -18,20 +18,18 @@ mtr1_pwm = pca.channels[9]
 mtr2_dir = pca.channels[10]
 mtr2_pwm = pca.channels[11]
 
-
-HIGH = 0xFFFF
-LOW = 0x0000
-
 class MotorDriver():
 
     def __init__(self, queue):
         self.q = queue
+        self.HIGH = 0xFFFF
+        self.LOW = 0x0000
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
-                mtr1_dir = LOW
-                mtr2_dir = LOW
+                mtr1_dir = self.HIGH
+                mtr2_dir = self.HIGH
             elif dir == 'bwd':
                 mtr1_dir = HIGH
                 mtr2_dir = LOW
