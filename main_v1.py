@@ -30,7 +30,7 @@ path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 mtr_cmd = [0,0,0]
 while True:
-        print(path_q.get())   
+        mtr_cmd = path_q.get() 
         print("sending cmd to motor")
         mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 

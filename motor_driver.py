@@ -55,7 +55,6 @@ class MotorDriver():
 
     def motor_send(self, speed, duration, direction):
         print('sending cmd down motor q')
-        data = [0,0,0]
         data[0] = speed
         data[1] = duration 
         data[2] = direction 
