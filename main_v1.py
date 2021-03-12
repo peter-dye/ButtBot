@@ -30,9 +30,10 @@ path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
 mtr_cmd = [0,0,0]
 while True:
-    mtr_cmd = path_q.get() 
-    print("sending cmd to motor")
-    mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
+    if not path_q.empty():
+        mtr_cmd = path_q.get() 
+        print("sending cmd to motor")
+        mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
 
     distance = us.read_from_mem()
     for i in range(1):
