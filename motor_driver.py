@@ -65,15 +65,12 @@ class MotorDriver():
         while True:
             data = self.q.get()
             if data[2] == 'fwd' or data[2] == 'bwd':
-                print("sending command from motor q")
                 self.fwd_bwd(data[0], data[2])
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
             else:
                 print("not a valid direction")
                 self.stop()
-                while True:
-                    pass
             time.sleep(data[1])
             self.stop()
 
