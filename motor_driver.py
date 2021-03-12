@@ -33,7 +33,7 @@ class MotorDriver():
                 self.mtr1_dir.duty_cycle = self.LOW
                 self.mtr2_dir.duty_cycle = self.HIGH
             motor_speed = int(spd * 65535)
-            self.mtr1_pwm.duty_cycle = motor_speed
+            self.mtr1_pwm.duty_cycle = motor_speed - 2560
             self.mtr2_pwm.duty_cycle = motor_speed
 
     # Move right motor backwards, while moving left motor forwards until desired angle
@@ -45,7 +45,7 @@ class MotorDriver():
                 self.mtr1_dir.duty_cycle = self.LOW
                 self.mtr2_dir.duty_cycle = self.LOW
             motor_speed = int(spd * 65535)
-            self.mtr1_pwm.duty_cycle = motor_speed
+            self.mtr1_pwm.duty_cycle = motor_speed - 2560
             self.mtr2_pwm.duty_cycle = motor_speed
 
     # Stop both motors
