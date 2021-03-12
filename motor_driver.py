@@ -30,7 +30,7 @@ class MotorDriver():
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
-                mtr1_dir = LOW
+                mtr1_dir = HIGH
                 mtr2_dir = LOW
             elif dir == 'bwd':
                 mtr1_dir = HIGH
