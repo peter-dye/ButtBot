@@ -31,7 +31,7 @@ class MotorDriver():
     def fwd_bwd(self, spd, dir):
             if dir == 'fwd':
                 mtr1_dir = LOW
-                mtr2_dir = HIGH
+                mtr2_dir = LOW
             elif dir == 'bwd':
                 mtr1_dir = HIGH
                 mtr2_dir = LOW
