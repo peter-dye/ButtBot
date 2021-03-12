@@ -51,8 +51,8 @@ class MotorDriver():
 
     # Stop both motors
     def stop(self):
-            mtr1_pwm.duty_cycle = LOW
-            mtr2_pwm.duty_cycle = LOW
+            mtr1_pwm.duty_cycle = self.LOW
+            mtr2_pwm.duty_cycle = self.LOW
 
     def motor_send(self, speed, duration, direction):
         print('sending cmd down motor q')
