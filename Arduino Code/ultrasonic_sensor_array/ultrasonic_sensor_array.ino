@@ -22,7 +22,7 @@
 
 // Define Fan Enable input and output
 #define FAN_IN 9
-#define FAN_OUT 10
+#define FAN_OUT 8
 
 
 // Define the maximum distance for the sensors to register: 260cm

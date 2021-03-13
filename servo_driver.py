@@ -34,9 +34,9 @@ def startup():
     #kit.servo[10].angle = 0
     #sleep(0.45)
     #Initial sweep arm
-    kit.servo[4].angle = 180
+    kit.servo[4].angle = 170
     sleep(5)
-    kit.servo[4].angle = 0
+    kit.servo[4].angle = 7
 
 #Return all servos to default position
 def default():
@@ -46,17 +46,17 @@ def default():
     #sleep(0.45)
     #kit.servo[10].angle = 30
     #sleep(0.45)
-    kit.servo[4].angle = 0
+    kit.servo[4].angle = 7
     sleep(0.45)
 
 #Actuate arm for pickup routine
 def arm():
     GPIO.output(FAN, GPIO.HIGH)
     sleep(3)                   #wait 3 seconds while lowered so has a chance to suck up butt
-    kit.servo[4].angle = 180        #raise arm back
+    kit.servo[4].angle = 170        #raise arm back
     sleep(5)
     GPIO.output(FAN, GPIO.LOW)
-    kit.servo[4].angle = 0
+    kit.servo[4].angle = 7
     sleep(5)
 
 def camera_tilt(pitch_angle):
@@ -87,3 +87,6 @@ def sweep(min_angle, max_angle, inc, servo_num, butt_x):
         else:
             angle += inc                                  #Keep moving servo
         angle += inc
+
+startup()
+
