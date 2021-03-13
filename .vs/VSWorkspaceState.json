@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Arduino Code",
-    "\\Arduino Code\\motor_us_merged"
+    "\\Arduino Code\\ultrasonic_sensor_array"
   ],
-  "SelectedNode": "\\servo_driver.py",
+  "SelectedNode": "\\main_v1.py",
   "PreviewInSolutionExplorer": false
 }

@@ -8,55 +8,47 @@ from constants import *
 ## Servo[9] and Servo[8] control the yaw of the camera. Servo[9] is mounted onto Servo[8].
 ## Mounted with 90 deg on both [9] and [8] at 90 deg means camera pointing straight forward
 
-kit = ServoKit(channels=16)
+kit = ServoKit(channels=8)
 
 def startup():
-    #Initial sweep Servo[8]
-    kit.servo[8].angle = 180
+    ##Initial sweep Servo[8]
+    #kit.servo[8].angle = 180
+    #sleep(0.45)
+    #kit.servo[8].angle = 0
+    #sleep(0.45)
+    ##Initial sweep Servo[9]
+    #kit.servo[9].angle = 180
+    #sleep(0.45)
+    #kit.servo[9].angle = 0
+    #sleep(0.45)
+    ##Initial sweep Servo[10]
+    #kit.servo[10].angle = 180
+    #sleep(0.45)
+    #kit.servo[10].angle = 0
+    #sleep(0.45)
+    #Initial sweep arm
+    kit.servo[5].angle = 180
     sleep(0.45)
-    kit.servo[8].angle = 0
-    sleep(0.45)
-    #Initial sweep Servo[9]
-    kit.servo[9].angle = 180
-    sleep(0.45)
-    kit.servo[9].angle = 0
-    sleep(0.45)
-    #Initial sweep Servo[10]
-    kit.servo[10].angle = 180
-    sleep(0.45)
-    kit.servo[10].angle = 0
-    sleep(0.45)
-    #Initial sweep Servo[11]
-    kit.servo[11].angle = 180
-    sleep(0.45)
-    kit.servo[11].angle = 0
-    sleep(0.45)
-    #Initial sweep Servo[12]
-    kit.servo[12].angle = 180
-    sleep(0.45)
-    kit.servo[12].angle = 0
+    kit.servo[5].angle = 0
     sleep(0.45)
 
 #Return all servos to default position
 def default():
-    kit.servo[8].angle = 90
-    sleep(0.45)
-    kit.servo[9].angle = 90
-    sleep(0.45)
-    kit.servo[10].angle = 30
-    sleep(0.45)
-    kit.servo[11].angle = 0
-    kit.servo[12].angle = 0
+    #kit.servo[8].angle = 90
+    #sleep(0.45)
+    #kit.servo[9].angle = 90
+    #sleep(0.45)
+    #kit.servo[10].angle = 30
+    #sleep(0.45)
+    kit.servo[5].angle = 0
     sleep(0.45)
 
 #Actuate arm for pickup routine
 def arm():
-    kit.servo[10].angle = 90    #lower arm
-    kit.servo[10].angle = 90    #lower arm
+    kit.servo[5].angle = 90    #lower arm
     sleep(0.45)
     time.delay(3)               #wait 3 seconds while lowered so has a chance to suck up butt
-    kit.servo[10].angle = 0      #raise arm back to neutral position
-    kit.servo[10].angle = 0      #raise arm back to neutral position
+    kit.servo[5].angle = 0      #raise arm back to neutral position
     sleep(0.45)
 
 def camera_tilt(pitch_angle):
@@ -87,3 +79,7 @@ def sweep(min_angle, max_angle, inc, servo_num, butt_x):
         else:
             angle += inc                                  #Keep moving servo
         angle += inc
+
+startup()
+time.sleep(5)
+arm()
