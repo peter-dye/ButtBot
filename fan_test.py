@@ -6,7 +6,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
-sleep(3)
+time.sleep(3)
 GPIO.output(FAN, GPIO.HIGH)
 time.sleep(3)
 GPIO.output(FAN, GPIO.LOW)
