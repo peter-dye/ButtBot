@@ -13,7 +13,6 @@ from pinout import FAN
 kit = ServoKit(channels=8)
 
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
 
