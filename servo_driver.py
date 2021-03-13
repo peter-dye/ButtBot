@@ -81,4 +81,5 @@ def sweep(min_angle, max_angle, inc, servo_num, butt_x):
         angle += inc
 
 startup()
+pwm.setPWM(4, 0, 4096)
 
