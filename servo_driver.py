@@ -2,6 +2,8 @@ import time
 from time import sleep
 from adafruit_servokit import ServoKit
 from constants import *
+import Jetson.GPIO as GPIO
+from pinout import FAN
 
 ## Servo[11] and Servo[12] are for controlling collection arm. Mounted with 0 deg meaning arm is fully in up position
 ## Servo[10] controls the pitch of the camera. Mounted with 0 deg has camera pointing straight downwards
@@ -9,6 +11,11 @@ from constants import *
 ## Mounted with 90 deg on both [9] and [8] at 90 deg means camera pointing straight forward
 
 kit = ServoKit(channels=8)
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
 
 def startup():
     ##Initial sweep Servo[8]
@@ -27,10 +34,9 @@ def startup():
     #kit.servo[10].angle = 0
     #sleep(0.45)
     #Initial sweep arm
-    kit.servo[5].angle = 180
-    sleep(0.45)
-    kit.servo[5].angle = 0
-    sleep(0.45)
+    kit.servo[4].angle = 180
+    sleep(5)
+    kit.servo[4].angle = 0
 
 #Return all servos to default position
 def default():
@@ -40,16 +46,18 @@ def default():
     #sleep(0.45)
     #kit.servo[10].angle = 30
     #sleep(0.45)
-    kit.servo[5].angle = 0
+    kit.servo[4].angle = 0
     sleep(0.45)
 
 #Actuate arm for pickup routine
 def arm():
-    kit.servo[5].angle = 90    #lower arm
-    sleep(0.45)
-    time.delay(3)               #wait 3 seconds while lowered so has a chance to suck up butt
-    kit.servo[5].angle = 0      #raise arm back to neutral position
-    sleep(0.45)
+    GPIO.output(FAN, GPIO.HIGH)
+    sleep(3)                   #wait 3 seconds while lowered so has a chance to suck up butt
+    kit.servo[4].angle = 180        #raise arm back
+    sleep(5)
+    GPIO.output(FAN, GPIO.LOW)
+    kit.servo[4].angle = 0
+    sleep(5)
 
 def camera_tilt(pitch_angle):
     kit.servo[10].angle = pitch_angle
@@ -79,7 +87,3 @@ def sweep(min_angle, max_angle, inc, servo_num, butt_x):
         else:
             angle += inc                                  #Keep moving servo
         angle += inc
-
-startup()
-time.sleep(5)
-arm()
