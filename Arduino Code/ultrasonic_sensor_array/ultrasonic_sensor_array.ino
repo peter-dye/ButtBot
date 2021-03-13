@@ -20,6 +20,11 @@
 #define PING_PIN_3 6 // Trigger Pin of Ultrasonic Sensor 3
 #define ECHO_PIN_3 6 // Echo Pin of Ultrasonic Sensor 3
 
+// Define Fan Enable input and output
+#define FAN_IN 9
+#define FAN_OUT 10
+
+
 // Define the maximum distance for the sensors to register: 260cm
 #define MAX_DISTANCE 260
 
@@ -36,6 +41,9 @@ int distance[4];
 int bcount = 0;
 
 void setup() {
+  // Initialize Fan enable I/O
+  pinMode(FAN_IN, INPUT);
+  pinMode(FAN_OUT, OUTPUT);
 
   // Initialize I2C communications as slave
   Wire.begin(SLAVE_ADDR);
@@ -110,6 +118,13 @@ void readDistance()
 }
 
 void loop() {
+  // if jetson nano sets fan_in to high, turn on fan with fan_out = low. default is fan off with fan_out == high
+  if (digitalRead(FAN_IN)){
+    digitalWrite(FAN_OUT, LOW);
+  }
+  else{
+    digitalWrite(FAN_OUT, HIGH);
+  }
   readDistance();
   delay(200);
 }
