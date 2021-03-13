@@ -31,7 +31,7 @@ def startup():
     #Initial sweep arm
     kit.servo[4].angle = 170
     sleep(5)
-    kit.servo[4].angle = 7
+    kit.servo[4].angle = 0
 
 #Return all servos to default position
 def default():
