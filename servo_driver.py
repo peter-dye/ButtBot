@@ -12,10 +12,6 @@ from pinout import FAN
 
 kit = ServoKit(channels=8)
 
-GPIO.setwarnings(False)
-
-GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
-
 def startup():
     ##Initial sweep Servo[8]
     #kit.servo[8].angle = 180
@@ -50,11 +46,8 @@ def default():
 
 #Actuate arm for pickup routine
 def arm():
-    GPIO.output(FAN, GPIO.HIGH)
-    sleep(3)                   #wait 3 seconds while lowered so has a chance to suck up butt
     kit.servo[4].angle = 170        #raise arm back
     sleep(5)
-    GPIO.output(FAN, GPIO.LOW)
     kit.servo[4].angle = 7
     sleep(5)
 
