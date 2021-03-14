@@ -12,7 +12,7 @@ GPIO.output(FAN, GPIO.HIGH)
 time.sleep(8)
 GPIO.output(ARM, GPIO.HIGH)
 
-time.sleep(5)
+time.sleep(3)
 GPIO.output(FAN, GPIO.LOW)
 time.sleep(1)
 GPIO.output(ARM, GPIO.LOW)
