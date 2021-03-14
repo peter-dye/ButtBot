@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Arduino Code",
-    "\\Arduino Code\\ultrasonic_sensor_array"
+    "\\Arduino Code\\ultrasonic_sensor_array",
+    "\\Obsolete Files"
   ],
-  "SelectedNode": "\\main_v1.py",
+  "SelectedNode": "\\servo_driver.py",
   "PreviewInSolutionExplorer": false
 }

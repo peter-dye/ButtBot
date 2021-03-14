@@ -8,5 +8,22 @@ US_I2C_SCL = 5
 SD_I2C_SDA = 27
 SD_I2C_SCL = 28
 
-#Fan Enable
+# Fan Enable
 FAN = 33
+
+# Arm Control
+ARM = 31
+
+'''
+Pins used on the arduino are as follows:
+US_0 = 3
+US_1 = 4
+US_2 = 5
+US_3 = 6
+
+FAN_IN = 9
+FAN_OUT = 8
+
+ARM_IN = 10
+ARM_OUT = 2
+'''
