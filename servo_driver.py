@@ -1,4 +1,3 @@
-import time
 from time import sleep
 from adafruit_servokit import ServoKit
 from constants import *
