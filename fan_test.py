@@ -22,6 +22,7 @@ def arm():
     sleep(8)       
 # raise arm
     GPIO.output(ARM, GPIO.HIGH)
+    time.sleep(3)
 # turn off fan
     GPIO.output(FAN, GPIO.LOW)
 # wait
