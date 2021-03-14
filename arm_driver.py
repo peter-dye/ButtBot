@@ -43,12 +43,12 @@ class Arm():
        
 arm = Arm()
 while True:
-    input = input('>>>')
-    if input == 'up':
+    ind = input('>>>')
+    if ind == 'up':
         arm.up()
-    elif input == 'down':
+    elif ind == 'down':
         arm.down()
-    elif input == 'pickup':
+    elif ind == 'pickup':
         arm.pickup()
     else:
         break
