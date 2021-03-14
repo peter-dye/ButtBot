@@ -99,3 +99,4 @@ def sweep(min_angle, max_angle, inc, servo_num, butt_x):
         angle += inc
 
 arm()
+GPIO.cleanup()

@@ -16,3 +16,5 @@ time.sleep(5)
 GPIO.output(FAN, GPIO.LOW)
 time.sleep(1)
 GPIO.output(ARM, GPIO.LOW)
+
+GPIO.cleanup()
