@@ -1,6 +1,7 @@
 import Jetson.GPIO as GPIO
 from pinout import FAN, ARM
 import time
+from time import sleep
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
