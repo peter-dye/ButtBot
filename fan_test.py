@@ -7,7 +7,7 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(ARM, GPIO.OUT, initial=GPIO.LOW)
-time.sleep(3)
+time.sleep(5)
 GPIO.output(FAN, GPIO.HIGH)
 GPIO.output(ARM, GPIO.HIGH)
 print("Fan on")
