@@ -10,11 +10,6 @@ from pinout import FAN, ARM
 ## Servo[9] and Servo[8] control the yaw of the camera. Servo[9] is mounted onto Servo[8].
 ## Mounted with 90 deg on both [9] and [8] at 90 deg means camera pointing straight forward
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-
-GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(ARM, GPIO.OUT, initial=GPIO.LOW)
 
 kit = ServoKit(channels=8)
 
