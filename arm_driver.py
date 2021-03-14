@@ -33,13 +33,13 @@ class Arm():
         else:
             self.down()
 
-        def up(self):
-            GPIO.output(ARM, GPIO.HIGH)
-            self.state = 'up'
+    def up(self):
+        GPIO.output(ARM, GPIO.HIGH)
+        self.state = 'up'
         
-        def down(self):
-            GPIO.output(ARM, GPIO.LOW)
-            self.state = 'down'
+    def down(self):
+        GPIO.output(ARM, GPIO.LOW)
+        self.state = 'down'
        
 arm = Arm()
 while True:
