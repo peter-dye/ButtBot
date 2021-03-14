@@ -3,11 +3,7 @@ from pinout import FAN, ARM
 import time
 from servo_driver import arm
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
 
-GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(ARM, GPIO.OUT, initial=GPIO.LOW)
 
 #GPIO.output(FAN, GPIO.HIGH)
 #time.sleep(8)
