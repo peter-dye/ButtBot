@@ -22,7 +22,7 @@ class Arm():
         # raise arm
         GPIO.output(ARM, GPIO.HIGH)
         #wait for arm to raise
-        time.sleep(3)
+        sleep(3)
         # turn off fan
         GPIO.output(FAN, GPIO.LOW)
         # wait for butt to fall
