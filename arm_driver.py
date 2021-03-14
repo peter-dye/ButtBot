@@ -42,7 +42,7 @@ class Arm():
             self.state = 'down'
        
 arm = Arm()
-while true:
+while True:
     input = input('>>>')
     if input == 'up':
         arm.up()
