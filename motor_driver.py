@@ -4,10 +4,11 @@ import math
 import time
 from constants import SLAVE_ADDR
 import time
+import busio
 import adafruit_pca9685
 import smbus2
 
-bus = smbus2.SMBus(1)
+bus = busio.I2C(5,3)
 pca = adafruit_pca9685.PCA9685(bus)
 pca.frequency = 60
 
