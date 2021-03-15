@@ -7,3 +7,25 @@ US_I2C_SCL = 5
 # Servo driver board i2c bus
 SD_I2C_SDA = 27
 SD_I2C_SCL = 28
+
+# Fan Enable
+# Fan physical pin is #35, the board label is D19
+# FAN = 35
+
+# Arm Control
+# Arm physical pin #37, the Board Label is D26
+# ARM = 37
+
+'''
+Pins used on the arduino are as follows:
+US_0 = 3
+US_1 = 4
+US_2 = 5
+US_3 = 6
+
+FAN_IN = 9
+FAN_OUT = 8
+
+ARM_IN = 10
+ARM_OUT = 2
+'''

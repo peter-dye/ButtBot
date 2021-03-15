@@ -6,16 +6,17 @@ import motor_driver
 import ultrasonic_driver
 import smbus2      
 import path_Q
+import arm_driver
 
 # Create i2c busses
 ard_bus = smbus2.SMBus(0)
+mtr_servo_bus = smbus2.SMBus(1)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
-mc = motor_driver.MotorDriver(ard_bus, motor_q)
-motor_thread = Thread(target = mc.consumer)
+mc = motor_driver.MotorDriver(motor_q)
+motor_thread = Thread(target = mc.motor_consume)
 motor_thread.start()
-
 
 # Create US shared memory, shared mem buffer, lock, US thread, and ultrasonic sensor driver
 us_buffer = Array('I', range(4))
@@ -29,17 +30,23 @@ us_thread.start()
 path_q = Queue()
 path_thread = Thread(target = path_Q.put_cmd, args=(path_q,))
 path_thread.start()
+mtr_cmd = [0,0,0,0]
+
+arm_q = Queue()
+arm = arm_driver.Arm(arm_q)
+arm_thread = Thread(target = arm.arm_consume)
+arm_thread.start
 
 while True:
     if not path_q.empty():
-        mtr_cmd = path_q.get()
-        print("sending cmd to motor")
+        mtr_cmd = path_q.get() 
         mc.motor_send(mtr_cmd[0], mtr_cmd[1], mtr_cmd[2])
+        arm.arm_send(mtr_cmd[3])
 
-    #distance = us.read_from_mem()
-    #for i in range(1):
-    #    #if distance[i] < 10:
-    #    #    print("stop!")
-    #    #    mc.stop()
-    #    print("US dist: ", distance[i])
+    distance = us.read_from_mem()
+    for i in range(1):
+        if distance[i] < 10:
+            print("stop!")
+            mc.stop()
+
 

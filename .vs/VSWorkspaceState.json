@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Arduino Code"
   ],
-  "SelectedNode": "\\main_v1.py",
+  "SelectedNode": "\\motor_driver.py",
   "PreviewInSolutionExplorer": false
 }

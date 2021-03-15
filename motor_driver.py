@@ -3,62 +3,73 @@
 import math
 import time
 from constants import SLAVE_ADDR
+import time
+import busio
+import board
+import adafruit_pca9685
+
+i2c = busio.I2C(board.SCL, board.SDA)
+pca = adafruit_pca9685.PCA9685(i2c)
+pca.frequency = 60
 
 class MotorDriver():
 
-    def __init__(self, bus, queue):
-        self.bus = bus
+    def __init__(self, queue):
         self.q = queue
+        self.HIGH = 0xFFFF
+        self.LOW = 0x0000
+        self.mtr1_dir = pca.channels[8]
+        self.mtr1_pwm = pca.channels[9] 
+        self.mtr2_dir = pca.channels[10]
+        self.mtr2_pwm = pca.channels[11]
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
-        print("received command, sending ", spd, dir, " to arduino")
-        if dir == 'fwd':
-            coded_dir = 1
-        elif dir == 'bwd':
-            coded_dir = 2
-        spd_in_freq = int(spd*255)
-        motor_command = [spd_in_freq, coded_dir]
-        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
-        print(motor_command, 'after send')
+            if dir == 'fwd':
+                self.mtr1_dir.duty_cycle = self.HIGH
+                self.mtr2_dir.duty_cycle = self.LOW
+            elif dir == 'bwd':
+                self.mtr1_dir.duty_cycle = self.LOW
+                self.mtr2_dir.duty_cycle = self.HIGH
+            motor_speed = int(spd * 65535)
+            self.mtr1_pwm.duty_cycle = motor_speed - 2560
+            self.mtr2_pwm.duty_cycle = motor_speed
 
     # Move right motor backwards, while moving left motor forwards until desired angle
-    def pivot(self, speed, dir):
-        if dir == 'left':
-            coded_dir = 3
-        if dir == 'right':
-            coded_dir = 4
-        spd_in_freq = 255
-        motor_command = [spd_in_freq, coded_dir]
-        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command) 
+    def pivot(self, spd, dir):
+            if dir == 'left':
+                self.mtr1_dir.duty_cycle = self.HIGH
+                self.mtr2_dir.duty_cycle = self.HIGH
+            elif dir == 'right':
+                self.mtr1_dir.duty_cycle = self.LOW
+                self.mtr2_dir.duty_cycle = self.LOW
+            motor_speed = int(spd * 65535)
+            self.mtr1_pwm.duty_cycle = motor_speed - 2560
+            self.mtr2_pwm.duty_cycle = motor_speed
 
     # Stop both motors
     def stop(self):
-        motor_command = [0,0]
-        self.bus.write_i2c_block_data(SLAVE_ADDR, register=0, data=motor_command)
+            self.mtr1_pwm.duty_cycle = self.LOW
+            self.mtr2_pwm.duty_cycle = self.LOW
 
     def motor_send(self, speed, duration, direction):
-        print('sending cmd down motor q')
         data = [0,0,0]
         data[0] = speed
         data[1] = duration 
         data[2] = direction 
         self.q.put(data)
 
-    def consumer(self):
-        print('grabbing cmd from motor q')
+    def motor_consume(self):
         while True:
             data = self.q.get()
+            print(data)
             if data[2] == 'fwd' or data[2] == 'bwd':
-                print("sending command from motor q")
                 self.fwd_bwd(data[0], data[2])
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
             else:
                 print("not a valid direction")
                 self.stop()
-                while True:
-                    pass
             time.sleep(data[1])
             self.stop()
 
