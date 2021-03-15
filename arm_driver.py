@@ -8,27 +8,27 @@ class Arm():
         self.state = 'down'
         #self.q = queue
 
-        ARM = digitalio.DigitalInOut(board.D26)
-        ARM.direction = digitalio.Direction.OUTPUT
-        ARM.value = False
+        self.ARM = digitalio.DigitalInOut(board.D26)
+        self.ARM.direction = digitalio.Direction.OUTPUT
+        self.ARM.value = False
 
-        FAN = digitalio.DigitalInOut(board.D19)
-        FAN.direction = digitalio.Direction.OUTPUT
-        FAN.value = False
+        self.FAN = digitalio.DigitalInOut(board.D19)
+        self.FAN.direction = digitalio.Direction.OUTPUT
+        self.FAN.value = False
 
     def pickup(self):
         # turn on fan
-        FAN.value = True
+        self.FAN.value = True
         # lower arm
-        ARM.value = False
+        self.ARM.value = False
         # wait for fan to hit full speed and pickup butt
         sleep(8)       
         # raise arm
-        ARM.value = True
+        self.ARM.value = True
         #wait for arm to raise
         sleep(3)
         # turn off fan
-        FAN.value = False
+        self.FAN.value = False
         # wait for butt to fall
         sleep(1)
         # return arm to prev state
@@ -38,11 +38,11 @@ class Arm():
             self.down()
 
     def up(self):
-        ARM.value = True
+        self.ARM.value = True
         self.state = 'up'
         
     def down(self):
-        ARM.value = False
+        self.ARM.value = False
         self.state = 'down'
 
     def arm_send(self, method):
