@@ -58,6 +58,5 @@ class Arm():
                 print("Not a valid arm function!")
 
 arm = Arm()
-arm.up()
 arm.down()
 sleep(10)
