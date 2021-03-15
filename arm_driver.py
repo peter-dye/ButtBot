@@ -60,3 +60,4 @@ class Arm():
 arm = Arm()
 arm.up()
 arm.down()
+time.sleep(10)
