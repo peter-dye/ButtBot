@@ -32,7 +32,7 @@ path_thread.start()
 mtr_cmd = [0,0,0,0]
 
 arm_q = Queue()
-arm = Arm(arm_q)
+arm = arm_driver.Arm(arm_q)
 arm_thread = Thread(target = arm.arm_consume)
 arm_thread.start
 
