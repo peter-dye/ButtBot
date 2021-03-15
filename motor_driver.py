@@ -9,7 +9,7 @@ import board
 import adafruit_pca9685
 import Jetson.GPIO as GPIO
 
-GPIO.setmode(GPIO.board)
+GPIO.setmode(GPIO.BOARD)
 
 i2c = busio.I2C(board.SCL, board.SDA)
 pca = adafruit_pca9685.PCA9685(i2c)
