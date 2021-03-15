@@ -54,14 +54,13 @@ class MotorDriver():
             self.mtr2_pwm.duty_cycle = self.LOW
 
     def motor_send(self, speed, duration, direction):
-        print('sending cmd down motor q')
         data = [0,0,0]
         data[0] = speed
         data[1] = duration 
         data[2] = direction 
         self.q.put(data)
 
-    def consumer(self):
+    def motor_consume(self):
         while True:
             data = self.q.get()
             print(data)

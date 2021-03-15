@@ -7,10 +7,11 @@ GPIO.setmode(GPIO.BOARD)
 
 class Arm():
 
-    def __init__(self):
+    def __init__(self, queue):
         GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(ARM, GPIO.OUT, initial=GPIO.LOW)
         self.state = 'down'
+        self.q = queue
 
     def pickup(self):
         # turn on fan
@@ -40,6 +41,22 @@ class Arm():
     def down(self):
         GPIO.output(ARM, GPIO.LOW)
         self.state = 'down'
+
+    def arm_send(self, method):
+        self.q.put(method)
+    
+    def arm_consume(self):
+        while True:
+            method = self.q.get()
+            if method == 'up':
+                arm.up()
+            elif method == 'down':
+                arm.down()
+            elif method == 'pickup':
+                arm.pickup()
+            else:
+                print("Not a valid arm function!")
+
        
 arm = Arm()
 while True:
