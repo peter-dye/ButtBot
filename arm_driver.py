@@ -3,11 +3,13 @@ import digitalio
 from pinout import FAN, ARM
 from time import sleep
 
+arm = digitalio.DigitalInOut(board.ARM)
+arm.direction = digitalio.Direction.OUTPUT
+
 class Arm():
 
     def __init__(self, queue):
-        GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(ARM, GPIO.OUT, initial=GPIO.LOW)
+        #GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
         self.state = 'down'
         self.q = queue
 
@@ -33,11 +35,11 @@ class Arm():
             self.down()
 
     def up(self):
-        GPIO.output(ARM, GPIO.HIGH)
+        arm.value = True
         self.state = 'up'
         
     def down(self):
-        GPIO.output(ARM, GPIO.LOW)
+        arm.value = False
         self.state = 'down'
 
     def arm_send(self, method):
@@ -54,3 +56,7 @@ class Arm():
                 arm.pickup()
             else:
                 print("Not a valid arm function!")
+
+arm = Arm()
+arm.up()
+arm.down()
