@@ -6,9 +6,12 @@ from constants import SLAVE_ADDR
 import time
 import adafruit_pca9685
 
+pca = adafruit_pca9685.PCA9685()
+pca.frequency = 60
+
 class MotorDriver():
 
-    def __init__(self, queue, bus):
+    def __init__(self, queue):
         pca = adafruit_pca9685.PCA9685()
         pca.frequency = 60
         self.q = queue

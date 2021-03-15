@@ -18,7 +18,7 @@ mtr_servo_bus = smbus2.SMBus(1)
 
 # Create motor q, thread, and motor controller
 motor_q = Queue()
-mc = motor_driver.MotorDriver(motor_q, mtr_servo_bus)
+mc = motor_driver.MotorDriver(motor_q)
 motor_thread = Thread(target = mc.motor_consume)
 motor_thread.start()
 
