@@ -13,7 +13,7 @@ FAN = 33
 
 # Arm Control
 # Arm physical pin #37, the Board Label is D26
-ARM = D26
+ARM = 'D26'
 
 '''
 Pins used on the arduino are as follows:
