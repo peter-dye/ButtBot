@@ -3,19 +3,14 @@
 import math
 import time
 from constants import SLAVE_ADDR
-import board
-import busio
 import time
 import adafruit_pca9685
 
-i2c = busio.I2C(5,3)
-pca = adafruit_pca9685.PCA9685(i2c)
-
-pca.frequency = 60
-
 class MotorDriver():
 
-    def __init__(self, queue):
+    def __init__(self, queue, bus):
+        pca = adafruit_pca9685.PCA9685(bus)
+        pca.frequency = 60
         self.q = queue
         self.HIGH = 0xFFFF
         self.LOW = 0x0000
