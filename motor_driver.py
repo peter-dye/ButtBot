@@ -17,6 +17,8 @@ pca.frequency = 60
 
 print(GPIO.getmode())
 
+GPIO.setup(board.pin.33, GPIO.OUTPUT)
+
 class MotorDriver():
 
     def __init__(self, queue):
