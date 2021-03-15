@@ -4,9 +4,9 @@ from time import sleep
 
 class Arm():
 
-    def __init__(self):#, queue):
+    def __init__(self, queue):
         self.state = 'down'
-        #self.q = queue
+        self.q = queue
 
         self.ARM = digitalio.DigitalInOut(board.D26)
         self.ARM.direction = digitalio.Direction.OUTPUT
