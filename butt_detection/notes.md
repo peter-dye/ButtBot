@@ -1,11 +1,25 @@
 cd /Users/peterdye/ButtBot/butt_detection/models/research
 protoc object_detection/protos/*.proto --python_out=.
 export PYTHONPATH=$PYTHONPATH:/Users/peterdye/ButtBot/butt_detection/models
-export PYTHONPATH=$PYTHONPATH:/Users/peterdye/ButtBot/butt_detection/models/reaserch/slim
+export PYTHONPATH=$PYTHONPATH:/Users/peterdye/ButtBot/butt_detection/models/research/slim
+
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 
 python object_detection/builders/model_builder_test.py
 OR
 python object_detection/builders/model_builder_tf2_test.py
+
+# creating tf_record s
+cd models/research
+python object_detection/dataset_tools/create_coco_tf_record.py --logtostderr \
+      --train_image_dir="../../cig_butts/train/images" \
+      --val_image_dir="../../cig_butts/val/images" \
+      --test_image_dir="../../cig_butts/real_test/images" \
+      --train_annotations_file="../../cig_butts/train/coco_annotations.json" \
+      --val_annotations_file="../../cig_butts/val/coco_annotations.json" \
+      --testdev_annotations_file="../../cig_butts/real_test/coco_annotations.json" \
+      --output_dir="../../cig_butts/tf_record"
+
 
 # running the training command
 cd ssd_mobilenet_v2_320x320_coco17_tpu-8
