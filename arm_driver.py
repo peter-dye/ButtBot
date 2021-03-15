@@ -1,4 +1,5 @@
-import Jetson.GPIO as GPIO
+import board
+import digitalio
 from pinout import FAN, ARM
 from time import sleep
 

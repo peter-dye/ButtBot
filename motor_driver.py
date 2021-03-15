@@ -7,17 +7,10 @@ import time
 import busio
 import board
 import adafruit_pca9685
-import Jetson.GPIO as GPIO
-
-print(GPIO.getmode())
 
 i2c = busio.I2C(board.SCL, board.SDA)
 pca = adafruit_pca9685.PCA9685(i2c)
 pca.frequency = 60
-
-print(GPIO.getmode())
-
-GPIO.setup(board.pin(33), GPIO.OUTPUT)
 
 class MotorDriver():
 
