@@ -11,7 +11,7 @@ import Jetson.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)
 
-#i2c = busio.I2C(board.SCL, board.SDA)
+i2c = busio.I2C(5,3)
 pca = adafruit_pca9685.PCA9685(i2c)
 pca.frequency = 60
 
