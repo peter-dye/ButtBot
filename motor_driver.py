@@ -5,8 +5,10 @@ import time
 from constants import SLAVE_ADDR
 import time
 import adafruit_pca9685
+import smbus2
 
-pca = adafruit_pca9685.PCA9685()
+bus = smbus2.SMBus(1)
+pca = adafruit_pca9685.PCA9685(bus)
 pca.frequency = 60
 
 class MotorDriver():
