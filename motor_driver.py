@@ -8,7 +8,7 @@ import busio
 import time
 import adafruit_pca9685
 
-i2c = busio.I2C(board.SCL, board.SDA)
+i2c = busio.I2C(3,5)
 pca = adafruit_pca9685.PCA9685(i2c)
 
 pca.frequency = 60
