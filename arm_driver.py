@@ -3,7 +3,7 @@ import digitalio
 from pinout import FAN, ARM
 from time import sleep
 
-arm = digitalio.DigitalInOut(board.pin(ARM))
+arm = digitalio.DigitalInOut(board.D27)
 arm.direction = digitalio.Direction.OUTPUT
 
 class Arm():
