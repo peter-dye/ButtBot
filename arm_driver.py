@@ -8,10 +8,10 @@ arm.direction = digitalio.Direction.OUTPUT
 
 class Arm():
 
-    def __init__(self, queue):
+    def __init__(self):#, queue):
         #GPIO.setup(FAN, GPIO.OUT, initial=GPIO.LOW)
         self.state = 'down'
-        self.q = queue
+        #self.q = queue
 
     def pickup(self):
         # turn on fan
