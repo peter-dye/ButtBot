@@ -7,7 +7,7 @@ import time
 import busio
 import board
 import adafruit_pca9685
-#import Jetson.GPIO as GPIO
+import Jetson.GPIO as GPIO
 
 print(GPIO.getmode())
 
