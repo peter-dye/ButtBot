@@ -2,9 +2,6 @@ import Jetson.GPIO as GPIO
 from pinout import FAN, ARM
 from time import sleep
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-
 class Arm():
 
     def __init__(self, queue):
