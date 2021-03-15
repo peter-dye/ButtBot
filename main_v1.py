@@ -37,7 +37,6 @@ arm = arm_driver.Arm(arm_q)
 arm_thread = Thread(target = arm.arm_consume)
 arm_thread.start
 
-count = 0
 while True:
     if not path_q.empty():
         mtr_cmd = path_q.get() 
@@ -49,7 +48,5 @@ while True:
         if distance[i] < 10:
             print("stop!")
             mc.stop()
-    if count % 100 == 0:
-        print("US dist: ", distance[i])
-    count += 1
+
 
