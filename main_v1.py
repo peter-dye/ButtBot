@@ -7,6 +7,10 @@ import ultrasonic_driver
 import smbus2      
 import path_Q
 import arm_driver
+import Jetson.GPIO as GPIO
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
 
 # Create i2c busses
 ard_bus = smbus2.SMBus(0)
