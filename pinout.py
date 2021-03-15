@@ -12,7 +12,8 @@ SD_I2C_SCL = 28
 FAN = 33
 
 # Arm Control
-ARM = 31
+# Arm physical pin #37, the Board Label is D26
+ARM = D26
 
 '''
 Pins used on the arduino are as follows:
