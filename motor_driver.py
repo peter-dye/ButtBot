@@ -8,11 +8,12 @@ import busio
 #import board
 import adafruit_pca9685
 import Jetson.GPIO as GPIO
+import smbus2
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 
-i2c = busio.I2C(5,3)
+i2c = smbus2.SMBus(1)
 pca = adafruit_pca9685.PCA9685(i2c)
 pca.frequency = 60
 
