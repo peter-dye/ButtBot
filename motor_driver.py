@@ -9,7 +9,7 @@ import adafruit_pca9685
 class MotorDriver():
 
     def __init__(self, queue, bus):
-        pca = adafruit_pca9685.PCA9685(bus)
+        pca = adafruit_pca9685.PCA9685()
         pca.frequency = 60
         self.q = queue
         self.HIGH = 0xFFFF
