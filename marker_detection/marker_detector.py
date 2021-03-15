@@ -30,7 +30,7 @@ def mask_to_rgb(img):
     return new_img
 
 
-# trying to detect based on ratios in RGB
+# detects colours based on HSV range
 def detect_orange(img):
     new_img = np.zeros((img.shape[0], img.shape[1]))
 
