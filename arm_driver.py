@@ -59,7 +59,3 @@ class Arm():
                 self.pickup()
             else:
                 print("Not a valid arm function!")
-
-arm = Arm()
-arm.pickup()
-sleep(5)
