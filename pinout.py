@@ -9,7 +9,8 @@ SD_I2C_SDA = 27
 SD_I2C_SCL = 28
 
 # Fan Enable
-# FAN = 
+# Fan physical pin is #35, the board label is D19
+# FAN = 35
 
 # Arm Control
 # Arm physical pin #37, the Board Label is D26

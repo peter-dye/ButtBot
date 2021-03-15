@@ -2,19 +2,23 @@ import board
 import digitalio
 from time import sleep
 
-ARM = digitalio.DigitalInOut(board.D26)
-ARM.direction = digitalio.Direction.OUTPUT
-
 class Arm():
 
     def __init__(self):#, queue):
-        ARM.value = False
         self.state = 'down'
         #self.q = queue
 
+        ARM = digitalio.DigitalInOut(board.D26)
+        ARM.direction = digitalio.Direction.OUTPUT
+        ARM.value = False
+
+        FAN = digitalio.DigitalInOut(board.D19)
+        FAN.direction = digitalio.Direction.OUTPUT
+        FAN.value = False
+
     def pickup(self):
         # turn on fan
-        GPIO.output(FAN, GPIO.HIGH)
+        FAN.value = True
         # lower arm
         ARM.value = False
         # wait for fan to hit full speed and pickup butt
@@ -24,7 +28,7 @@ class Arm():
         #wait for arm to raise
         sleep(3)
         # turn off fan
-        GPIO.output(FAN, GPIO.LOW)
+        FAN.value = False
         # wait for butt to fall
         sleep(1)
         # return arm to prev state
@@ -57,7 +61,5 @@ class Arm():
                 print("Not a valid arm function!")
 
 arm = Arm()
-arm.up()
-sleep(5)
-arm.down()
+arm.pickup()
 sleep(5)
