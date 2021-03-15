@@ -53,17 +53,3 @@ class Arm():
                 arm.pickup()
             else:
                 print("Not a valid arm function!")
-
-       
-arm = Arm()
-while True:
-    ind = input('>>>')
-    if ind == 'up':
-        arm.up()
-    elif ind == 'down':
-        arm.down()
-    elif ind == 'pickup':
-        arm.pickup()
-    else:
-        break
-GPIO.cleanup()
