@@ -1,7 +1,5 @@
 import tensorflow as tf
 from PIL import Image
-import matplotlib
-matplotlib.use('TkAgg', force=True)
 from matplotlib import pyplot as plt
 import numpy as np
 from object_detection.utils import label_map_util
@@ -9,16 +7,14 @@ from object_detection.utils import visualization_utils as viz_utils
 import cv2
 
 
-print('MATPLOTLIB USING: {}'.format(matplotlib.get_backend()))
-
-
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
 
 
-PATH_TO_SAVED_MODEL = './fine_tuned_model_11/saved_model'
+PATH_TO_SAVED_MODEL = './fine_tuned_model/saved_model'
 PATH_TO_LABELS = '../cig_butts/tf_record/label_map.pbtxt'
 
+# real test images
 IMAGE_PATHS = ['../cig_butts/real_test/images/0000.JPG',
                '../cig_butts/real_test/images/0001.JPG',
                '../cig_butts/real_test/images/0002.JPG',
@@ -30,9 +26,11 @@ IMAGE_PATHS = ['../cig_butts/real_test/images/0000.JPG',
                '../cig_butts/real_test/images/0008.JPG',
                '../cig_butts/real_test/images/0009.JPG']
 
+# coco test model
 # PATH_TO_SAVED_MODEL = './saved_model'
 # PATH_TO_LABELS = '../models/research/object_detection/data/mscoco_label_map.pbtxt'
 #
+# coco test images
 # IMAGE_PATHS = ['../models/research/object_detection/test_images/image1.jpg',
 #                '../models/research/object_detection/test_images/image2.jpg']
 
