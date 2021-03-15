@@ -5,23 +5,21 @@ import time
 from constants import SLAVE_ADDR
 import time
 import busio
-#import board
+import board
 import adafruit_pca9685
-import Jetson.GPIO as GPIO
-import smbus2
+#import Jetson.GPIO as GPIO
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
+print(GPIO.getmode())
 
-i2c = smbus2.SMBus(1)
+i2c = busio.I2C(board.SCL, board.SDA)
 pca = adafruit_pca9685.PCA9685(i2c)
 pca.frequency = 60
+
+print(GPIO.getmode())
 
 class MotorDriver():
 
     def __init__(self, queue):
-        pca = adafruit_pca9685.PCA9685()
-        pca.frequency = 60
         self.q = queue
         self.HIGH = 0xFFFF
         self.LOW = 0x0000
