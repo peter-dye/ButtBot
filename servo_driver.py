@@ -14,7 +14,7 @@ class ServoDriver():
         self.default()
 
     #Return all servos to default position
-    def default():
+    def default(self):
         self.kit.servo[6].angle = 90
         self.kit.servo[7].angle = 90
         sleep(0.45)
