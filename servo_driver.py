@@ -39,4 +39,3 @@ class ServoDriver():
     def read(self, servo):
         return round(self.kit.servo[servo].angle)
             
-servo = ServoDriver()
