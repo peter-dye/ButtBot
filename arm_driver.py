@@ -38,6 +38,7 @@ class Arm():
             self.down()
 
     def up(self):
+        print('in up')
         self.ARM.value = True
         self.state = 'up'
         
@@ -52,6 +53,7 @@ class Arm():
         while True:
             method = self.q.get()
             if method == 'up':
+                print("sending up command")
                 self.up()
             elif method == 'down':
                 self.down()
