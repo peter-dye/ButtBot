@@ -104,6 +104,9 @@ for i in range(len(images)):
     cnts = imutils.grab_contours(cnts)
     cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
 
+    # print the area of the contour
+    print(cv2.contourArea(cnts))
+
     # compute the center of the contour
     M = cv2.moments(cnts)
     cX = int(M["m10"] / M["m00"])
