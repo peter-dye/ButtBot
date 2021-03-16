@@ -18,9 +18,9 @@ class ServoDriver():
         self.kit.servo[6].angle = 90
         self.kit.servo[7].angle = 90
         sleep(0.45)
-        kit.servo[5].angle = 30
+        self.kit.servo[5].angle = 30
         sleep(0.45)
-
+        print(self.kit.servo[5].angle)
 
     def tilt(self, pitch_angle):
         self.kit.servo[5].angle = pitch_angle
@@ -36,4 +36,5 @@ class ServoDriver():
             self.kit.servo[7].angle = 90 - (pan_angle + 90)
         else:
             self.kit.servo[6].angle = 90 - pan_angle
-
+            
+servo = ServoDriver()
