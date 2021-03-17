@@ -3,25 +3,32 @@
 import math
 import time
 from constants import SLAVE_ADDR
-import time
 import busio
 import board
 import adafruit_pca9685
+from queue import Queue
+from threading import Thread
 
 i2c = busio.I2C(board.SCL, board.SDA)
 pca = adafruit_pca9685.PCA9685(i2c)
 pca.frequency = 60
 
+
 class MotorDriver():
 
-    def __init__(self, queue):
-        self.q = queue
+    def __init__(self):
+        self.q = Queue()
         self.HIGH = 0xFFFF
         self.LOW = 0x0000
         self.mtr1_dir = pca.channels[8]
-        self.mtr1_pwm = pca.channels[9] 
+        self.mtr1_pwm = pca.channels[9]
         self.mtr2_dir = pca.channels[10]
         self.mtr2_pwm = pca.channels[11]
+
+        self.t = Thread(target=self.consumer)
+        self.t.start()
+
+        return
 
     # Move both motors forwards at speed for duration
     def fwd_bwd(self, spd, dir):
@@ -55,8 +62,8 @@ class MotorDriver():
     def motor_send(self, speed, duration, direction):
         data = [0,0,0]
         data[0] = speed
-        data[1] = duration 
-        data[2] = direction 
+        data[1] = duration
+        data[2] = direction
         self.q.put(data)
 
     def motor_consume(self):
@@ -72,4 +79,3 @@ class MotorDriver():
                 self.stop()
             time.sleep(data[1])
             self.stop()
-

@@ -1,16 +1,24 @@
 import time
+from smbus2 import SMBus
 from constants import *
+from multiprocessing import Array
+from threading import Thread, Lock
 #import motor_driver
 #from path_planning import motor_controller
 
+
 class UltrasonicDriver():
 
-    def __init__(self, bus, buffer, lock):
-        self.bus = bus
-        self.buffer = buffer
-        self.lock = lock
-    #Reads the distances from the slave
+    def __init__(self):
+        self.bus = SMBus(0)
+        self.buffer = Array('I', range(4))
+        self.lock = Lock()
+
+        self.t = Thread(target=self.write_to_mem)
+        self.t.start()
+
     def readI2C(self):
+        #Reads the distances from the slave
         bval = 0                                        #Temp variable to store the byte read from the bus
         bval = self.bus.read_byte_data(SLAVE_ADDR, 0)   #Read the byte from the bus
         return bval                                     #Return read byte
@@ -33,6 +41,5 @@ class UltrasonicDriver():
             self.lock.release()
             return temp
 
-
-
-
+    def get_distances(self):
+        return self.read_from_mem()

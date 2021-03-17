@@ -1,12 +1,17 @@
 import board
 import digitalio
 from time import sleep
+from queue import Queue
+from threading import Thread
 
-class Arm():
 
-    def __init__(self, queue):
+class ArmDriver():
+
+    def __init__(self):
         self.state = 'down'
-        self.q = queue
+        # self.q = Queue()
+        # self.t = Thread(target=self.consume)
+        # self.t.start()
 
         self.ARM = digitalio.DigitalInOut(board.D26)
         self.ARM.direction = digitalio.Direction.OUTPUT
@@ -22,7 +27,7 @@ class Arm():
         # lower arm
         self.ARM.value = False
         # wait for fan to hit full speed and pickup butt
-        sleep(8)       
+        sleep(8)
         # raise arm
         self.ARM.value = True
         #wait for arm to raise
@@ -41,15 +46,15 @@ class Arm():
         print('in up')
         self.ARM.value = True
         self.state = 'up'
-        
+
     def down(self):
         self.ARM.value = False
         self.state = 'down'
 
-    def arm_send(self, method):
+    def send(self, method):
         self.q.put(method)
-    
-    def arm_consume(self):
+
+    def consume(self):
         while True:
             method = self.q.get()
             if method == 'up':
