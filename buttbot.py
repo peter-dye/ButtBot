@@ -71,4 +71,21 @@ class ButtBot():
             obstacles.append((res[i],res[i+1]))
             i += 2
 
+        # initialize the state function mapping
+        self.state_functions = {"first_state": self.first_state}
+
+        # initialize the state
+        self.state = "first_state"
+
+        return
+
+    def state_machine(self):
+        while True:
+            state_function = self.state_functions[self.state]
+            state_function()
+        return
+
+    def first_state(self):
+        # run state code
+        # update self.state if there is a transition
         return
