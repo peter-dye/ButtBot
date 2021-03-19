@@ -3,6 +3,7 @@ import queue
 import copy
 import numpy as np
 import heapq
+import pygame
 
 class PathPlanning():
 
@@ -241,40 +242,69 @@ class PathPlanning():
             if suiv_direction == 'right':
                 return 0
             elif suiv_direction == 'up':
-                return 90
+                return -90
             elif suiv_direction == 'left':
                 return 180
             else:
-                return -90
+                return 90
         elif curr_direction == 'left':
             if suiv_direction == 'right':
                 return 180
             elif suiv_direction == 'up':
-                return -90
+                return 90
             elif suiv_direction == 'left':
                 return 0
             else:
-                return 90
+                return -90
         if curr_direction == 'up':
             if suiv_direction == 'right':
-                return -90
+                return 90
             elif suiv_direction == 'up':
                 return 0
             elif suiv_direction == 'left':
-                return 90
+                return -90
             else:
                 return 180
         if curr_direction == 'down':
             if suiv_direction == 'right':
-                return -90
+                return 90
             elif suiv_direction == 'up':
                 return 180
             elif suiv_direction == 'left':
                 return -90
             else:
                 return 0
+
+    #visualize
+    pygame.init()
+    screen = pygame.display.set_mode([500, 500])
+    running = True
+    WHITE = (255, 255, 255)
+    GREEN = (0, 255, 0,)
+    BLUE = (0, 0, 255)
+    YELLOW = (255 ,255 ,0)
+    screen.fill((255, 255, 255))
+    x = 40
+    y = 0
+    w = 20
+    for i in range(1,21):
+        x = 20                                                            # set x coordinate to start position
+        y = y + 20                                                        # start a new row
+        for j in range(1, 21):
+            pygame.draw.line(screen, WHITE, [x, y], [x + w, y])           # top of cell
+            pygame.draw.line(screen, WHITE, [x + w, y], [x + w, y + w])   # right of cell
+            pygame.draw.line(screen, WHITE, [x + w, y + w], [x, y + w])   # bottom of cell
+            pygame.draw.line(screen, WHITE, [x, y + w], [x, y])           # left of cell
+            #grid.append((x,y))                                            # add cell to grid list
+            x = x + 20  
+    while running:
+    # Did the user click the window close button?
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
 
 
 cmd = PathPlanning(10,10,None)
 print(cmd.get_instructions())
+
