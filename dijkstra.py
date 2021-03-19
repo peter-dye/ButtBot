@@ -20,7 +20,7 @@ class PathPlanning():
                 self.search_space[i][j] = 255
       
         if self.obstacles is not None:
-            self.add_obstacles(self.obstacles)
+            self.add_obstacles()
 
         self.route = self.plan_path()
         
@@ -46,7 +46,7 @@ class PathPlanning():
 
     def add_obstacles(self):
         for i in range(len(self.obstacles)):
-            self.state_space[self.obstacles[i][0]][self.obstacles[i][1]] = 0
+            self.search_space[self.obstacles[i][0]][self.obstacles[i][1]] = 0
 
     class Vertex:
         def __init__(self, row, col):
@@ -276,35 +276,47 @@ class PathPlanning():
                 return 0
 
     #visualize
-    pygame.init()
-    screen = pygame.display.set_mode([500, 500])
-    running = True
-    WHITE = (255, 255, 255)
-    GREEN = (0, 255, 0,)
-    BLUE = (0, 0, 255)
-    YELLOW = (255 ,255 ,0)
-    screen.fill((255, 255, 255))
-    x = 40
-    y = 0
-    w = 20
-    for i in range(1,21):
-        x = 20                                                            # set x coordinate to start position
-        y = y + 20                                                        # start a new row
-        for j in range(1, 21):
-            pygame.draw.line(screen, WHITE, [x, y], [x + w, y])           # top of cell
-            pygame.draw.line(screen, WHITE, [x + w, y], [x + w, y + w])   # right of cell
-            pygame.draw.line(screen, WHITE, [x + w, y + w], [x, y + w])   # bottom of cell
-            pygame.draw.line(screen, WHITE, [x, y + w], [x, y])           # left of cell
-            #grid.append((x,y))                                            # add cell to grid list
-            x = x + 20  
-    while running:
-    # Did the user click the window close button?
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+    """
+    def visualize(self):
+        pygame.init()
+        screen = pygame.display.set_mode([10*self.num_rows, 10*self.num_cols])
+        running = True
+        WHITE = (255, 255, 255)
+        GREEN = (0, 255, 0,)
+        BLUE = (0, 0, 255)
+        YELLOW = (255 ,255 ,0)
+        while running:
+        # Did the user click the window close button?
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+            screen.fill(WHITE)
+            obstacle_surfaces = []
+            obstacle_surf_location = []
+            print(self.obstacles)
+            for i in range(len(self.obstacles)):
+                obstacle_surfaces[i] = pygame.Surface((10, 10))
+                obstacle_surfaces[i].fill((0, 0, 0))
+                obstacle_surf_location[i] = (-10*self.obstacles[i][0]+90, 10*self.obstacles[i][1])
+                screen.blit(obstacle_surfaces[i], obstacle_surf_location[i])
+            pygame.display.flip()
+"""
+        # Create a surface and pass in a tuple containing its length and width
+        #surf = pygame.Surface((10, 10))
+
+        # Give the surface a color to separate it from the background
+        #surf.fill((0, 0, 0))
+        #rect = surf.get_rect()
+        # Put the center of surf at the center of the display
+        #surf_center = ((100-surf.get_width())/2,(100-surf.get_height())/2)
+        # This line says "Draw surf onto the screen at the center"
+        #screen.blit(surf, surf_center)
+        #pygame.display.flip()
+        #screen.blit(surf, (100/2, 100/2))
+        #pygame.display.flip()
 
 
-
-cmd = PathPlanning(10,10,None)
+obstacles = [(0,1),(0,2)]
+cmd = PathPlanning(10,10, obstacles)
 print(cmd.get_instructions())
 
