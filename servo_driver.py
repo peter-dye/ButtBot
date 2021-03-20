@@ -36,5 +36,5 @@ class ServoDriver():
                 time.sleep(0.300)
 
     def read(self):
-        return (((self.pan.angle-60)*3), round(self.pitch.angle))
+        return (int((self.pan.angle-60)*3), round(self.pitch.angle))
      
