@@ -25,7 +25,7 @@ class MotorDriver():
         self.mtr2_dir = pca.channels[10]
         self.mtr2_pwm = pca.channels[11]
 
-        self.t = Thread(target=self.consumer)
+        self.t = Thread(target=self.motor_consume)
         self.t.start()
 
         return
