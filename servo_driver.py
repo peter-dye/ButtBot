@@ -18,7 +18,7 @@ class ServoDriver():
 
     #Return all servos to default position
     def default(self):
-        self.pan(60)
+        self.pan(0)
         self.pitch(140)
 
     def pitch(self, pitch_angle):
@@ -28,12 +28,12 @@ class ServoDriver():
         if target_ang > (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) < target_ang:
                 self.s_pan.angle += 3
-                sleep(0.300)
+                sleep(0.500)
     
         elif target_ang < (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) > target_ang:
                 self.s_pan.angle = max(self.s_pan.angle-3, 0)
-                sleep(0.300)
+                sleep(0.500)
 
     def read(self):
         return (int((self.s_pan.angle-60)*3), round(self.s_pitch.angle))
