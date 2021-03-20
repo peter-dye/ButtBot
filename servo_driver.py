@@ -12,7 +12,7 @@ class ServoDriver():
         self.kit = ServoKit(channels=8)
         self.s_pan = self.kit.servo[5]
         self.s_pitch = self.kit.servo[6]
-        self.pan.actuation_range = 128
+        self.s_pan.actuation_range = 128
 
         self.default()
 
