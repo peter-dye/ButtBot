@@ -22,7 +22,7 @@ class ServoDriver():
         self.pitch.angle = 90
 
     def pitch(self, pitch_angle):
-        self.pitch.angle = pitch_angle
+        self.kit.servo[6].angle = pitch_angle
 
     def pan(self, target_ang):
         if target_ang > 0:
