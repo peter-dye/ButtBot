@@ -26,15 +26,15 @@ class ServoDriver():
 
     def pan(self, target_ang):
         if target_ang > 0:
-            while ((self.pan.angle-60)*3) < target_ang:
-                self.pan.angle += 1
+            while ((self.s_pan.angle-60)*3) < target_ang:
+                self.s_pan.angle += 1
                 time.sleep(0.300)
-        
+    
         elif target_ang < 0:
-            while ((self.pan.angle-60)*3) > target_ang:
-                self.pan.angle -= 1
+            while ((self.s_pan.angle-60)*3) > target_ang:
+                self.s_pan.angle -= 1
                 time.sleep(0.300)
 
     def read(self):
-        return (int((self.pan.angle-60)*3), round(self.pitch.angle))
+        return (int((self.s_pan.angle-60)*3), round(self.s_pitch.angle))
      
