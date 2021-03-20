@@ -3,7 +3,7 @@ import queue
 import copy
 import numpy as np
 import heapq
-import pygame
+#import pygame
 
 class PathPlanning():
 
@@ -15,9 +15,12 @@ class PathPlanning():
         self.direction_list = []
 
         self.search_space = np.empty([self.num_rows, self.num_cols])
+        self.search_space_copy = np.empty([self.num_rows, self.num_cols])
+
         for i in range(self.num_rows):
             for j in range(self.num_cols):
                 self.search_space[i][j] = 255
+                self.search_space_copy[i][j] = 255
       
         if self.obstacles is not None:
             self.add_obstacles()
@@ -47,6 +50,7 @@ class PathPlanning():
     def add_obstacles(self):
         for i in range(len(self.obstacles)):
             self.search_space[self.obstacles[i][0]][self.obstacles[i][1]] = 0
+            self.search_space_copy[self.obstacles[i][0]][self.obstacles[i][1]] = 0
 
     class Vertex:
         def __init__(self, row, col):
@@ -107,7 +111,7 @@ class PathPlanning():
         return neighbors
 
     def get_distance(self, u, v):
-        return 0.1 + (float(self.search_space[v])-float(self.search_space[u]))**2
+        return 0.1 + (float(self.search_space_copy[v])-float(self.search_space_copy[u]))**2
 
     def print_matrix(self) :
         for row in range(len(self.search_space)-1,-1,-1):
