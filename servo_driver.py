@@ -13,13 +13,14 @@ class ServoDriver():
         self.s_pan = self.kit.servo[5]
         self.s_pitch = self.kit.servo[6]
         self.s_pan.actuation_range = 128
+        self.s_pitch.actuation_range = 126
 
         self.default()
 
     #Return all servos to default position
     def default(self):
         self.pan(0)
-        self.pitch(140)
+        self.pitch(90)
 
     def pitch(self, pitch_angle):
         self.s_pitch.angle = pitch_angle
