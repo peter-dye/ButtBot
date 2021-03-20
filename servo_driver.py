@@ -6,7 +6,7 @@ from constants import *
 # until it is +180 degrees. 0 deg pans camera to the left until it is -180 degrees. 3:1 gear ratio mounted on servo 5
 # Servo[6] controls the pitch of the camera. 
 
-class ServoDriver():
+class SDriver():
 
     def __init__(self):
         self.kit = ServoKit(channels=8)
@@ -22,7 +22,7 @@ class ServoDriver():
         self.pitch.angle = 90
 
     def pitch(self, pitch_angle):
-        self.kit.servo[6].angle = pitch_angle
+        self.pitch.angle = pitch_angle
 
     def pan(self, target_ang):
         if target_ang > 0:
