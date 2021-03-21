@@ -26,7 +26,7 @@ class ServoDriver():
         self.s_pitch.angle = pitch_angle
 
     def pan(self, target_ang):
-        print("current angle is ", self.read())
+        print("current angle is", self.read())
         if target_ang > (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) < target_ang:
                 if ((target_ang - (self.s_pan.angle-60)*3) < 3):
