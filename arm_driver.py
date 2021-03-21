@@ -48,9 +48,13 @@ class ArmDriver():
         self.state = 'up'
 
     def down(self):
+        print("in down")
         self.ARM.value = False
         self.state = 'down'
 
 ad = ArmDriver()
+time.sleep(3)
 ad.up()
+time.sleep(3)
 ad.down()
+time.sleep(3)
