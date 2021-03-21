@@ -342,8 +342,6 @@ class PathPlanning():
 
 obstacles = [(0,2), (5,2), (5,3)]
 cmd = PathPlanning(10,10, obstacles)
-print(cmd.get_instructions())
-print(cmd.coordinate_list)
 
 visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
 for i in range(len(cmd.search_space_copy)):
@@ -361,5 +359,5 @@ for coord in cmd.coordinate_list:
     print('.')
     time.sleep(0.3)
 
-print('done')
+print("Calculated Path is: " , cmd.route) 
 

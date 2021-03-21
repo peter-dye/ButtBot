@@ -3,43 +3,58 @@ import servo_driver as sd
 from path_planning import motor_controller
 from constants import *
 
-def calc_distance(butt_x, butt_y):
-    #butt is left of the bot
-    if butt_x < IMG_WD/2:
-        if butt_y > IMG_HT/2:
-            while (butt_y > IMG_HT/2):
-                tilt_angle -= 1
-                sd.camera_tilt(tilt_angle)
+class RelativeButt():
+
+    def __init__(self, servo_driver, butt_coords):
+        self.servo_driver = servo_driver
+        self.butt_x = butt_coords[0]
+        self.butt_y = butt_coords[1]
+
+    def calc_distance(self):
+        #butt is left of the bot
+        current_angles = self.servo_driver.read()
+        target_pan = current_angles[0]
+        tilt_angle = current_angles[1]
+
+        if self.butt_x < IMG_WD/2:
+            if self.butt_y > IMG_HT/2:
+                while (self.butt_y > IMG_HT/2):
+                    tilt_angle -= 1
+                    self.servo_driver.pitch(tilt_angle)
+                    
+            else:
+                while (self.butt_y < IMG_HT/2):
+                    tilt_angle += 1
+                    self.servo_driver.pitch(tilt_angle)
+
+            x_dist = CAM_HEIGHT * math.tan(tilt_angle)
+
+            while (self.butt_x < IMG_WD/2):
+                target_pan -= 1
+                pan_angle = self.servo_driver.pan(target_pan)
+
+            need_to_move = x_dist / math.cos(pan_angle)
+
+            return(need_to_move, pan_angle)
+
+        #butt is right of the bot
+        elif self.butt_x > IMG_WD/2:
+            if self.butt_y > IMG_HT/2:
+                while (self.butt_y > IMG_HT/2):
+                    tilt_angle -= 1
+                    self.servo_driver.pitch(tilt_angle)
     
-        else:
-            while (butt_y < IMG_HT/2):
-                tilt_angle += 1
-                sd.camera_tilt(tilt_angle)
+            else:
+                while (self.butt_y < IMG_HT/2):
+                    tilt_angle += 1
+                    self.servo_driver.pitch(tilt_angle)
 
-        x_dist = CAM_HEIGHT * math.tan(tilt_angle)
+            x_dist = CAM_HEIGHT * math.tan(tilt_angle)
 
-        pan_angle = sd.camera_pan(IMG_WD, butt_x,'left')
+            while (self.butt_x > IMG_WD/2):
+                target_pan += 1
+                pan_angle = self.servo_driver.pan(target_pan)
 
-        need_to_move = x_dist / math.cos(pan_angle)
-
-        return need_to_move, pan_angle, 'left'
-
-    #butt is right of the bot
-    elif butt_x > IMG_WD/2:
-        if butt_y > IMG_HT/2:
-            while (butt_y > IMG_HT/2):
-                tilt_angle -= 1
-                sd.camera_tilt(tilt_angle)
-    
-        else:
-            while (butt_y < IMG_HT/2):
-                tilt_angle += 1
-                sd.camera_tilt(tilt_angle)
-
-        x_dist = CAM_HEIGHT * math.tan(tilt_angle)
-
-        pan_angle = sd.camera_pan(IMG_WD, butt_x,'right')
-
-        need_to_move = x_dist / math.cos(pan_angle)
+            need_to_move = x_dist / math.cos(pan_angle)
         
-        return need_to_move, pan_angle, 'left'
+            return(need_to_move, pan_angle)

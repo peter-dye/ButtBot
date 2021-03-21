@@ -83,6 +83,8 @@ class ButtBot():
 
         # initialize the state function mapping
         self.state_functions = {"first_state": self.first_state}
+        self.state_functions['pickup_state'] = self.pickup_state
+        self.state_functions['approach_state'] = self.approach_state
 
         # initialize the state
         self.state = "first_state"
@@ -98,4 +100,17 @@ class ButtBot():
     def first_state(self):
         # run state code
         # update self.state if there is a transition
+        return
+    def pickup_state(self):
+        self.arm_driver.pickup()
+        self.state = 0 ##THIS NEEDS TO BE THE NEXT STATE I JUST DONT KNOW WHAT IT IS
+        return
+    
+    def approach_state(self):
+        #calculate butt relative distance
+        #approach 
+        #halfway stop
+        #calculate
+        #approach
+        self.state = "pickup_state"
         return
