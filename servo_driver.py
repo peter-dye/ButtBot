@@ -14,7 +14,7 @@ class ServoDriver():
         self.s_pitch = self.kit.servo[6]
         self.s_pan.actuation_range = 128
         self.s_pitch.actuation_range = 126
-
+        print("current angle is ", self.read())
         self.default()
 
     #Return all servos to default position
