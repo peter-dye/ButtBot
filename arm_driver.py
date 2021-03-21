@@ -7,7 +7,6 @@ from threading import Thread
 class ArmDriver():
 
     def __init__(self):
-        self.down()
         # self.q = Queue()
         # self.t = Thread(target=self.consume)
         # self.t.start()
@@ -19,6 +18,8 @@ class ArmDriver():
         self.FAN = digitalio.DigitalInOut(board.D19)
         self.FAN.direction = digitalio.Direction.OUTPUT
         self.FAN.value = False
+
+        self.down()
 
     def pickup(self):
         # turn on fan
