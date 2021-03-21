@@ -51,6 +51,7 @@ class PathPlanning():
         for i in range(len(self.obstacles)):
             self.search_space[self.obstacles[i][0]][self.obstacles[i][1]] = 0
             self.search_space_copy[self.obstacles[i][0]][self.obstacles[i][1]] = 0
+        print(self.search_space)
 
     class Vertex:
         def __init__(self, row, col):
@@ -128,6 +129,7 @@ class PathPlanning():
         dest_col = dst[1]
         print('to: ', dest_row, dest_col)
         self.search_space = np.full((self.num_rows, self.num_cols), None) #access by self.search_space[row][col]
+        print('search space is: ', self.search_space)
 
         for r in range(self.num_rows):
             for c in range(self.num_cols):
@@ -140,12 +142,19 @@ class PathPlanning():
 
         while len(pq) > 0:
             u=pq[0]
+            print('currently processing: ', u.row, u.col)
             u.processed=True
             pq[0]=pq[-1]
             pq[0].index_in_queue=0
             pq.pop()
             pq=self.bubble_down(pq,0)
+            print('new queue is: ')
+            for i in range(len(pq)):
+                print('coordinate is: ', pq[i].row, pq[i].col, 'with distance: ', pq[i].d)
             neighbors = self.get_neighbors(u.row,u.col)
+            print('neighbors of ', u.row, u.col, ' are:')
+            for i in range (len(neighbors)):
+                print(neighbors[i].row, neighbors[i].col)
             for v in neighbors:
                 dist=self.get_distance((u.row,u.col),(v.row,v.col))
                 if u.d + dist < v.d:
@@ -163,20 +172,22 @@ class PathPlanning():
     
         #path.append([source_row,source_col])
         path.reverse()
+        print('path around obstacle is: ', path)
         path.pop() #remove the last spot cause we get it from plan path function
+        print('path around obstacle is: ', path)
         return path
 
     def open_spots(self):
         num_locations = 0
         for i in range (self.num_rows):
             for j in range (self.num_cols):
-                if self.search_space[i][j] == 255:
+                if self.search_space_copy[i][j] == 255:
                     num_locations += 1
         return num_locations #return number of locations that must be visited
 
     def avoid_obstacle(self, curr_position, prev_position):
         source = copy.deepcopy(prev_position)
-        while self.search_space[curr_position[0]][curr_position[1]] != 255: #look for next open spot
+        while self.search_space_copy[curr_position[0]][curr_position[1]] != 255: #look for next open spot
             if curr_position[0]%2 == 0:
                 if curr_position[1] != self.num_cols-1:
                     curr_position[1] += 1
@@ -196,11 +207,14 @@ class PathPlanning():
         curr_position = [0,0]
         visited_spots = 0
         num_locations = self.open_spots() #find num spots we need to visit till done
+        print('number of spots to visit = ', num_locations)
         while visited_spots != num_locations: #while not done
             if curr_position[0]%2 == 0: #if in even row move right
-                if self.search_space[curr_position[0]][curr_position[1]] == 255: #if spot available
+                print('current position is: ', curr_position, ' and in even row')
+                if self.search_space_copy[curr_position[0]][curr_position[1]] == 255: #if spot available
                     full_path.append(copy.deepcopy(curr_position)) #add spot to path
                     visited_spots += 1
+                    print('added ', curr_position, ' to full path which is now: ', full_path)
                     if curr_position[1] != self.num_cols-1: #if not at row end
                         prev_position = copy.deepcopy(curr_position) 
                         curr_position[1] += 1 #move right
@@ -210,9 +224,14 @@ class PathPlanning():
                 else:
                     #find start and end for dijkstra's
                     curr_position, path_around_obstacle = self.avoid_obstacle(copy.deepcopy(curr_position), copy.deepcopy(prev_position))
+                    print('current position is ', curr_position)
+                    print('found path around obstacle: ', path_around_obstacle)
                     full_path.extend(copy.deepcopy(path_around_obstacle))
+                    print('current full path is: ', full_path)
             else: #in odd row so move left
-                if self.search_space[curr_position[0]][curr_position[1]] == 255: #if spot available
+                print('current position is: ', curr_position, ' and in odd row')
+                print('current position value is: ', self.search_space[curr_position[0]][curr_position[1]])
+                if self.search_space_copy[curr_position[0]][curr_position[1]] == 255: #if spot available
                     full_path.append(copy.deepcopy(curr_position)) #add spot to path
                     visited_spots += 1
                     if curr_position[1] != 0: #if not at row end
@@ -320,7 +339,7 @@ class PathPlanning():
         #pygame.display.flip()
 
 
-obstacles = [(0,1),(0,2)]
-cmd = PathPlanning(10,10, obstacles)
+obstacles = [(0,2)]
+cmd = PathPlanning(3,3, obstacles)
 print(cmd.get_instructions())
 
