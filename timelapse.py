@@ -10,7 +10,9 @@ ad = ArmDriver()
 
 while True:
     dur = r.randint(1,5)
+    print("dur is", dur)
     speed = r.rand(0,1)
+    print("speed is ", speed)
     md.motor_send(speed, dur, 'fwd')
     time.sleep(dur)
 
