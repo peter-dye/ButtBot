@@ -11,7 +11,7 @@ ad = ArmDriver()
 while True:
     dur = r.randint(1,5)
     print("dur is", dur)
-    speed = r.rand(0,1)
+    speed = r.random()
     print("speed is ", speed)
     md.motor_send(speed, dur, 'fwd')
     time.sleep(dur)
@@ -35,4 +35,4 @@ while True:
         else:
             ang = r.randint(0,126)
             sd.pitch(ang)
-    time.sleep(10)
+    time.sleep(5)

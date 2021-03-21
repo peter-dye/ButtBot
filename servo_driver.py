@@ -29,20 +29,18 @@ class ServoDriver():
         print("current angle is ", self.read())
         if target_ang > (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) < target_ang:
-                #if ((target_ang - (self.s_pan.angle-60)*3) < 3):
-                #    self.s_pan.angle += 1
-                #else:
-                self.s_pan.angle += 3
+                if ((target_ang - (self.s_pan.angle-60)*3) < 3):
+                    self.s_pan.angle += 1
+                else:
+                    self.s_pan.angle += 3
                 sleep(0.400)
     
         elif target_ang < (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) > target_ang:
-                #if ((((self.s_pan.angle-60)*3) - target_ang) < 3):
-                #    self.s_pan.angle = max(self.s_pan.angle-1, 0)
-                #else:
-                print(target_ang)
-                self.s_pan.angle = max(self.s_pan.angle-3, 0)
-                print(self.read())
+                if ((((self.s_pan.angle-60)*3) - target_ang) < 3):
+                    self.s_pan.angle = max(self.s_pan.angle-1, 0)
+                else:
+                    self.s_pan.angle = max(self.s_pan.angle-3, 0)
                 sleep(0.400)
 
     def read(self):
