@@ -27,7 +27,6 @@ class PathPlanning():
             self.add_obstacles()
 
         self.route = self.plan_path()
-        
         self.get_directions()
         
         self.instructions = []
