@@ -3,7 +3,7 @@ import queue
 import copy
 import numpy as np
 import heapq
-#import pygame
+import time
 
 class PathPlanning():
 
@@ -12,6 +12,7 @@ class PathPlanning():
         self.num_rows = num_rows
         self.num_cols = num_cols 
         self.obstacles = obstacles 
+        self.coordinate_list = []
         self.direction_list = []
 
         self.search_space = np.empty([self.num_rows, self.num_cols])
@@ -116,7 +117,7 @@ class PathPlanning():
 
     def print_matrix(self) :
         for row in range(len(self.search_space)-1,-1,-1):
-            print(("[{0}]".format(', '.join(map(str, self.search_space[row])))))
+            print(("[{0}]".format(', '.join(map(str, self.search_space_copy[row])))))
 
     #dijkstra's
     def find_shortest_path(self, src, dst):
@@ -244,6 +245,7 @@ class PathPlanning():
                     #find start and end for dijkstra's
                     curr_position, path_around_obstacle = self.avoid_obstacle(copy.deepcopy(curr_position), copy.deepcopy(prev_position))
                     full_path.extend(copy.deepcopy(path_around_obstacle))
+        self.coordinate_list.extend(full_path)
         return full_path
 
     def get_directions(self):
@@ -339,7 +341,26 @@ class PathPlanning():
         #pygame.display.flip()
 
 
-obstacles = [(0,2)]
-cmd = PathPlanning(3,3, obstacles)
+obstacles = [(0,2), (5,2), (5,3)]
+cmd = PathPlanning(10,10, obstacles)
 print(cmd.get_instructions())
+print(cmd.coordinate_list)
+
+visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
+for i in range(len(cmd.search_space_copy)):
+    for j in range(len(cmd.search_space_copy)):
+        if cmd.search_space_copy[i][j] == 255:
+            visual_matrix[i][j] = 'O'
+        else:
+            visual_matrix[i][j] = 'X'
+
+for coord in cmd.coordinate_list:
+    temp = copy.deepcopy(visual_matrix)
+    temp[coord[0]][coord[1]] = 'B'
+    for row in range(len(temp)-1,-1,-1):
+        print(("[{0}]".format(', '.join(map(str, temp[row])))))
+    print('.')
+    time.sleep(0.3)
+
+print('done')
 
