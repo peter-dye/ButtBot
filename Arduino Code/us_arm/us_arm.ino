@@ -28,11 +28,11 @@ Servo armServo;
 
 // Define Fan Enable input and output
 #define FAN_IN 9
-#define FAN_OUT 8
+#define FAN_OUT 2
 
 // Define Arm input and output
 #define ARM_IN 10
-#define ARM_OUT 2
+#define ARM_OUT 8
 
 
 // Define the maximum distance for the sensors to register: 260cm

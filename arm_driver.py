@@ -4,11 +4,9 @@ from time import sleep
 from queue import Queue
 from threading import Thread
 
-
 class ArmDriver():
 
     def __init__(self):
-        self.state = 'down'
         # self.q = Queue()
         # self.t = Thread(target=self.consume)
         # self.t.start()
@@ -21,17 +19,17 @@ class ArmDriver():
         self.FAN.direction = digitalio.Direction.OUTPUT
         self.FAN.value = False
 
+        self.down()
+
     def pickup(self):
         # turn on fan
         self.FAN.value = True
         # lower arm
         self.ARM.value = False
         # wait for fan to hit full speed and pickup butt
-        sleep(8)
-        # raise arm
-        self.ARM.value = True
-        #wait for arm to raise
         sleep(3)
+        # raise arm
+        self.ARM.value = True        
         # turn off fan
         self.FAN.value = False
         # wait for butt to fall
@@ -43,26 +41,11 @@ class ArmDriver():
             self.down()
 
     def up(self):
-        print('in up')
         self.ARM.value = True
+        sleep(3)
         self.state = 'up'
 
     def down(self):
         self.ARM.value = False
+        sleep(3)
         self.state = 'down'
-
-    def send(self, method):
-        self.q.put(method)
-
-    def consume(self):
-        while True:
-            method = self.q.get()
-            if method == 'up':
-                print("sending up command")
-                self.up()
-            elif method == 'down':
-                self.down()
-            elif method == 'pickup':
-                self.pickup()
-            else:
-                print("Not a valid arm function!")

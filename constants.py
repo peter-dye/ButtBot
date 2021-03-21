@@ -12,8 +12,8 @@ HI = 1
 LO = 0.25
 
 # Camera image size in pixels
-IMG_HT = 2464          
-IMG_WD = 3280
+IMG_HT = 320          
+IMG_WD = 320
 
 # Camera mounting info
 CAM_HEIGHT = 100        #Camera height off of ground in cm
