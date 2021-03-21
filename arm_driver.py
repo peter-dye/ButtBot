@@ -27,11 +27,9 @@ class ArmDriver():
         # lower arm
         self.ARM.value = False
         # wait for fan to hit full speed and pickup butt
-        sleep(8)
-        # raise arm
-        self.ARM.value = True
-        #wait for arm to raise
         sleep(3)
+        # raise arm
+        self.ARM.value = True        
         # turn off fan
         self.FAN.value = False
         # wait for butt to fall
@@ -43,18 +41,11 @@ class ArmDriver():
             self.down()
 
     def up(self):
-        print('in up')
         self.ARM.value = True
+        sleep(3)
         self.state = 'up'
 
     def down(self):
-        print("in down")
         self.ARM.value = False
+        sleep(3)
         self.state = 'down'
-
-ad = ArmDriver()
-sleep(3)
-ad.up()
-sleep(3)
-ad.down()
-sleep(3)
