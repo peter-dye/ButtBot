@@ -319,8 +319,15 @@ class PathPlanning():
         #pygame.display.flip()
 
 
+<<<<<<< HEAD
 obstacles = [(0,2), (5,2), (5,3), (4,3), (5,5), (5,6), (8,7), (7,7), (8,8)]
 cmd = PathPlanning(9,9, obstacles)
+=======
+obstacles = [(0,2), (5,2), (5,3)]
+cmd = PathPlanning(10,10, obstacles)
+print(cmd.get_instructions())
+print(cmd.coordinate_list)
+>>>>>>> 7574988477a6e3962cb0fa4bdf5176c127c19ac9
 
 visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
 for i in range(len(cmd.search_space_copy)):
@@ -338,4 +345,9 @@ for coord in cmd.coordinate_list:
     print('.')
     time.sleep(0.3)
 
+<<<<<<< HEAD
 print('Calculated path is : ', cmd.coordinate_list)
+=======
+print("Calculated Path is: " , cmd.route) 
+
+>>>>>>> 7574988477a6e3962cb0fa4bdf5176c127c19ac9

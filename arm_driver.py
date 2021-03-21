@@ -51,18 +51,18 @@ class ArmDriver():
         self.ARM.value = False
         self.state = 'down'
 
-    def send(self, method):
-        self.q.put(method)
+    #def send(self, method):
+    #    self.q.put(method)
 
-    def consume(self):
-        while True:
-            method = self.q.get()
-            if method == 'up':
-                print("sending up command")
-                self.up()
-            elif method == 'down':
-                self.down()
-            elif method == 'pickup':
-                self.pickup()
-            else:
-                print("Not a valid arm function!")
+    #def consume(self):
+    #    while True:
+    #        method = self.q.get()
+    #        if method == 'up':
+    #            print("sending up command")
+    #            self.up()
+    #        elif method == 'down':
+    #            self.down()
+    #        elif method == 'pickup':
+    #            self.pickup()
+    #        else:
+    #            print("Not a valid arm function!")
