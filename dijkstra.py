@@ -124,12 +124,9 @@ class PathPlanning():
         self.num_rows, self.num_cols = self.search_space.shape[0], self.search_space.shape[1]
         source_row = src[0]
         source_col = src[1]
-        print('trying to get from: ', source_row, source_col)
         dest_row = dst[0]
         dest_col = dst[1]
-        print('to: ', dest_row, dest_col)
         self.search_space = np.full((self.num_rows, self.num_cols), None) #access by self.search_space[row][col]
-        print('search space is: ', self.search_space)
 
         for r in range(self.num_rows):
             for c in range(self.num_cols):
@@ -142,19 +139,12 @@ class PathPlanning():
 
         while len(pq) > 0:
             u=pq[0]
-            print('currently processing: ', u.row, u.col)
             u.processed=True
             pq[0]=pq[-1]
             pq[0].index_in_queue=0
             pq.pop()
             pq=self.bubble_down(pq,0)
-            print('new queue is: ')
-            for i in range(len(pq)):
-                print('coordinate is: ', pq[i].row, pq[i].col, 'with distance: ', pq[i].d)
             neighbors = self.get_neighbors(u.row,u.col)
-            print('neighbors of ', u.row, u.col, ' are:')
-            for i in range (len(neighbors)):
-                print(neighbors[i].row, neighbors[i].col)
             for v in neighbors:
                 dist=self.get_distance((u.row,u.col),(v.row,v.col))
                 if u.d + dist < v.d:
@@ -170,11 +160,8 @@ class PathPlanning():
             path.append([iter_v.row,iter_v.col])
             iter_v=self.search_space[iter_v.parent_x][iter_v.parent_y]
     
-        #path.append([source_row,source_col])
         path.reverse()
-        print('path around obstacle is: ', path)
         path.pop() #remove the last spot cause we get it from plan path function
-        print('path around obstacle is: ', path)
         return path
 
     def open_spots(self):
@@ -207,14 +194,11 @@ class PathPlanning():
         curr_position = [0,0]
         visited_spots = 0
         num_locations = self.open_spots() #find num spots we need to visit till done
-        print('number of spots to visit = ', num_locations)
         while visited_spots != num_locations: #while not done
             if curr_position[0]%2 == 0: #if in even row move right
-                print('current position is: ', curr_position, ' and in even row')
                 if self.search_space_copy[curr_position[0]][curr_position[1]] == 255: #if spot available
                     full_path.append(copy.deepcopy(curr_position)) #add spot to path
                     visited_spots += 1
-                    print('added ', curr_position, ' to full path which is now: ', full_path)
                     if curr_position[1] != self.num_cols-1: #if not at row end
                         prev_position = copy.deepcopy(curr_position) 
                         curr_position[1] += 1 #move right
@@ -224,13 +208,8 @@ class PathPlanning():
                 else:
                     #find start and end for dijkstra's
                     curr_position, path_around_obstacle = self.avoid_obstacle(copy.deepcopy(curr_position), copy.deepcopy(prev_position))
-                    print('current position is ', curr_position)
-                    print('found path around obstacle: ', path_around_obstacle)
                     full_path.extend(copy.deepcopy(path_around_obstacle))
-                    print('current full path is: ', full_path)
             else: #in odd row so move left
-                print('current position is: ', curr_position, ' and in odd row')
-                print('current position value is: ', self.search_space[curr_position[0]][curr_position[1]])
                 if self.search_space_copy[curr_position[0]][curr_position[1]] == 255: #if spot available
                     full_path.append(copy.deepcopy(curr_position)) #add spot to path
                     visited_spots += 1
@@ -341,7 +320,7 @@ class PathPlanning():
 
 
 obstacles = [(0,2), (5,2), (5,3)]
-cmd = PathPlanning(10,10, obstacles)
+cmd = PathPlanning(9,9, obstacles)
 print(cmd.get_instructions())
 print(cmd.coordinate_list)
 
