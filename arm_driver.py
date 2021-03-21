@@ -53,8 +53,8 @@ class ArmDriver():
         self.state = 'down'
 
 ad = ArmDriver()
-time.sleep(3)
+sleep(3)
 ad.up()
-time.sleep(3)
+sleep(3)
 ad.down()
-time.sleep(3)
+sleep(3)
