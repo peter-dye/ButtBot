@@ -14,7 +14,7 @@ class ServoDriver():
         self.s_pitch = self.kit.servo[6]
         self.s_pan.actuation_range = 128
         self.s_pitch.actuation_range = 126
-        print("current angle is ", self.read())
+        
         self.default()
 
     #Return all servos to default position
@@ -26,6 +26,7 @@ class ServoDriver():
         self.s_pitch.angle = pitch_angle
 
     def pan(self, target_ang):
+        print("current angle is ", self.read())
         if target_ang > (self.s_pan.angle-60)*3:
             while ((self.s_pan.angle-60)*3) < target_ang:
                 #if ((target_ang - (self.s_pan.angle-60)*3) < 3):
