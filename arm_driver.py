@@ -8,7 +8,7 @@ from threading import Thread
 class ArmDriver():
 
     def __init__(self):
-        self.state = 'down'
+        self.down()
         # self.q = Queue()
         # self.t = Thread(target=self.consume)
         # self.t.start()

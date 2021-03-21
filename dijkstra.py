@@ -51,7 +51,6 @@ class PathPlanning():
         for i in range(len(self.obstacles)):
             self.search_space[self.obstacles[i][0]][self.obstacles[i][1]] = 0
             self.search_space_copy[self.obstacles[i][0]][self.obstacles[i][1]] = 0
-        print(self.search_space)
 
     class Vertex:
         def __init__(self, row, col):
@@ -321,8 +320,6 @@ class PathPlanning():
 
 obstacles = [(0,2), (5,2), (5,3)]
 cmd = PathPlanning(10,10, obstacles)
-print(cmd.get_instructions())
-print(cmd.coordinate_list)
 
 visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
 for i in range(len(cmd.search_space_copy)):
@@ -337,7 +334,7 @@ for coord in cmd.coordinate_list:
     temp[coord[0]][coord[1]] = 'B'
     for row in range(len(temp)-1,-1,-1):
         print(("[{0}]".format(', '.join(map(str, temp[row])))))
-    print('.')
+    print('\n')
     time.sleep(0.3)
 
 print("Calculated Path is: " , cmd.route) 

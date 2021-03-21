@@ -9,6 +9,12 @@ class RelativeButt():
         self.servo_driver = servo_driver
         self.butt_x = butt_coords[0]
         self.butt_y = butt_coords[1]
+        self.need_to_move = 0
+        self.pan_angle = 0 
+
+        calc_distance()
+
+        return(self.need_to_move, self.pan_angle)
 
     def calc_distance(self):
         #butt is left of the bot
@@ -31,11 +37,10 @@ class RelativeButt():
 
             while (self.butt_x < IMG_WD/2):
                 target_pan -= 1
-                pan_angle = self.servo_driver.pan(target_pan)
+                self.servo_driver.pan(target_pan)
+                self.pan_angle = target_pan
 
-            need_to_move = x_dist / math.cos(pan_angle)
-
-            return(need_to_move, pan_angle)
+            self.need_to_move = x_dist / math.cos(self.pan_angle)
 
         #butt is right of the bot
         elif self.butt_x > IMG_WD/2:
@@ -53,8 +58,8 @@ class RelativeButt():
 
             while (self.butt_x > IMG_WD/2):
                 target_pan += 1
-                pan_angle = self.servo_driver.pan(target_pan)
+                self.servo_driver.pan(target_pan)
+                self.pan_angle = target_pan
 
-            need_to_move = x_dist / math.cos(pan_angle)
+            self.need_to_move = x_dist / math.cos(self.pan_angle)
         
-            return(need_to_move, pan_angle)

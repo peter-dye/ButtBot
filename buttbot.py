@@ -11,6 +11,7 @@ from ultrasonic_driver import UltrasonicDriver
 from dijkstra import PathPlanning
 import re
 from constants import *
+from butt_relative_distance import RelativeButt
 
 class ButtBot():
 
@@ -108,9 +109,20 @@ class ButtBot():
     
     def approach_state(self):
         #calculate butt relative distance
-        #approach 
-        #halfway stop
+        relative_directions = RelativeButt()
+        turn = relative_directions[1]
+        forward = relative_directions[0]
+        duration = self.motor_driver.dist2dir(full, forward)
+        #approach but stop halfway
+        self.motor_driver.motor_send(1, duration/2, 'fwd')
+        self.motor_driver.motor_send(1, duration/2, 'fwd')
         #calculate
+        relative_directions = RelativeButt()
+        turn = relative_directions[1]
+        forward = relative_directions[0]
+        duration = self.motor_driver.dist2dir(forward)
         #approach
+        self.motor_driver.motor_send(1, duration, 'fwd')
+
         self.state = "pickup_state"
         return
