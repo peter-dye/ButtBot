@@ -94,7 +94,10 @@ class Localizer():
                     best_error = error
                     location = [i, j]
 
-        return np.array(location)
+        angle_0_to_A = np.rad2deg(np.arctan((200-location[0])/(200-location[1])))
+        heading = angle_0_to_A + -1*phi_A
+
+        return np.array([location[0], location[1], heading])
 
     def localize(self):
         X_PIXELS = 320
@@ -154,8 +157,7 @@ class Localizer():
 
         # send the location back to main
         print(location)
-
-        return
+        return location
 
     def detect_marker(self, image, marker):
         # convert colour space to HSV becuase it is easier to segment colours
