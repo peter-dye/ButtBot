@@ -19,8 +19,12 @@ class ServoDriver():
 
     #Return all servos to default position
     def default(self):
-        self.pan(0)
-        self.pitch(90)
+        if self.s_pan.angle > 180:
+            self.s_pan.angle = 60
+            self.s_pitch.angle = 100
+        else: 
+            self.pan(0)
+            self.pitch(100)
 
     def pitch(self, pitch_angle):
         self.s_pitch.angle = pitch_angle
