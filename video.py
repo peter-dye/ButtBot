@@ -14,5 +14,5 @@ def run():
 def arun():
     arm = ArmDriver()
     arm.pickup()
-
+    time.sleep(10)
     

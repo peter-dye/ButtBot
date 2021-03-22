@@ -1,0 +1,22 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes not staged for commit:
+#	modified:   motor_test.py
+#
+# Untracked files:
+#	__pycache__/butt_relative_distance.cpython-36.pyc
+#	__pycache__/constants.cpython-36.pyc
+#	__pycache__/motor_driver.cpython-36.pyc
+#	__pycache__/motor_i2c_control.cpython-36.pyc
+#	__pycache__/path_planning.cpython-36.pyc
+#	__pycache__/pinout.cpython-36.pyc
+#	__pycache__/servo_driver.cpython-36.pyc
+#	__pycache__/ultrasonic_driver.cpython-36.pyc
+#	motor_driver.pyc
+#

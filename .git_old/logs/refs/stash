@@ -1,0 +1,1 @@
+0000000000000000000000000000000000000000 1144821a16676e7605c874e6869717e26f6484c6 Morgan <mrsward@uwaterloo.ca> 1614727397 -0500	WIP on master: 167feb0 Removed code converting a float to ints in motor_driver, don't need to send duration over i2c. Updated Arduino code, as it doesn't need to read a duration
