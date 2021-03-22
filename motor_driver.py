@@ -39,7 +39,15 @@ class MotorDriver():
                 self.mtr1_dir.duty_cycle = self.LOW
                 self.mtr2_dir.duty_cycle = self.HIGH
             motor_speed = int(spd * 65535)
+<<<<<<< HEAD
             self.mtr1_pwm.duty_cycle = motor_speed - 2000
+=======
+            if spd == 0.5:
+                self.mtr1_pwm.duty_cycle = motor_speed - 2500
+            else:
+                self.mtr1_pwm.duty_cycle = motor_speed - 6000
+            
+>>>>>>> 09ec83e794cba9478b8a97619bc8b55a3d0b494e
             self.mtr2_pwm.duty_cycle = motor_speed
 
     # Move right motor backwards, while moving left motor forwards until desired angle
@@ -47,11 +55,17 @@ class MotorDriver():
             if dir == 'left':
                 self.mtr1_dir.duty_cycle = self.LOW
                 self.mtr2_dir.duty_cycle = self.LOW
+<<<<<<< HEAD
             elif dir == 'right':
                 self.mtr1_dir.duty_cycle = self.HIGH
                 self.mtr2_dir.duty_cycle = self.HIGH
             motor_speed = int(spd * 65535)
             self.mtr1_pwm.duty_cycle = motor_speed-6000 
+=======
+            # Always turn with motors half speed
+            motor_speed = int(0.5 * 65535)
+            self.mtr1_pwm.duty_cycle = motor_speed - 2560
+>>>>>>> 09ec83e794cba9478b8a97619bc8b55a3d0b494e
             self.mtr2_pwm.duty_cycle = motor_speed
 
     # Stop both motors
@@ -59,10 +73,17 @@ class MotorDriver():
             self.mtr1_pwm.duty_cycle = self.LOW
             self.mtr2_pwm.duty_cycle = self.LOW
 
-    def motor_send(self, speed, duration, direction):
+    def motor_send(self, speed, distance, direction):
         data = [0,0,0]
         data[0] = speed
-        data[1] = duration
+        
+        if direction == 'fwd' or direction == 'bwd':
+            data[1] = self.dist2dur(speed, distance)
+        elif direction == 'right' or direction == 'left':
+            data[1] = self.angle2dur(angle)
+        else:
+            data[1] = 0
+
         data[2] = direction
         self.q.put(data)
 
@@ -79,3 +100,13 @@ class MotorDriver():
                 self.stop()
             time.sleep(data[1])
             self.stop()
+
+    def dist2dur(self, spd, dist):
+        if spd == 1:
+            dur = (dist + 1.7357)/42.798
+        elif spd == 0.5:
+            dur = (dist + 2.05)/22.031
+        return dur
+    
+    def angle2dur(self, angle):
+        return (0.0143*angle) + 0.0214

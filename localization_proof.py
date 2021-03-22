@@ -303,10 +303,10 @@ class Location:
 
         best_error = 360
 
-        for i in range(200):
-            for j in range(200):
+        for x in range(200):
+            for y in range(200):
                 # calculate distance to each marker
-                point = np.array([i, j])
+                point = np.array([x, y])
                 d_A = np.linalg.norm(point - self.markers[0])
                 d_B = np.linalg.norm(point - self.markers[1])
                 d_C = np.linalg.norm(point - self.markers[2])
@@ -329,9 +329,12 @@ class Location:
                 # update location if error is smallest
                 if error < best_error:
                     best_error = error
-                    location = [i, j]
+                    location = [x, y]
 
-        return np.array(location)
+        angle_0_to_A = np.rad2deg(np.arctan((200-location[0])/(200-location[1])))
+        heading = angle_0_to_A + -1*phi_A
+
+        return np.array([location[0], location[1], heading])
 
 
 # MAIN PROGRAM
@@ -456,8 +459,8 @@ phi_B = 120
 phi_C = -164
 phi_D = -56
 coords = localizer.search_four_localize(phi_A, phi_B, phi_C, phi_D)
-print('1. Expected: [70, 123] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
-print('Error: '+str(np.round(np.linalg.norm([70, 123]-coords), 2)))
+print('1. Expected: [70, 123, 14] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+', '+str(round(coords[2], 2))+']')
+print('Error: '+str(np.round(np.linalg.norm([70, 123]-coords[:2]), 2)))
 
 # case 2
 phi_A = -117
@@ -465,8 +468,8 @@ phi_B = 21
 phi_C = 75
 phi_D = 129
 coords = localizer.search_four_localize(phi_A, phi_B, phi_C, phi_D)
-print('2. Expected: [179, 168] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
-print('Error: '+str(np.round(np.linalg.norm([179, 168]-coords), 2)))
+print('2. Expected: [179, 168, 151] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+', '+str(round(coords[2], 2))+']')
+print('Error: '+str(np.round(np.linalg.norm([179, 168]-coords[:2]), 2)))
 
 # case 3
 phi_A = -89
@@ -474,8 +477,8 @@ phi_B = -23
 phi_C = 84
 phi_D = -157
 coords = localizer.search_four_localize(phi_A, phi_B, phi_C, phi_D)
-print('3. Expected: [52, 61] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
-print('Error: '+str(np.round(np.linalg.norm([52, 61]-coords), 2)))
+print('3. Expected: [52, 61, 136] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+', '+str(round(coords[2], 2))+']')
+print('Error: '+str(np.round(np.linalg.norm([52, 61]-coords[:2]), 2)))
 
 # case 4
 phi_A = 105
@@ -483,5 +486,5 @@ phi_B = -106
 phi_C = -31
 phi_D = 29
 coords = localizer.search_four_localize(phi_A, phi_B, phi_C, phi_D)
-print('4. Expected: [172, 100] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+']')
-print('Error: '+str(np.round(np.linalg.norm([172, 100]-coords), 2)))
+print('4. Expected: [172, 100, -89] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+', '+str(round(coords[2], 2))+']')
+print('Error: '+str(np.round(np.linalg.norm([172, 100]-coords[:2]), 2)))
