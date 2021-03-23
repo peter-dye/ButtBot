@@ -74,7 +74,7 @@ class MotorDriver():
         if direction == 'fwd' or direction == 'bwd':
             data[1] = self.dist2dur(speed, distance)
         elif direction == 'right' or direction == 'left':
-            data[1] = self.angle2dur(angle)
+            data[1] = self.angle2dur(distance)
         else:
             data[1] = 0
 
