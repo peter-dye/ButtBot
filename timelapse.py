@@ -9,12 +9,12 @@ sd = ServoDriver()
 ad = ArmDriver()
 
 while True:
-    dur = r.randint(1,5)
-    print("dur is", dur)
-    speed = r.random()
+    dist = r.randint(15,50)
+    print("dist is", dist)
+    speed = 1
     print("speed is ", speed)
-    md.motor_send(speed, dur, 'fwd')
-    time.sleep(dur)
+    md.motor_send(speed, dist, 'fwd')
+    time.sleep(dist*0.1)
 
     func = r.randint(1,3)
    
