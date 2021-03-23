@@ -97,10 +97,11 @@ class MotorDriver():
 
     def dist2dur(self, spd, dist):
         if spd == 1:
-            dur = (dist + 1.7357)/42.798
+            return (dist + 1.7357)/42.798
         elif spd == 0.5:
-            dur = (dist + 2.05)/22.031
-        return dur
-    
+            return (dist + 2.05)/22.031
+        else: 
+            return 0
+
     def angle2dur(self, angle):
         return (0.0143*angle) + 0.0214
