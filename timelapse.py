@@ -5,8 +5,8 @@ import time
 import random as r
 
 md = MotorDriver()
-sd = ServoDriver()
-ad = ArmDriver()
+#sd = ServoDriver()
+#ad = ArmDriver()
 
 while True:
     dist = r.randint(15,50)
