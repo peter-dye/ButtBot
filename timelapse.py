@@ -11,7 +11,7 @@ md = MotorDriver()
 while True:
     dist = r.randint(15,50)
     print("dist is", dist)
-    speed = r.uniform(0.1,1)
+    speed = 1
     print("speed is ", speed)
     md.motor_send(speed, dist, 'fwd')
     time.sleep(dist*0.1)
