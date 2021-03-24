@@ -12,10 +12,12 @@ for i in range(5):
     md.motor_send(1,100,'fwd')
     while md.running():
         distances = ud.get_distances()
+        print(distances[0],distances[1])
         if distances[0] < 30 or distances[1] < 30:
             md.stop()
             while distances[0] < 30 or distances[1] < 30:
                 distances = ud.get_distances()
+                print(distances[0],distances[1])
             break
     time.sleep(1)
 print("sleeping")
