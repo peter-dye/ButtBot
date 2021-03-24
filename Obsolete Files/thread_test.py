@@ -23,7 +23,17 @@
 #    mc.motor_send(speed, dur, dir)
 #    time.sleep(dur)
 
-import random as r
+#import random as r
 
+#for i in range(10):
+#    print(r.randint(1,3))
+baba = False
 for i in range(10):
-    print(r.randint(1,3))
+    if baba:
+        break
+    if i == 6: 
+        print("breaking")
+        break
+    if i == 3:
+        baba = True
+    print(i)
