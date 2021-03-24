@@ -9,8 +9,9 @@ ud = UltrasonicDriver()
 
 for i in range(5):
     md.motor_send(1,100,'fwd')
-    for i in range(20):
+    for i in range(100):
         distances = ud.get_distances()
+        print(distances)
         if distances[0] < 20 or distances[1] < 20:
             md.stop()
 
