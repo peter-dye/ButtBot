@@ -82,8 +82,8 @@ class ButtBot():
         # get vehicle commands 
         self.commands = path.get_instructions
         self.nodes = path.coordinate_list
-        self.current_node = None
-        self.next_node = None
+        self.current_node = self.nodes.pop(0)
+        self.next_node = self.nodes.pop(0)
 
         # initialize the state function mapping
         self.state_functions = {"first_state": self.first_state}
@@ -142,7 +142,19 @@ class ButtBot():
         return
 
     def traverse_state(self):
-       
+        while True:
+            if self.commands is empty:
+                break
+            command = self.commands.pop(0)
+            if command > 1:
+                self.motor_driver.motor_send(1, command, 'right')
+            elif command < 0:
+                self.motor_driver.motor_send(1, command, 'left')
+            elif command == 1:
+                self.motor_driver.send(1, length_of_bb, 'fwd') ##NEED TO ADD AND UPDATE
+                self.current_node = self.next_node
+                self.next_node = self.path.pop(0)
+                break
         if self.nodes is empty:
             self.state = 'return_home_state'
         else:
