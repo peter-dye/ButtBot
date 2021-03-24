@@ -183,7 +183,7 @@ class ButtBot():
                 self.motor_driver.motor_send(1, command, 'right')
             elif command < 0:
                 self.motor_driver.motor_send(1, command, 'left')
-            elif command == 1:
+            else:
                 self.motor_driver.send(1, length_of_bb, 'fwd') ##NEED TO ADD AND UPDATE
                 self.current_node = self.next_node
                 self.next_node = self.path.pop(0)
@@ -194,10 +194,19 @@ class ButtBot():
             self.state = "traverse_state"
         return
 
-        def return_home_state(self):
-            current_node = (self.num_rows-1, self.num_cols-1)
-            next_node = (0,0)
-            return_coords = self.path.find_shortest_path(current_node, next_node)
-            #return_directions = ASK PMAC
+        def return_home_state(self):    
+            home_path = self.path.path_home
+            home_instructions = self.path.instructions_home
+            #self.current_node = home_path.pop(0)
+            while True:
+                if self.commands is empty:
+                    break
+                command = self.home_instructions.pop(0)
+                if command > 1:
+                    self.motor_driver.motor_send(1, command, 'right')
+                elif command < 0:
+                    self.motor_driver.motor_send(1, command, 'left')
+                else:
+                    self.motor_driver.send(1, length_of_bb, 'fwd') ##NEED TO ADD AND UPDATE
             return
  
