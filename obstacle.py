@@ -10,13 +10,13 @@ ud = UltrasonicDriver()
 for i in range(5):
     print('sending', i)
     md.motor_send(1,100,'fwd')
-    #while True:
-    #    distances = ud.get_distances()
-    #    if distances[0] < 20 or distances[1] < 20:
-    #        md.stop()
-    #        while distances[0] < 20 or distances[1] < 20:
-    #            distances = ud.get_distances()
-    #        break
+    while True:
+        distances = ud.get_distances()
+        if distances[0] < 20 or distances[1] < 20:
+            md.stop()
+            while distances[0] < 20 or distances[1] < 20:
+                distances = ud.get_distances()
+            break
 print("sleeping")
 time.sleep(10)
 md.stop()
