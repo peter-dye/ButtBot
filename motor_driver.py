@@ -28,6 +28,9 @@ class MotorDriver():
         self.t = Thread(target=self.motor_consume)
         self.t.start()
 
+        self.mtr1_pwm.duty_cycle = self.LOW
+        self.mtr2_pwm.duty_cycle = self.LOW
+
         return
 
     # Move both motors forwards at speed for duration
@@ -105,3 +108,9 @@ class MotorDriver():
 
     def angle2dur(self, angle):
         return (0.0143*angle) + 0.0214
+    
+    def running(self):
+        if self.mtr1_pwm.duty_cycle == self.LOW or self.mtr2_pwm.duty_cycle == self.LOW:
+            return False
+        else:
+            return True
