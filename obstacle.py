@@ -17,6 +17,7 @@ for i in range(5):
             while distances[0] < 20 or distances[1] < 20:
                 distances = ud.get_distances()
             break
+    time.sleep(1)
 print("sleeping")
 time.sleep(10)
 md.stop()
