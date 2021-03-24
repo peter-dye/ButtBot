@@ -136,7 +136,7 @@ class Localizer():
                 continue
             else:
                 # if multiple markers are seen, take the most clockwise one
-                most_cw = max(centers.values())
+                most_cw = max([v for v in centers.values() if v is not None])
                 marker = [key for key in centers if centers[key] == most_cw]
                 marker = marker[0]
                 center = centers[marker]
@@ -220,8 +220,8 @@ if __name__ == '__main__':
 
     # initialize camera
     camera = CSICamera(
-        width=320,
-        height=320,
+        width=1080,
+        height=720,
         capture_width=1080,
         capture_height=720,
         capture_fps=30
