@@ -19,9 +19,7 @@ for i in range(1):
                 distances = ud.get_distances()
                 print(distances[0],distances[1])
             break
-    time.sleep(1)
-print("sleeping")
-time.sleep(5)
+print('stopping')
 md.stop()
 
     
