@@ -2,6 +2,11 @@ import numpy as np
 import imutils
 import cv2
 
+# imports for testing code
+from jetcam.csi_camera import CSICamera
+from arm_driver import ArmDriver
+from servo_driver import ServoDriver
+
 
 class Localizer():
     def __init__(self, markers: list, camera, servo_driver, arm_driver) -> None:
@@ -22,10 +27,10 @@ class Localizer():
 
         # set the colour ranges for the markers
         # OpenCV HSV colour range is H: 0-179, S: 0-255, V: 0-255
-        self.colour_ranges = {'A': ((10, 100, 100), (25, 255, 255)),  # orange
-                              'B': ((10, 100, 100), (25, 255, 255)),
-                              'C': ((10, 100, 100), (25, 255, 255)),
-                              'D': ((10, 100, 100), (25, 255, 255))}
+        self.colour_ranges = {'A': ((10, 100, 100), (22, 255, 255)),  # orange
+                              'B': ((42, 50, 100), (75, 255, 255)),  # green
+                              'C': ((26, 50, 100), (32, 255, 255)),  # yellow
+                              'D': ((135, 50, 100), (148, 255, 255))}  # purple
 
         return
 
@@ -103,8 +108,8 @@ class Localizer():
         X_PIXELS = 320
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
-        # tilt camera up
-        self.servo_driver.tilt(0)
+        # pitch camera up
+        self.servo_driver.pitch(100)
 
         # put collection arm down
         self.arm_driver.down()
@@ -157,6 +162,7 @@ class Localizer():
 
         # send the location back to main
         print(location)
+
         return location
 
     def detect_marker(self, image, marker):
@@ -191,6 +197,39 @@ class Localizer():
             cX = int(M["m10"] / M["m00"])
             # cY = int(M["m01"] / M["m00"])  # don't need y axis center
 
+            print('Marker {} detected.'.format(marker))
+
             return cX
         else:
             return None
+
+
+if __name__ == '__main__':
+    # test the localization process
+
+    # initialize the marker coordinates
+    markers = np.ndarray([[142, 145],
+                          [142, 0],
+                          [0, 0],
+                          [0, 145]])
+
+    # initialize camera
+    camera = CSICamera(
+        width=320,
+        height=320,
+        capture_width=1080,
+        capture_height=720,
+        capture_fps=30
+    )
+
+    # initialize servo driver
+    servo_driver = ServoDriver()
+
+    # initialize arm driver
+    arm_driver = ArmDriver()
+
+    # create the localizer
+    localizer = Localizer(markers, camera, servo_driver, arm_driver)
+
+    # localize
+    location = localizer.localize()
