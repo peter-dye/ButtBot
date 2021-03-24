@@ -7,9 +7,9 @@ import time
 md = MotorDriver()
 ud = UltrasonicDriver()
 #time.sleep(30)
-for i in range(5):
+for i in range(1):
     print('sending', i)
-    md.motor_send(1,100,'fwd')
+    md.motor_send(1,1000,'fwd')
     while md.running():
         distances = ud.get_distances()
         print(distances[0],distances[1])
