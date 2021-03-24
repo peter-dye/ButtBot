@@ -16,6 +16,7 @@ for i in range(5):
             #md.stop()
             while distances[0] < 20 or distances[1] < 20:
                 distances = ud.get_distances()
+                print(distances)
             break
 
     
