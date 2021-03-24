@@ -12,8 +12,12 @@ class PathPlanning():
         self.num_rows = num_rows
         self.num_cols = num_cols 
         self.obstacles = obstacles 
-        self.coordinate_list = []
-        self.direction_list = []
+        self.start_heading = 'right' #bot always starts pointing to the right
+        self.coordinate_list = [] #list of coordinates for search path
+        self.direction_list = [] #list of up, down, left, right directions for search path
+        self.path_home = [] #list of coordinates for return home path
+        self.direction_list_home = [] #list of up, down, left, right directions for return home path
+        self.instructions_home = [] #list of turns angles and distances for return home path
 
         self.search_space = np.empty([self.num_rows, self.num_cols])
         self.search_space_copy = np.empty([self.num_rows, self.num_cols])
@@ -26,10 +30,11 @@ class PathPlanning():
         if self.obstacles is not None:
             self.add_obstacles()
 
-        self.route = self.plan_path()
-        self.get_directions()
+        self.route = self.plan_path() #list of coordinates for search path including obstacle avoidance
+        self.get_directions() #list of right, left, up, down in order
         
-        self.instructions = []
+        self.instructions = [] #list of turn angles and travel distances for search path
+        '''
         count = 1
         for i in range(len(self.direction_list)-1):
             curr_direction = self.direction_list[i]
@@ -43,8 +48,16 @@ class PathPlanning():
                 count = 1
             if i == len(self.direction_list)-2:
                 self.instructions.append(count)        
-
+        '''
     def get_instructions(self):
+        count = 1
+        self.direction_list.insert(0,self.start_heading)
+        for i in range(len(self.direction_list)-1):
+            curr_direction = self.direction_list[i]
+            suiv_direction = self.direction_list[i+1]
+            degrees = self.get_degrees(curr_direction, suiv_direction)
+            self.instructions.append(degrees)
+            self.instructions.append(count)
         return self.instructions
 
     def add_obstacles(self):
@@ -269,13 +282,48 @@ class PathPlanning():
                 return 180
         if curr_direction == 'down':
             if suiv_direction == 'right':
-                return 90
+                return -90
             elif suiv_direction == 'up':
                 return 180
             elif suiv_direction == 'left':
-                return -90
+                return 90
             else:
                 return 0
+
+    def get_instructions_home(self):
+        start = [self.num_rows-1, self.num_cols-1]
+        end = [0,0]
+        self.path_home = self.find_shortest_path(start, end) #find shortest path from end location to (0,0)
+        self.path_home.append(end)
+        self.path_home.insert(0,start)
+        for i in range(len(self.path_home)-1): #create list of up, down, left, right directions to get home
+            curr = self.path_home[i]
+            suiv = self.path_home[i+1]
+            if(suiv[1]-curr[1] == 1):
+                self.direction_list_home.append('right')
+            elif(suiv[1]-curr[1] == -1):
+                self.direction_list_home.append('left')
+            elif(suiv[0]-curr[0] == 1):
+                self.direction_list_home.append('up')
+            else:
+                self.direction_list_home.append('down')
+        count = 1
+        realign = self.get_degrees(self.direction_list[-1], self.direction_list_home[0]) #add first turn angle to instruction list
+        self.instructions_home.append(realign)
+        for i in range(len(self.direction_list_home)-1): #convert direction list into instructions with turn angles and distances
+            curr_direction = self.direction_list_home[i]
+            suiv_direction = self.direction_list_home[i+1]
+            if curr_direction == suiv_direction:
+                count += 1
+            else:
+                self.instructions_home.append(count)
+                degrees = self.get_degrees(curr_direction, suiv_direction)
+                self.instructions_home.append(degrees)
+                count = 1
+            if i == len(self.direction_list_home)-2:
+                self.instructions_home.append(count)
+        
+        return self.instructions_home
 
     #visualize
     """
@@ -318,10 +366,13 @@ class PathPlanning():
         #pygame.display.flip()
 
 
-obstacles = [(0,2), (5,2), (5,3), (4,3), (5,5), (5,6), (8,7), (7,7), (8,8)]
-cmd = PathPlanning(9,9, obstacles)
-print(cmd.get_instructions(), len (cmd.get_instructions()))
-print(cmd.coordinate_list, len(cmd.coordinate_list))
+obstacles = [(0,1)]
+cmd = PathPlanning(3,3, obstacles)
+print('Search instructions: ', cmd.get_instructions(), ', Number of instructions = ', len(cmd.instructions))
+print('Search path coordinate list: ', cmd.coordinate_list)
+instructions_home = cmd.get_instructions_home()
+print('Instructions home: ', instructions_home)
+print('Return home path coordinate list: ', cmd.path_home)
 
 
 #visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
@@ -339,6 +390,3 @@ print(cmd.coordinate_list, len(cmd.coordinate_list))
 #        print(("[{0}]".format(', '.join(map(str, temp[row])))))
 #    print('\n')
 #    time.sleep(0.3)
-
-print('Calculated path is : ', cmd.coordinate_list)
-
