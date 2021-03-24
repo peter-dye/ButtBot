@@ -210,10 +210,10 @@ if __name__ == '__main__':
     # test the localization process
 
     # initialize the marker coordinates
-    markers = np.ndarray([[142, 145],
-                          [142, 0],
-                          [0, 0],
-                          [0, 145]])
+    markers = np.array([[142, 145],
+                        [142, 0],
+                        [0, 0],
+                        [0, 145]])
 
     # initialize camera
     camera = CSICamera(
