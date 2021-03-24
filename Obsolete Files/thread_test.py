@@ -23,7 +23,10 @@
 #    mc.motor_send(speed, dur, dir)
 #    time.sleep(dur)
 
-import random as r
+#import random as r
 
-for i in range(10):
-    print(r.randint(1,3))
+#for i in range(10):
+#    print(r.randint(1,3))
+
+test = [0,1,2,3,4]
+print(test.pop(1))

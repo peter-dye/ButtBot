@@ -59,8 +59,8 @@ class ButtBot():
         g_dim = int((max(ss_l, ss_wd)) / (max(BB_L, BB_W)))
 
         # calculate the number of rows and columns
-        num_rows = int(ss_l / g_dim)
-        num_cols = int(ss_wd / g_dim)
+        self.num_rows = int(ss_l / g_dim)
+        self.num_cols = int(ss_wd / g_dim)
 
         print('Grid is ', num_rows-1, ' tall by ', num_cols-1, ' wide.\n')
 
@@ -77,11 +77,13 @@ class ButtBot():
             i += 2
 
         # create path planning object
-        path = PathPlanning()
+        self.path = PathPlanning(self.num_rows, self.num_cols, obstacles)
 
         # get vehicle commands 
         self.commands = path.get_instructions
         self.nodes = path.coordinate_list
+        self.current_node = None
+        self.next_node = None
 
         # initialize the state function mapping
         self.state_functions = {"first_state": self.first_state}
@@ -89,6 +91,7 @@ class ButtBot():
         self.state_functions['approach_state'] = self.approach_state
         self.state_functions['localize_state'] = self.localize_state
         self.state_functions['traverse_state'] = self.traverse_state
+        self.state_functions['return_home_state'] = self.return_home_state
 
         # initialize the state
         self.state = "first_state"
@@ -139,5 +142,17 @@ class ButtBot():
         return
 
     def traverse_state(self):
+       
+        if self.nodes is empty:
+            self.state = 'return_home_state'
+        else:
+            self.state = "localize_state" ##NOT SURE IF THIS IS NECESSARILY TRUE, RUN IN CONJUNCTION WITH BUTT DETECTION
+        return
 
-
+        def return_home_state(self):
+            current_node = (self.num_rows-1, self.num_cols-1)
+            next_node = (0,0)
+            return_coords = self.path.find_shortest_path(current_node, next_node)
+            #return_directions = ASK PMAC
+            return
+ 
