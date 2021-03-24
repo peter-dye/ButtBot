@@ -80,12 +80,15 @@ class ButtBot():
         path = PathPlanning()
 
         # get vehicle commands 
-        commands = path.get_instructions
+        self.commands = path.get_instructions
+        self.nodes = path.coordinate_list
 
         # initialize the state function mapping
         self.state_functions = {"first_state": self.first_state}
         self.state_functions['pickup_state'] = self.pickup_state
         self.state_functions['approach_state'] = self.approach_state
+        self.state_functions['localize_state'] = self.localize_state
+        self.state_functions['traverse_state'] = self.traverse_state
 
         # initialize the state
         self.state = "first_state"
@@ -102,27 +105,39 @@ class ButtBot():
         # run state code
         # update self.state if there is a transition
         return
-    def pickup_state(self):
-        self.arm_driver.pickup()
-        self.state = 0 ##THIS NEEDS TO BE THE NEXT STATE I JUST DONT KNOW WHAT IT IS
-        return
     
     def approach_state(self):
-        #calculate butt relative distance
+        # calculate butt relative distance
         relative_directions = RelativeButt()
         turn = relative_directions[1]
         forward = relative_directions[0]
-        duration = self.motor_driver.dist2dir(full, forward)
-        #approach but stop halfway
-        self.motor_driver.motor_send(1, duration/2, 'fwd')
-        self.motor_driver.motor_send(1, duration/2, 'fwd')
-        #calculate
+        # approach but stop halfway
+        if turn < 0:
+            self.motor_driver.motor_send(1,turn, 'left')
+        else:
+            self.motor_driver.motor_send(1,turn,'right')
+        self.motor_driver.motor_send(1, forward/2, 'fwd')
+        # recalculate
         relative_directions = RelativeButt()
         turn = relative_directions[1]
         forward = relative_directions[0]
         duration = self.motor_driver.dist2dir(forward)
-        #approach
-        self.motor_driver.motor_send(1, duration, 'fwd')
+        # finish approach
+        if turn < 0:
+            self.motor_driver.motor_send(1,turn, 'left')
+        else:
+            self.motor_driver.motor_send(1,turn,'right')
+        self.motor_driver.motor_send(1, forward/2, 'fwd')
 
         self.state = "pickup_state"
         return
+
+    
+    def pickup_state(self):
+        self.arm_driver.pickup()
+        self.state = localize_state
+        return
+
+    def traverse_state(self):
+
+
