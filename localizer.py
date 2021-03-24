@@ -188,7 +188,10 @@ class Localizer():
         # find the biggest contour in the mask
         cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cnts = imutils.grab_contours(cnts)
-        cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
+        if len(cnts) > 0:
+            cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
+        else:
+            return None
 
         # make sure the ares of the contour is above a minimum to count as
         # a marker detection
