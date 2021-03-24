@@ -27,6 +27,13 @@
 
 #for i in range(10):
 #    print(r.randint(1,3))
-
-test = [0,1,2,3,4]
-print(test.pop(1))
+baba = False
+for i in range(10):
+    if baba:
+        break
+    if i == 6: 
+        print("breaking")
+        break
+    if i == 3:
+        baba = True
+    print(i)
