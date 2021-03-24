@@ -85,12 +85,21 @@ class ButtBot():
         self.current_node = self.nodes.pop(0)
         self.next_node = self.nodes.pop(0)
 
+        # create var for returning after butt pickup
+        self.turn1 = None
+        self.turn2 = None
+        self.dist1 = None
+        self.dist2 = None
+        self.angle1 = None
+        self.angle2 = None
+
         # initialize the state function mapping
         self.state_functions = {"first_state": self.first_state}
         self.state_functions['pickup_state'] = self.pickup_state
         self.state_functions['approach_state'] = self.approach_state
         self.state_functions['localize_state'] = self.localize_state
         self.state_functions['traverse_state'] = self.traverse_state
+        self.state_functions['after_pickup_return_state'] = self.after_pickup_return_state
         self.state_functions['return_home_state'] = self.return_home_state
 
         # initialize the state
@@ -112,25 +121,30 @@ class ButtBot():
     def approach_state(self):
         # calculate butt relative distance
         relative_directions = RelativeButt()
-        turn = relative_directions[1]
-        forward = relative_directions[0]
+        self.angle1 = relative_directions[1]
+        self.dist1 = relative_directions[0]/2
+
         # approach but stop halfway
         if turn < 0:
-            self.motor_driver.motor_send(1,turn, 'left')
+            self.motor_driver.motor_send(1,self.turn1, 'left')
+            self.turn1 = 'left'
         else:
-            self.motor_driver.motor_send(1,turn,'right')
-        self.motor_driver.motor_send(1, forward/2, 'fwd')
+            self.motor_driver.motor_send(1,self.turn1,'right')
+            self.turn1 = 'right'
+        self.motor_driver.motor_send(1, self.dist1, 'fwd')
+        
         # recalculate
         relative_directions = RelativeButt()
-        turn = relative_directions[1]
-        forward = relative_directions[0]
-        duration = self.motor_driver.dist2dir(forward)
+        self.angle2 = relative_directions[1]
+        self.dist2 = relative_directions[0]
         # finish approach
         if turn < 0:
-            self.motor_driver.motor_send(1,turn, 'left')
+            self.motor_driver.motor_send(1,self.turn2, 'left')
+            self.turn2 = 'left'
         else:
-            self.motor_driver.motor_send(1,turn,'right')
-        self.motor_driver.motor_send(1, forward/2, 'fwd')
+            self.motor_driver.motor_send(1,self.turn2,'right')
+            self.turn2 = 'right'
+        self.motor_driver.motor_send(0.5, self.dist2, 'fwd')
 
         self.state = "pickup_state"
         return
@@ -139,6 +153,25 @@ class ButtBot():
     def pickup_state(self):
         self.arm_driver.pickup()
         self.state = localize_state
+        self.state = "after_pickup_return_state"
+        return
+
+    def after_pickup_return_state(self):
+        self.motor_driver.motor_send(0.5, self.dist2, 'bwd')
+        if self.turn2 == 'left':
+            self.motor_driver.motor_send(1, self.angle2, 'right')
+        else:
+            self.motor_driver.motor_send(1, self.angle2, 'left')
+
+        self.motor_driver.motor_send(1, self.dist1, 'bwd')
+
+        if self.turn1 == 'left':
+            self.motor_driver.motor_send(1, self.angle1, 'right')
+        else:
+            self.motor_driver.motor_send(1, self.angle1, 'left')
+        
+        self.state = 'localize_state'
+
         return
 
     def traverse_state(self):
@@ -158,7 +191,7 @@ class ButtBot():
         if self.nodes is empty:
             self.state = 'return_home_state'
         else:
-            self.state = "localize_state" ##NOT SURE IF THIS IS NECESSARILY TRUE, RUN IN CONJUNCTION WITH BUTT DETECTION
+            self.state = "traverse_state"
         return
 
         def return_home_state(self):
