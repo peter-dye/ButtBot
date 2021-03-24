@@ -6,15 +6,15 @@ import time
 
 md = MotorDriver()
 ud = UltrasonicDriver()
-time.sleep(30)
+#time.sleep(30)
 for i in range(5):
     print('sending', i)
     md.motor_send(1,100,'fwd')
     while md.running():
         distances = ud.get_distances()
-        if distances[0] < 20 or distances[1] < 20:
+        if distances[0] < 30 or distances[1] < 30:
             md.stop()
-            while distances[0] < 20 or distances[1] < 20:
+            while distances[0] < 30 or distances[1] < 30:
                 distances = ud.get_distances()
             break
     time.sleep(1)
