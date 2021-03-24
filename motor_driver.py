@@ -8,6 +8,7 @@ import board
 import adafruit_pca9685
 from queue import Queue
 from threading import Thread
+from ultrasonic_driver import UltrasonicDriver
 
 i2c = busio.I2C(board.SCL, board.SDA)
 pca = adafruit_pca9685.PCA9685(i2c)
@@ -30,6 +31,9 @@ class MotorDriver():
 
         self.mtr1_pwm.duty_cycle = self.LOW
         self.mtr2_pwm.duty_cycle = self.LOW
+
+        # initialize ultrasonic sensors (process)
+        self.ultrasonic_driver = UltrasonicDriver()
 
         return
 
@@ -90,13 +94,22 @@ class MotorDriver():
             print(data)
             if data[2] == 'fwd' or data[2] == 'bwd':
                 self.fwd_bwd(data[0], data[2])
+                end_time = time.time() + data[1]
+                distances = self.ultrasonic_driver.get_distances()
+                while distances[0] > 30 and distances[1] > 30 and time.time() < end_time:
+                    distances = self.ultrasonic_driver.get_distances()
+                self.stop()
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
+                end_time = time.time() + data[1]
+                distances = self.ultrasonic_driver.get_distances()
+                while distances[2] > 30 and distances[3] > 30 and time.time() < end_time:
+                    distances = self.ultrasonic_driver.get_distances()
+                self.stop()
             else:
                 print("not a valid direction")
                 self.stop()
-            time.sleep(data[1])
-            self.stop()
+            
 
     def dist2dur(self, spd, dist):
         if spd == 1:

@@ -7,7 +7,6 @@ from arm_driver import ArmDriver
 from servo_driver import ServoDriver
 from jetcam.csi_camera import CSICamera
 from localizer import Localizer
-from ultrasonic_driver import UltrasonicDriver
 from dijkstra import PathPlanning
 import re
 from constants import *
@@ -42,9 +41,6 @@ class ButtBot():
             self.servo_driver,
             self.arm_driver
         )
-
-        # initialize ultrasonic sensors (process)
-        self.ultrasonic_driver = UltrasonicDriver()
 
         # initalize butt detection (process)
 
