@@ -6,7 +6,7 @@ import time
 
 md = MotorDriver()
 ud = UltrasonicDriver()
-time.sleep(30)
+time.sleep(5)
 for i in range(5):
     md.motor_send(1,100,'fwd')
     while True:
@@ -18,6 +18,7 @@ for i in range(5):
                 distances = ud.get_distances()
                 print(distances)
             break
+time.sleep(30)
 md.stop()
 
     
