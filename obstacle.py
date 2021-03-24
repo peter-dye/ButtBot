@@ -5,12 +5,13 @@ import time
 md = MotorDriver()
 ud = UltrasonicDriver()
 
-while True:
-    distances = ud.get_distances()
-    if distances[0] < 20 or distances[1] < 20:
-        md.stop()
-    else:
-        md.motor_send(1,100,'fwd')
+for i in range(5):
+    md.motor_send(1,100,'fwd')
+    for i in range(20):
+        distances = ud.get_distances()
+        if distances[0] < 20 or distances[1] < 20:
+            md.stop()
+
     
     
 
