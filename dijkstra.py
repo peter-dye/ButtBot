@@ -34,21 +34,7 @@ class PathPlanning():
         self.get_directions() #list of right, left, up, down in order
         
         self.instructions = [] #list of turn angles and travel distances for search path
-        '''
-        count = 1
-        for i in range(len(self.direction_list)-1):
-            curr_direction = self.direction_list[i]
-            suiv_direction = self.direction_list[i+1]
-            if curr_direction == suiv_direction:
-                count += 1
-            else:
-                self.instructions.append(count)
-                degrees = self.get_degrees(curr_direction, suiv_direction)
-                self.instructions.append(degrees)
-                count = 1
-            if i == len(self.direction_list)-2:
-                self.instructions.append(count)        
-        '''
+
     def get_instructions(self):
         count = 1
         self.direction_list.insert(0,self.start_heading)
@@ -324,47 +310,6 @@ class PathPlanning():
                 self.instructions_home.append(count)
         
         return self.instructions_home
-
-    #visualize
-    """
-    def visualize(self):
-        pygame.init()
-        screen = pygame.display.set_mode([10*self.num_rows, 10*self.num_cols])
-        running = True
-        WHITE = (255, 255, 255)
-        GREEN = (0, 255, 0,)
-        BLUE = (0, 0, 255)
-        YELLOW = (255 ,255 ,0)
-        while running:
-        # Did the user click the window close button?
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            screen.fill(WHITE)
-            obstacle_surfaces = []
-            obstacle_surf_location = []
-            print(self.obstacles)
-            for i in range(len(self.obstacles)):
-                obstacle_surfaces[i] = pygame.Surface((10, 10))
-                obstacle_surfaces[i].fill((0, 0, 0))
-                obstacle_surf_location[i] = (-10*self.obstacles[i][0]+90, 10*self.obstacles[i][1])
-                screen.blit(obstacle_surfaces[i], obstacle_surf_location[i])
-            pygame.display.flip()
-"""
-        # Create a surface and pass in a tuple containing its length and width
-        #surf = pygame.Surface((10, 10))
-
-        # Give the surface a color to separate it from the background
-        #surf.fill((0, 0, 0))
-        #rect = surf.get_rect()
-        # Put the center of surf at the center of the display
-        #surf_center = ((100-surf.get_width())/2,(100-surf.get_height())/2)
-        # This line says "Draw surf onto the screen at the center"
-        #screen.blit(surf, surf_center)
-        #pygame.display.flip()
-        #screen.blit(surf, (100/2, 100/2))
-        #pygame.display.flip()
-
 
 obstacles = [(0,1)]
 cmd = PathPlanning(3,3, obstacles)
