@@ -105,7 +105,7 @@ class Localizer():
         return np.array([location[0], location[1], heading])
 
     def localize(self):
-        X_PIXELS = 320
+        X_PIXELS = 1080
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
         # pitch camera up
@@ -143,13 +143,13 @@ class Localizer():
 
                 # fine tune the camera angle until the marker is directly inline,
                 # this is the angle to the marker
-                while np.abs(center) > 20:  # 20 pixels off centre could be reduced
+                while np.abs(center) > 20:  # 20 pixels off center, could be reduced
                     camera_angle += (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
                     image = self.camera.read()
 
-                    center = self.detect_marker(image, marker)
+                    center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
                 # now camera_angle is angle to marker
                 phi_angles[marker] = camera_angle
@@ -196,7 +196,7 @@ class Localizer():
         # make sure the ares of the contour is above a minimum to count as
         # a marker detection
         area = cv2.contourArea(cnts)
-        if area > 150:
+        if area > 10:
             # compute the center of the contour
             M = cv2.moments(cnts)
             cX = int(M["m10"] / M["m00"])
