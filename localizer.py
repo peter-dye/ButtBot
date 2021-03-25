@@ -109,7 +109,7 @@ class Localizer():
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
         # pitch camera up
-        self.servo_driver.pitch(100)
+        self.servo_driver.pitch(90)
 
         # put collection arm down
         self.arm_driver.down()
