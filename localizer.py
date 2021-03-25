@@ -3,9 +3,9 @@ import imutils
 import cv2
 
 # imports for testing code
-from jetcam.csi_camera import CSICamera
 from arm_driver import ArmDriver
 from servo_driver import ServoDriver
+from simple_camera import gstreamer_pipeline
 
 
 class Localizer():
@@ -105,7 +105,7 @@ class Localizer():
         return np.array([location[0], location[1], heading])
 
     def localize(self):
-        X_PIXELS = 1080
+        X_PIXELS = 1280
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
         # pitch camera up
@@ -122,7 +122,7 @@ class Localizer():
             self.servo_driver.pan(camera_angle)
 
             # take photo
-            image = self.camera.read()
+            _, image = self.camera.read()
 
             # check photo for each marker
             centers = {'A': None, 'B': None, 'C': None, 'D': None}
@@ -143,11 +143,11 @@ class Localizer():
 
                 # fine tune the camera angle until the marker is directly inline,
                 # this is the angle to the marker
-                while np.abs(center) > 200:  # 20 pixels off center, could be reduced
+                while np.abs(center) > 250:  # 20 pixels off center, could be reduced
                     camera_angle += (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
-                    image = self.camera.read()
+                    _, image = self.camera.read()
 
                     center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
@@ -219,13 +219,7 @@ if __name__ == '__main__':
                         [0, 145]])
 
     # initialize camera
-    camera = CSICamera(
-        width=1080,
-        height=720,
-        capture_width=1080,
-        capture_height=720,
-        capture_fps=30
-    )
+    camera = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
 
     # initialize servo driver
     servo_driver = ServoDriver()
@@ -238,3 +232,6 @@ if __name__ == '__main__':
 
     # localize
     location = localizer.localize()
+
+    # cleanup
+    camera.release()
