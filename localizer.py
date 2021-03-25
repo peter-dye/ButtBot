@@ -219,7 +219,8 @@ if __name__ == '__main__':
                         [0, 145]])
 
     # initialize camera
-    camera = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+    camSet = 'nvarguscamerasrc wbmode=3 tnr-mode=2 tnr-strength=1 ee-mode=2 ee-strength=1 ! video/x-raw(memory:NVMM), width=3264, height=2464, format=NV12, framerate=21/1 ! nvvidconv flip-method=2 ! video/x-raw, width=1280, height=720, format=BGRx ! videoconvert ! video/x-raw, format=BGR ! videobalance contrast=1.5 brightness=0.15 saturation=1.5 ! appsink'
+    camera = cv2.VideoCapture(camSet)
 
     # initialize servo driver
     servo_driver = ServoDriver()
