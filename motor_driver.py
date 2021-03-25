@@ -97,7 +97,7 @@ class MotorDriver():
                 end_time = time.time() + data[1]
                 distances = self.ultrasonic_driver.get_distances()
                 while time.time() < end_time:
-                    if distances[0] > 30 and distances[1] > 30:
+                    if distances[0] > 20 and distances[1] > 20:
                         distances = self.ultrasonic_driver.get_distances()
                         print(distances)
                     else:
