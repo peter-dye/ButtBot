@@ -98,6 +98,7 @@ class MotorDriver():
                 distances = self.ultrasonic_driver.get_distances()
                 while distances[0] > 30 and distances[1] > 30 and time.time() < end_time:
                     distances = self.ultrasonic_driver.get_distances()
+                    print(distances)
                 self.stop()
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
@@ -105,6 +106,8 @@ class MotorDriver():
                 distances = self.ultrasonic_driver.get_distances()
                 while distances[2] > 30 and distances[3] > 30 and time.time() < end_time:
                     distances = self.ultrasonic_driver.get_distances()
+                    print(distances)
+
                 self.stop()
             else:
                 print("not a valid direction")
