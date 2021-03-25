@@ -10,7 +10,8 @@ ud = UltrasonicDriver()
 for i in range(5):
     print('sending', i)
     md.motor_send(1,100,'fwd')
- time.sleep(10)
+
+time.sleep(10)
 print('stopping')
 md.stop()
 
