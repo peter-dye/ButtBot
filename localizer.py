@@ -143,7 +143,7 @@ class Localizer():
 
                 # fine tune the camera angle until the marker is directly inline,
                 # this is the angle to the marker
-                while np.abs(center) > 20:  # 20 pixels off center, could be reduced
+                while np.abs(center) > 200:  # 20 pixels off center, could be reduced
                     camera_angle += (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
