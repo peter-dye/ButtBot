@@ -3,9 +3,9 @@ import imutils
 import cv2
 
 # imports for testing code
-from jetcam.csi_camera import CSICamera
 from arm_driver import ArmDriver
 from servo_driver import ServoDriver
+from simple_camera import gstreamer_pipeline
 
 
 class Localizer():
@@ -29,8 +29,8 @@ class Localizer():
         # OpenCV HSV colour range is H: 0-179, S: 0-255, V: 0-255
         self.colour_ranges = {'A': ((10, 100, 100), (22, 255, 255)),  # orange
                               'B': ((42, 50, 100), (75, 255, 255)),  # green
-                              'C': ((26, 50, 100), (32, 255, 255)),  # yellow
-                              'D': ((135, 50, 100), (148, 255, 255))}  # purple
+                              'C': ((24, 50, 100), (31, 255, 255)),  # yellow
+                              'D': ((133, 50, 100), (150, 255, 255))}  # purple
 
         return
 
@@ -105,28 +105,34 @@ class Localizer():
         return np.array([location[0], location[1], heading])
 
     def localize(self):
-        X_PIXELS = 320
+        X_PIXELS = 1280
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
         # pitch camera up
-        self.servo_driver.pitch(100)
+        self.servo_driver.pitch(80)
 
         # put collection arm down
         self.arm_driver.down()
 
         camera_angle = 180
 
+        old_image = np.array([])
+        image = np.array([])
         while camera_angle > -180:
             # update camera angle and move camera
             camera_angle -= 31.1
             self.servo_driver.pan(camera_angle)
 
             # take photo
-            image = self.camera.read()
+            old_image = image
+            _, image = self.camera.read()
+            if np.array_equal(image, old_image):
+                print('Image did not update')
 
             # check photo for each marker
             centers = {'A': None, 'B': None, 'C': None, 'D': None}
             for marker in ('A', 'B', 'C', 'D'):
+                print('Calling initial detect')
                 possible_detection = self.detect_marker(image, marker)
                 if possible_detection is not None:
                     centers[marker] = (X_PIXELS/2) - possible_detection
@@ -143,23 +149,28 @@ class Localizer():
 
                 # fine tune the camera angle until the marker is directly inline,
                 # this is the angle to the marker
-                while np.abs(center) > 20:  # 20 pixels off centre could be reduced
-                    camera_angle += (center/(X_PIXELS/2))*31.1
+                while np.abs(center) > 250:  # 20 pixels off center, could be reduced
+                    camera_angle -= (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
-                    image = self.camera.read()
+                    old_image = image
+                    _, image = self.camera.read()
+                    if np.array_equal(image, old_image):
+                        print('Image did not update')
 
-                    center = self.detect_marker(image, marker)
+                    print('Calling fine tune detect')
+                    center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
                 # now camera_angle is angle to marker
                 phi_angles[marker] = camera_angle
+                print('Marker '+marker+' angle stored')
 
             # repeat until all markers are seen
             none_angles = [key for key in phi_angles if phi_angles[key] is None]
             if len(none_angles) == 0:
                 break
 
-        # call compute_location
+        # compute the location
         location = self.compute_location(phi_angles['A'], phi_angles['B'], phi_angles['C'], phi_angles['D'])
 
         # send the location back to main
@@ -196,7 +207,7 @@ class Localizer():
         # make sure the ares of the contour is above a minimum to count as
         # a marker detection
         area = cv2.contourArea(cnts)
-        if area > 150:
+        if area > 10:
             # compute the center of the contour
             M = cv2.moments(cnts)
             cX = int(M["m10"] / M["m00"])
@@ -219,13 +230,8 @@ if __name__ == '__main__':
                         [0, 145]])
 
     # initialize camera
-    camera = CSICamera(
-        width=1080,
-        height=720,
-        capture_width=1080,
-        capture_height=720,
-        capture_fps=30
-    )
+    camSet = 'nvarguscamerasrc wbmode=3 tnr-mode=2 tnr-strength=1 ee-mode=2 ee-strength=1 ! video/x-raw(memory:NVMM), width=3264, height=2464, format=NV12, framerate=21/1 ! nvvidconv flip-method=2 ! video/x-raw, width=1280, height=720, format=BGRx ! videoconvert ! video/x-raw, format=BGR ! videobalance contrast=1.5 brightness=0.15 saturation=1.5 ! appsink'
+    camera = cv2.VideoCapture(camSet)
 
     # initialize servo driver
     servo_driver = ServoDriver()
@@ -238,3 +244,6 @@ if __name__ == '__main__':
 
     # localize
     location = localizer.localize()
+
+    # cleanup
+    camera.release()

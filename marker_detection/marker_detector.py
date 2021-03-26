@@ -4,9 +4,9 @@ import numpy as np
 
 
 # import the images
-colour = 'all'
+colour = 'm5'
 images = []
-for i in range(1, 3, 1):
+for i in range(1, 2, 1):
     img = cv2.imread(colour+"/"+str(i)+".jpg")
     images.append(img)
 
@@ -27,10 +27,10 @@ for i in range(len(images)):
     low_orange = (10, 100, 100)
     high_orange = (25, 255, 255)
 
-    colour = 'yellow'
+    colour = 'purple'
     colour_ranges = {'orange': ((10, 100, 100), (22, 255, 255)),
                      'green': ((42, 50, 100), (75, 255, 255)),
-                     'yellow': ((26, 50, 100), (32, 255, 255)),
+                     'yellow': ((26, 50, 100), (31, 255, 255)),
                      'purple': ((135, 50, 100), (148, 255, 255))}
 
     low = colour_ranges[colour][0]

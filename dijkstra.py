@@ -277,7 +277,8 @@ class PathPlanning():
                 return 0
 
     def get_instructions_home(self):
-        start = [self.num_rows-1, self.num_cols-1]
+        start = self.coordinate_list[-1]
+        #start = [self.num_rows-1, self.num_cols-1]
         end = [0,0]
         self.path_home = self.find_shortest_path(start, end) #find shortest path from end location to (0,0)
         self.path_home.append(end)
@@ -311,27 +312,35 @@ class PathPlanning():
         
         return self.instructions_home
 
-obstacles = [(0,1)]
-cmd = PathPlanning(3,3, obstacles)
+obstacles = [(0,1),(3,2),(3,3),(3,4),(4,2),(4,4),(4,5)]
+cmd = PathPlanning(7,7, obstacles)
 print('Search instructions: ', cmd.get_instructions(), ', Number of instructions = ', len(cmd.instructions))
 print('Search path coordinate list: ', cmd.coordinate_list)
 instructions_home = cmd.get_instructions_home()
 print('Instructions home: ', instructions_home)
 print('Return home path coordinate list: ', cmd.path_home)
 
+'''
+visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
+for i in range(len(cmd.search_space_copy)):
+    for j in range(len(cmd.search_space_copy)):
+        if cmd.search_space_copy[i][j] == 255:
+            visual_matrix[i][j] = 'O'
+        else:
+            visual_matrix[i][j] = 'X'
 
-#visual_matrix = np.full((cmd.num_rows, cmd.num_cols), None)
-#for i in range(len(cmd.search_space_copy)):
-#    for j in range(len(cmd.search_space_copy)):
-#        if cmd.search_space_copy[i][j] == 255:
-#            visual_matrix[i][j] = 'O'
-#        else:
-#            visual_matrix[i][j] = 'X'
+search_and_return = []
+search_and_return.extend(cmd.coordinate_list)
+search_and_return.extend(cmd.path_home)
 
-#for coord in cmd.coordinate_list:
-#    temp = copy.deepcopy(visual_matrix)
-#    temp[coord[0]][coord[1]] = 'B'
-#    for row in range(len(temp)-1,-1,-1):
-#        print(("[{0}]".format(', '.join(map(str, temp[row])))))
-#    print('\n')
-#    time.sleep(0.3)
+for coord in search_and_return:
+    #print('coord = ', coord)
+    temp = copy.deepcopy(visual_matrix)
+    temp[coord[0]][coord[1]] = 'B'
+    for row in range(len(temp)-1,-1,-1):
+        print(("[{0}]".format(', '.join(map(str, temp[row])))))
+    print('\n')
+    time.sleep(0.4)
+print('Calculated search path is: ', cmd.coordinate_list)
+print('Calculated return path is: ', cmd.path_home)
+'''
