@@ -126,7 +126,7 @@ class Localizer():
             # take photo
             old_image = image
             _, image = self.camera.read()
-            if image == old_image:
+            if np.array_equal(image, old_image):
                 print('Image did not update')
 
             # check photo for each marker
@@ -154,8 +154,8 @@ class Localizer():
 
                     old_image = image
                     _, image = self.camera.read()
-                    if image == old_image:
-                    print('Image did not update')
+                    if np.array_equal(image, old_image):
+                        print('Image did not update')
 
                     center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
