@@ -94,23 +94,21 @@ class MotorDriver():
             print(data)
             if data[2] == 'fwd' or data[2] == 'bwd':
                 self.fwd_bwd(data[0], data[2])
-                #end_time = time.time() + data[1]
-                #distances = self.ultrasonic_driver.get_distances()
-                #while time.time() < end_time:
-                #    if distances[0] > 20 and distances[1] > 20:
-                #        distances = self.ultrasonic_driver.get_distances()
-                #        print(distances)
-                #    else:
-                #        self.stop()
+                end_time = time.time() + data[1]
+                distances = self.ultrasonic_driver.get_distances()
+                while time.time() < end_time:
+                    if distances[0] > 20 and distances[1] > 20:
+                        distances = self.ultrasonic_driver.get_distances()
+                    else:
+                        self.stop()
                 time.sleep(data[1])
                 self.stop()
             elif data[2] == 'right' or data[2] == 'left':
                 self.pivot(data[0],data[2])
-                #end_time = time.time() + data[1]
-                #distances = self.ultrasonic_driver.get_distances()
-                #while distances[2] > 30 and distances[3] > 30 and time.time() < end_time:
-                #    distances = self.ultrasonic_driver.get_distances()
-                #    print(distances)
+                end_time = time.time() + data[1]
+                distances = self.ultrasonic_driver.get_distances()
+                while distances[2] > 30 and distances[3] > 30 and time.time() < end_time:
+                    distances = self.ultrasonic_driver.get_distances()
                 time.sleep(data[1])
                 self.stop()
             else:
