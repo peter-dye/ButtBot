@@ -109,20 +109,25 @@ class Localizer():
         phi_angles = {'A': None, 'B': None, 'C': None, 'D': None}
 
         # pitch camera up
-        self.servo_driver.pitch(90)
+        self.servo_driver.pitch(80)
 
         # put collection arm down
         self.arm_driver.down()
 
         camera_angle = 180
 
+        old_image = np.array([])
+        image = np.array([])
         while camera_angle > -180:
             # update camera angle and move camera
             camera_angle -= 31.1
             self.servo_driver.pan(camera_angle)
 
             # take photo
+            old_image = image
             _, image = self.camera.read()
+            if image == old_image:
+                print('Image did not update')
 
             # check photo for each marker
             centers = {'A': None, 'B': None, 'C': None, 'D': None}
@@ -147,7 +152,10 @@ class Localizer():
                     camera_angle += (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
+                    old_image = image
                     _, image = self.camera.read()
+                    if image == old_image:
+                    print('Image did not update')
 
                     center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
@@ -159,7 +167,7 @@ class Localizer():
             if len(none_angles) == 0:
                 break
 
-        # call compute_location
+        # compute the location
         location = self.compute_location(phi_angles['A'], phi_angles['B'], phi_angles['C'], phi_angles['D'])
 
         # send the location back to main
