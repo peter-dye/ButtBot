@@ -131,7 +131,7 @@ class Localizer():
 
             # check photo for each marker
             centers = {'A': None, 'B': None, 'C': None, 'D': None}
-            for marker in ('A', 'B', 'C', 'D'):
+            for marker in ('B', 'A', 'C', 'D'):
                 possible_detection = self.detect_marker(image, marker)
                 if possible_detection is not None:
                     centers[marker] = (X_PIXELS/2) - possible_detection
