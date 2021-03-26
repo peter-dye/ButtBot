@@ -149,7 +149,7 @@ class Localizer():
                 # fine tune the camera angle until the marker is directly inline,
                 # this is the angle to the marker
                 while np.abs(center) > 250:  # 20 pixels off center, could be reduced
-                    camera_angle += (center/(X_PIXELS/2))*31.1
+                    camera_angle -= (center/(X_PIXELS/2))*31.1
                     self.servo_driver.pan(camera_angle)
 
                     old_image = image
@@ -161,6 +161,7 @@ class Localizer():
 
                 # now camera_angle is angle to marker
                 phi_angles[marker] = camera_angle
+                print('Marker '+marker+' angle stored')
 
             # repeat until all markers are seen
             none_angles = [key for key in phi_angles if phi_angles[key] is None]
