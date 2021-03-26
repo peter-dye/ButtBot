@@ -29,7 +29,7 @@ class Localizer():
         # OpenCV HSV colour range is H: 0-179, S: 0-255, V: 0-255
         self.colour_ranges = {'A': ((10, 100, 100), (22, 255, 255)),  # orange
                               'B': ((42, 50, 100), (75, 255, 255)),  # green
-                              'C': ((26, 50, 100), (32, 255, 255)),  # yellow
+                              'C': ((24, 50, 100), (31, 255, 255)),  # yellow
                               'D': ((135, 50, 100), (148, 255, 255))}  # purple
 
         return
