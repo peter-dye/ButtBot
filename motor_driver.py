@@ -50,7 +50,7 @@ class MotorDriver():
             if spd == 0.5:
                 self.mtr1_pwm.duty_cycle = motor_speed - 2500
             else:
-                self.mtr1_pwm.duty_cycle = motor_speed - 6000
+                self.mtr1_pwm.duty_cycle = motor_speed - 7500
             
             self.mtr2_pwm.duty_cycle = motor_speed
 
