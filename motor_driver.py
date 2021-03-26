@@ -107,8 +107,11 @@ class MotorDriver():
                 self.pivot(data[0],data[2])
                 end_time = time.time() + data[1]
                 distances = self.ultrasonic_driver.get_distances()
-                while distances[2] > 30 and distances[3] > 30 and time.time() < end_time:
-                    distances = self.ultrasonic_driver.get_distances()
+                while time.time() < end_time:
+                    if distances[2] > 20 and distances[3] > 20:
+                        distances = self.ultrasonic_driver.get_distances()
+                    else:
+                        self.stop()
                 time.sleep(data[1])
                 self.stop()
             else:
