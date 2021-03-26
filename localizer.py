@@ -131,7 +131,8 @@ class Localizer():
 
             # check photo for each marker
             centers = {'A': None, 'B': None, 'C': None, 'D': None}
-            for marker in ('B', 'A', 'C', 'D'):
+            for marker in ('A', 'B', 'C', 'D'):
+                print('Calling initial detect')
                 possible_detection = self.detect_marker(image, marker)
                 if possible_detection is not None:
                     centers[marker] = (X_PIXELS/2) - possible_detection
@@ -157,6 +158,7 @@ class Localizer():
                     if np.array_equal(image, old_image):
                         print('Image did not update')
 
+                    print('Calling fine tune detect')
                     center = (X_PIXELS/2) - self.detect_marker(image, marker)
 
                 # now camera_angle is angle to marker
