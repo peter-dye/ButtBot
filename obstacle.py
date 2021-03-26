@@ -5,9 +5,9 @@ from motor_driver import MotorDriver
 import time
 
 md = MotorDriver()
-ud = UltrasonicDriver()
-#time.sleep(30)
-for i in range(10):
+
+time.sleep(15)
+for i in range(6):
     print('sending', i)
     md.motor_send(1,100,'fwd')
 
