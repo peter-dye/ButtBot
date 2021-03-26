@@ -8,10 +8,10 @@ ad = ArmDriver()
 
 def drive():
     for i in range(3):
-        md.motor_send(1, 150, 'fwd')
+        md.motor_send(1, 75, 'fwd')
 
 def turn():
-    for i in range(3):
+    for i in range(2):
         md.motor_send(1, 90, 'right')
 
 def pickup():
