@@ -4,9 +4,8 @@
 SLAVE_ADDR = 9
 
 # ButtBot Dimensions in cm 
-BB_L = 61
-BB_W = 20
-
+BB_L = 66.04
+BB_W = 33.02
 # Speed setting
 HI = 1
 LO = 0.25
