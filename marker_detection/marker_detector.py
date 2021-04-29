@@ -4,10 +4,10 @@ import numpy as np
 
 
 # import the images
-colour = 'm5'
+colour = 'from_bot'
 images = []
-for i in range(1, 2, 1):
-    img = cv2.imread(colour+"/"+str(i)+".jpg")
+for i in range(1, 5, 1):
+    img = cv2.imread(colour+"/"+str(i)+".png")
     images.append(img)
 
 for i in range(len(images)):
@@ -28,10 +28,10 @@ for i in range(len(images)):
     high_orange = (25, 255, 255)
 
     colour = 'purple'
-    colour_ranges = {'orange': ((10, 100, 100), (22, 255, 255)),
+    colour_ranges = {'orange': ((11, 150, 100), (21, 255, 255)),
                      'green': ((42, 50, 100), (75, 255, 255)),
-                     'yellow': ((26, 50, 100), (31, 255, 255)),
-                     'purple': ((135, 50, 100), (148, 255, 255))}
+                     'yellow': ((24, 50, 100), (31, 255, 255)),
+                     'purple': ((133, 50, 100), (150, 255, 255))}
 
     low = colour_ranges[colour][0]
     high = colour_ranges[colour][1]
@@ -46,24 +46,25 @@ for i in range(len(images)):
     # find the biggest contour in the mask
     cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-    cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
+    if len(cnts) > 0:
+        cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[0]
 
-    # print the area of the contour
-    print(cv2.contourArea(cnts))
+        # print the area of the contour
+        print(cv2.contourArea(cnts))
 
-    # compute the center of the contour
-    M = cv2.moments(cnts)
-    cX = int(M["m10"] / M["m00"])
-    cY = int(M["m01"] / M["m00"])
+        # compute the center of the contour
+        M = cv2.moments(cnts)
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
 
-    # draw the contour and its center on the image
-    cv2.drawContours(resized, [cnts], -1, (0, 255, 0), 2)
-    cv2.circle(resized, (cX, cY), 7, (0, 255, 0), -1)
-    cv2.putText(resized, "center", (cX - 20, cY - 20),
-        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+        # draw the contour and its center on the image
+        cv2.drawContours(resized, [cnts], -1, (0, 255, 0), 2)
+        cv2.circle(resized, (cX, cY), 7, (0, 255, 0), -1)
+        cv2.putText(resized, "center", (cX - 20, cY - 20),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
 
-    cv2.imshow("", resized)
-    cv2.waitKey(0)
+        cv2.imshow("", resized)
+        cv2.waitKey(0)
 
 
 # # convienience function to view and visually inspect all 5 images

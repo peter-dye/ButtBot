@@ -459,6 +459,7 @@ phi_B = 120
 phi_C = -164
 phi_D = -56
 coords = localizer.search_four_localize(phi_A, phi_B, phi_C, phi_D)
+print('Format: [x location, y location, heading angle]')
 print('1. Expected: [70, 123, 14] Found: ['+str(round(coords[0], 2))+', '+str(round(coords[1], 2))+', '+str(round(coords[2], 2))+']')
 print('Error: '+str(np.round(np.linalg.norm([70, 123]-coords[:2]), 2)))
 
