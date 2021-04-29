@@ -112,6 +112,7 @@ class ButtBot():
     def first_state(self):
         # run state code
         # update self.state if there is a transition
+        self.state = 'traverse_state'
         return
     
     def approach_state(self):
@@ -180,7 +181,7 @@ class ButtBot():
             elif command < 0:
                 self.motor_driver.motor_send(1, command, 'left')
             else:
-                self.motor_driver.send(1, length_of_bb, 'fwd') ##NEED TO ADD AND UPDATE
+                self.motor_driver.send(1, 66, 'fwd') ##NEED TO ADD AND UPDATE
                 self.current_node = self.next_node
                 self.next_node = self.path.pop(0)
                 break
@@ -203,6 +204,6 @@ class ButtBot():
                 elif command < 0:
                     self.motor_driver.motor_send(1, command, 'left')
                 else:
-                    self.motor_driver.send(1, length_of_bb, 'fwd') ##NEED TO ADD AND UPDATE
+                    self.motor_driver.send(1, 66, 'fwd') ##NEED TO ADD AND UPDATE
             return
  
